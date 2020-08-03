@@ -1,0 +1,340 @@
+% vim: ft=tex expandtab
+%
+% Copyright © 2019 pavle <pavle.portic@tilda.center>
+%
+% Distributed under terms of the BSD-3-Clause license.
+
+\documentclass[12pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[serbian]{babel}
+\usepackage[backend=biber, style=numeric, sorting=none]{biblatex}
+\usepackage[font={it}]{caption}
+\usepackage{csquotes}
+\usepackage[a4paper, top=25mm, bottom=20mm, left=30mm, right=30mm, headheight=10mm, headsep=8mm, footskip=8mm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{float}
+\usepackage{fontspec}
+\usepackage[acronym]{glossaries}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{titlesec}
+
+\addbibresource{literature.bib}
+
+\makeglossaries{}
+\newacronym{HTTP}{HTTP}{Hypertext Transfer Protocol}
+\newacronym{WSGI}{WSGI}{Webserver Gateway Interface}
+\newacronym{HTTPS}{HTTPS}{Hypertext Transfer Protocol Secure}
+\newacronym{TLS}{TLS}{Transport Layer Security}
+\newacronym{JSON}{JSON}{Javascript Object Notation}
+\newacronym{TCP}{TCP}{Transmission Control Protocol}
+
+\pagestyle{fancy}
+
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\arabic{section}.\ #1}}
+
+\makeatletter
+\newcommand\frontmatter{
+    \cleardoublepage{}
+    \pagenumbering{Roman}
+    \setlength{\parskip}{0pt}
+}
+
+\newcommand\mainmatter{
+    \cleardoublepage{}
+    \pagenumbering{arabic}
+    \setlength{\parskip}{6pt}
+}
+\makeatother
+
+\titleformat{\chapter}{\normalfont\Large\bf}{\thechapter.}{12pt}{}
+\titleformat{\section}{\normalfont\large\bf}{\thesection}{12pt}{}
+\titleformat{\subsection}{\normalfont\bf}{\thesubsection}{12pt}{}
+\titleformat{\subsubsection}{\normalfont\bf}{\thesubsubsection}{12pt}{}
+\setcounter{secnumdepth}{4}
+
+\fancypagestyle{plain}{}
+\fancyhead[L]{}
+\fancyhead[R]{\leftmark}
+\fancyfoot{}
+\fancyfoot[R]{\thepage}
+
+\widowpenalties 1 10000
+\raggedbottom{}
+
+\begin{document}
+\frontmatter{}
+
+\input{title.tex}
+\tableofcontents
+\listoffigures
+\printglossary[type=\acronymtype]
+
+\mainmatter{}
+\chapter{Uvod}
+U drugoj deceniji XXI veka se primećuje sve veći prelazak sa lokalnog izvršavanja aplikacija na izvršavanje ``u oblaku'', tj.\ u velikim računarskim centrima gde se procesorsko vreme prodaje kao servis. Jedan od najvećih izazova takvih sistema je izvršavanje korisničkih aplikacija gde se suočavamo sa nekoliko problema, od kojih je najveći sigurnost. Korisnička aplikacija mora biti izolovana od svih ostalih, tako da ne može da utiče na rad drugih, ali i da druge aplikacije ne mogu da pristupe podacima naše. Kao rešenje tog problema uvodi se virtualizacija i kontejnerizacija aplikacija.
+
+Virtualizacija podrazumeva pokretanje celokupnog operativnog sistema u zasebnoj celini na domaćinskom operativnom sistemu, dok kontejnerizacija obuhvata skup tehnika za izolaciju procesa kontejnera od glavnog operativnog sistema. Prednosti kontejnera su prenosivost, manje zauzeće radne i skladišne memorije, manji gubitak performansi u odnosu na virtuelne mašine, itd. Zajedno, te prednosti čine kontejnere daleko pogodnijim za jednokratno ili povremeno pokretanje velikog broja korisničkih aplikacija na serverima uz minimalno održavanje.
+
+Cilj ovog rada je da opiše sistem za izvršavanje korisničkih aplikacija zajedno sa referentnom implementacijom pomoću Docker-a, popularnog alata za kontejnerizaciju.
+
+\chapter{Tehnologije}
+\section{Protokoli}
+\subsection{HTTP}
+Protokol za prenos hiperteksta (\textit{engl.\ Hypertext Transfer Protocol}) je aplikativni mrežni protokol čija je glavna namena razmena internet saobraćaja. Zasniva se na razmeni zahteva i odgovora između klijenta i servera. Jedna od odlika \acrshort{HTTP}-a je mogućnost pregovaranja tipa podataka koji se razmenjuju i time čini protokol raznovrsnijim i prilagodljivijim~\cite{http}.
+
+\subsubsection{Zahtev}
+\acrshort{HTTP} zahtev se šalje kroz uspostavljenu \acrshort{TCP} vezu (uobičajeno na portove 80 ili 443) u sledećem formatu:
+\begin{samepage}
+    \begin{verbatim}
+    <metod> <uri> HTTP/<verzija>
+    <zaglavlja>
+
+    <telo>
+    \end{verbatim}
+\end{samepage}
+
+\begin{itemize}
+    \item Metod može biti bilo koji string velikih slova, ali je uobičajeno da se koriste standardne metode kao što su GET, POST, OPTIONS, DELETE, itd.
+    \item URI (\textit{engl.\ Uniform Resource Identifier}), tj.\ uniformni identifikator resursa, je unikatna putanja ka određenom resursu ili u nekim slučajevima listi istih.
+    \item \acrshort{HTTP} verzija može biti 1.0 (zastarela), 1.1 ili 2.0 i označava koje standarde klijent podržava ili očekuje.
+\end{itemize}
+
+\subsubsection{Odgovor}
+Nakon uspešne (ili neuspešne) obrade zahteva, server odgovara klijentu sa \acrshort{HTTP} odgovorom.
+\begin{samepage}
+    \begin{verbatim}
+    HTTP/<verzija> <kôd> <poruka>
+    <zaglavlja>
+
+    <telo>
+    \end{verbatim}
+\end{samepage}
+
+\begin{itemize}
+    \item Verzija označava \acrshort{HTTP} verziju koju server koristi za komunikaciju.
+    \item Kôd je trocifreni broj koji označava status obrade zahteva, kao na primer da li je došlo do greške ili je potrebno preusmeravanje. Prva cifra sadrži generalnu informaciju o obradi:
+    \begin{itemize}
+        \item 1xx --- Informacioni odgovor; zahtev je primljen, proces se nastavlja
+        \item 2xx --- Uspeh; server je uspešno obradio kompletan zahtev
+        \item 3xx --- Preusmeravanje; neophodno je da klijent ponovi zahtev, najčešće na drugu putanju
+        \item 4xx --- Greška na strani klijenta; obuhvata sve slučajeve kada su greške u samom zahtevu
+        \item 5xx --- Greška na strani servera; server nije uspeo da ispuni naizgled ispravan zahtev
+    \end{itemize}
+\item Poruka može biti bilo koji niz karaktera, ali se uglavnom koriste poruke iz standarda vezane za kôd
+\end{itemize}
+
+\subsubsection{Zaglavlja}
+\acrshort{HTTP} zaglavlja (\textit{engl. HTTP Headers}) su komponente zahteva i odgovora koje definišu operativne parametre jedne \acrshort{HTTP} transakcije. Formatirani su kao uređeni parovi \textit{ime: vrednost}, gde je ime niz reči od koji svaka počinje sa velikim slovom i razdojene su crticama, dok vrednosti mogu biti nizovi bilo kojih znakova. Lista standardnih zaglavlja za zahteve i za odgovore se razlikuju na osnovu različitih potreba u protokolu, ali ima i nekih koji se koriste u oba slučaja. Prvobitno su nestandardna polja bila označena prefiksom \textit{X-}, ali zbog prelaska nekoliko zaglavlja sa takvim imenima u standard u novijim revizijama \acrshort{HTTP} specifikacije, ta obaveza je zastarela. Nakon liste zaglavlja sledi jedna prazna linija koja označava da ostatak zahteva (ili odgovora) pripada telu.
+
+Neki od najčešćih zaglavlja su:
+
+\begin{itemize}
+    \item Accept --- Tip podataka koji klijent očekuje od servera
+    \item Content-Length --- Dužina tela u bajtovima
+    \item Content-Type --- Tip podataka koji server vraća klijentu
+    \item Date --- Datum i vreme u koje je odgovor poslat sa servera
+    \item Host --- Domen i port servera na koji se šalje zahtev
+    \item Location --- Nova putanja do resursa u slučaju da se vrši preusmeravanje
+    \item User-Agent --- Identifikator korisničke klijentske aplikacije iz koje se šalje zahtev
+\end{itemize}
+
+\subsubsection{Telo}
+Telo \acrshort{HTTP} zahteva i odgovora može biti bilo kog tipa, sve dok i klijent i server mogu da dekodiraju podatke u njemu. Najčešće se šalju tekstualne datoteke i objekti enkodirani u formate za prenos (\acrshort{JSON}, XML, itd.), ali ima i slučajeva kad se šalju binarni podaci, pa čak i tokovi (npr.\, video i audio zapisi). Tip i dužina tela se definišu u zaglavljima, tako da server (ili klijent) može da odluči kako da vrši parsiranje tih podataka bez nagađanja i probavanja.
+
+\subsection{JSON}
+\acrshort{JSON} (\textit{engl.\ JavaScript Object Notation}) je format tekstualnih datoteka otvorenog standarda. Koristi se za prenos podataka koji ne zavisi od programskog jezika ili platforme iako je izveden iz ECMAScript programskog jezika~\cite{ecmascript}.
+
+\acrshort{JSON} datoteka se satoji od vrednosti, koje moraju biti niz, objekat, broj, string ili literal (\textit{null}, \textit{false} ili \textit{true})~\cite{json}.
+
+\subsubsection{Broj}
+Broj je predstavljen u dekadnom sistemu koristeći decimalne cifre. Sadrži se od celog dela koji može biti prefiksovan minusom i opcionog razlomljenog dela i eksponenta. Razlomljeni deo čini decimalna tačka i jedna ili više cifri, dok se eksponent sastoji od slova e, opcionog znaka plus ili minus i jedne ili više cifri.
+
+\subsubsection{String}
+String čini niz karaktera uokvireni duplim navodnicima. Dopušetni su svi UNICODE karakteri, dok navodnici, obrnute kose crte i kontrolni karakteri (U+0000 do U+001F) moraju imati \textbackslash{} prefiks.
+
+\subsubsection{Niz}
+Niz je struktura koju čine nula ili vise vrednosti uokvireni kockastim zagradama i razdvojeni zapetama. Vrednosti unutar niza ne moraju biti istog tipa.
+
+\subsubsection{Objekat}
+Objekat je struktura koja je predstavljen vitičastim zagradama koji uokviruju nula ili vise uređenih parova ključ/vrednost. Ključ (ime) mora biti tipa string, nakon čega sledi dvotačka i zatim vrednost bilo kog tipa. Uređeni parovi su međusobno razdvojeni zapetama. Ključevi bi trebalo da budu unikatni unutar objekta i ponašanje parsera u slučaju da nisu nije definisano u standardu.
+
+\subsection{WSGI}
+Ptyhon \acrshort{WSGI} (\textit{engl.\ Web Server Gateway Interface}), opisan u PEP 3333, je prosta konvencija poziva između web servera i aplikacija pisanih u python programskom jeziku. Omogućuje da se razdvoji aplikativni server od web servera i time uvede standardni način komunikacije između ta dva. Aplikacija napisana u bilo kom radnom okruženju može komunicirati sa bilo kojim web serverom, sve dok oba prate konvenciju~\cite{wsgi}.
+
+Pošto \acrshort{WSGI} samo opisuje način kako web server i aplikativni server komuniciraju, u produkcionom okruženju se najčešće ne vezuje aplikacija direktno za neki web server kao sto je NGINX, već se pokreće pomoću nekog \acrshort{WSGI} \acrshort{HTTP} prevodioca, kao npr.\ Gunicorn. To omogućuje da se pokrene proizvoljan broj niti koji čekaju na konekciju sa glavnog web servera i time paralelizuje rad aplikacije za više korisnika.
+
+\section{Linux}
+Linux je jezgro operativnog sistema, koji zajedno sa GNU korisničkim okruženjem čini potpuni operativni sistem. Prvi put objavljen 1991.\ godine kao studentski projekat Linusa Torvaldsa, ubrzo je stekao popularnost zajednice zbog otvorenosti koda. Danas je treći po redu operativni sistem na kućnim računarima, dok je na serverima Linux najpopularniji.
+
+\section{Docker}
+Docker je alat sa otvorenim kodom koji omogućava izvršavanje aplikacija u takozvanim kontejnerima (\textit{engl.\ container}) kako bi se postigla izolacija od drugih procesa na računaru~\cite{dockerdocs}.
+
+Rad Docker kontejnera zavisi od nekoliko svojstva Linux operativnog sistema za izolaciju resursa uključujući, ali ne ograničeno na kontrolne grupe (\textit{engl.\ control groups}), imenskih prostora (\textit{engl.\ Linux namespaces}), sistem datoteka sa mogućnošću za uvezivanje više sistema na jednu lokaciju itd. Glavna prednost Docker-a je da zahteva manje resursa od pokretanja virtuelne mašine dok zadržava većinu prednosti istih. Kontejneri imaju potpuno izolovano stablo procesa, mrežu, korisničke identifikatore, sisteme datoteka; dok kontrolne grupe omogućavaju da se ograniči zauzeće procesora i memorije na glavnom sistemu.
+
+Interno Docker koristi takozvane slike (\textit{engl.\ image}) iz kojih se prave i pokreću kontejneri. Slike čine slojevi sistema datoteka, promenljive okruženja, inicijalna komanda, itd. I predstavlja instancu okruženja koje je neophodno za rad aplikacije. Slike nemaju stanje i nikada se ne menjaju. Kontejneri se sastoje od slike, izvršnog okruženja i instrukcijom koja se pokreće prilikom inicijalizacije kontejnera.
+
+\subsection{Komponente Doker-a}
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{images/docker.png}
+    \caption{Komunikacija Docker demona sa linux jezgrom}
+\end{figure}
+
+\subsubsection{Docker CLI}
+Docker dolazi sa svojim interfejsom za komandnu liniju (terminal) koji izlaže sve komande neophodne za rukovanje kontejnerima, slikama, mrežama, itd.\ i komunicira pomoću \acrshort{HTTP}-a (\textit{engl. Hyper Text Transfer Protocol}) sa Docker REST API-em (\textit{Application Programming Interface})~\cite{docker-overview}.
+
+\subsubsection{Docker REST API}
+Web server koji služi kao posrednik između docker komande i docker demona (dockerd)~\cite{docker-overview}.
+
+\subsubsection{Dockerd}
+Docker demon je sistemski proces koji rukuje svim komponentama dockera.
+
+\subsubsection{libcontainer}
+Libcontainer je biblioteka i protokol za komunikaciju korisničkog softvera sa sistemskim komponentama za rukovanje kontejnerima i time pruža standardizovan način za pokretanje kontejnera. Projekat je inicijalno započet od strane docker kompanije, ali je ubrzo dobio podršku svih velikih softverskih kompanija kao što su Google, RedHat, Canonical, itd. Libcontainer ne zavisi od funkcionalnosti drugih programa iz korisničkog prostora kao što su LXC, libvirt ilisystemd-nspawn i shodno tome čini daleko prostiji i sigurniji sistem~\cite{zdnet-libcontainer}.
+
+\subsection{Docker registar}\label{section-register}
+Docker registar je sistem za čuvanje i dostavljanje imenovanih slika kojima se pridodaje oznaka o verziji. Skladištenje samih slika se delegira drugim rukovaocima kao što su lokalni sistem datoteka (podrazumevani rukovalac), S3, Microsoft Azure, itd. Takođe je moguće koristiti sopstveni rukovalac pomoću standardizovanog Storage API-a.
+
+Neophodno je imati sigurnu komunikaciju sa registrom, pa je implementirana šifrovana komunikacija pomoću \acrshort{TLS} (\textit{engl.\ Transport Layer Security}) protokola i nekoliko načina da se korisnici autentifikuju.
+
+Registar takođe podržava robustan sistem za obaveštavanje, gde se prilikom određenih aktivnosti šalju \acrshort{HTTP} zahtevi ciljnom serveru~\cite{docker-registry}.
+
+Najčešće korišćena implementacija je zvanična od docker kompanije, ali zbog otvorenosti koda, ima podršku od zajednice. Registar je napisan u GoLang programskom jeziku, koji je smatran jezikom visokog nivoa, ali ima prednost da se prevodi u mašinski kôd i time zadržava performanse na nivou jezika kao npr.\ C~\cite{docker-registry-github}.
+
+\section{Python}
+Python je interpretirani programski jezik visokog nivoa opšte namene, prvi put izdat 1991 godine. Ne zavisi od platforme i arhitekture što ga čini pogodnim za brzi razvoj aplikacija koje se pokreću na različitim platformama~\cite{python}.
+
+\subsection{PEP}
+Razvijanje Python programskog jezika se većinski vrši kroz PEP (\textit{engl.\ Python Enhancement Proposal}) proces, koji čini glavni mehanizam za predlaganje novih mogućnosti jezika. Nakon ovjavljivanja jednog PEP unapređenja zajednica i glavni razvijači razmatraju i komentarišu moguće izmene dok se unapređenje ne odobri i zatim implementira u referentnoj implementaciji Python interpretera, \textit{CPython}~\cite{python-pep}.
+
+\subsection{Flask}
+Flask je lagani \acrshort{WSGI} radni okvir (\textit{engl.\ framework}) napisan u Python programskom jeziku i baziran na alatki Werkzeug. Izvorni kôd je javno dostupan pod BSD licencom, što ga čini pogodnim za brojne aplikacije.
+
+Dizajniran je tako da ne nameće zateve za biblioteke ili organizaciju projekta, već je na programeru da odluči šta najbolje odgovara primeni. Postoji veliki broj nastavaka (\textit{engl.\ extensions}) napisani od strane zajednice koji znatno olaksavaju dodavanje funkcionalnosti~\cite{flask}.
+
+\subsection{Python Docker API}
+Python biblioteka za komunikaciju sa docker demonom. Omogućuje sve funkcionalnosti kao i Docker CLI kroz Python programski jezik i pogodan je za automatsko rukovanje kontejnerima iz aplikacija~\cite{docker-py}.
+
+\section{NGINX}
+NGINX je besplatan web server otvorenog koda, koji može služiti i kao obrnuti preusmeravač (\textit{engl.\ reverse proxy}) ili raspoređivač opterećenja (\textit{engl.\ load balancer}). Glavne odlike su visoke performanse, stabilnost, prosta i modularna konfiguracija, niska potrošnja resursa i brzo vreme odziva.
+
+Jedan je od nekoliko servera koji su napisani da reše C10K problem (podrška za više od 10,000 klijenata u isto vreme). Za razliku od tradicionalnih server, NGINX se ne oslanja na niti da rukuje zahtevima, već koristi skalabilniju asinhronu arhitekturu baziranu na događajima. Ova arhitektura koristi male, ali jos bitnije, predvidljive količine radne memorije pod opterećenjem~\cite{nginx}.
+
+% Najčešća primena je serviranje dinamičkog \acrshort{HTTP} sadržaja kroz protokole kao što su \textit{FastCGI}, \acrshort{\textit{WSGI}}, ili direktno \acrshort{HTTP} preusmeravanje.
+
+\chapter{Koncept}
+
+Primer implementacije aplikacije za raspoređivanje kontejnerima kao deo ovog rada se sastoji iz Python web API-a, pokretača koji komunicira sa Docker demonom i registrom Docker slika i vrši samo izvršavanje kontejnera na aplikativnom nivou.
+
+\begin{figure}[h!]
+    \includegraphics[width=\linewidth]{images/architecture.png}
+    \caption{Arhitektura aplikacije}
+\end{figure}
+
+\section{Obrnuti preusmeravač}
+Kao obrnuti preusmeravač se koristi NGINX web server. Služi za terminaciju enkriptovane konekcije \acrshort{HTTPS} protokola i preusmeravanje zahteva ka aplikativnom serveru, kao i praćenje zahteva i grešaka u log datotekama.
+
+Komunikacija klijenata sa NGINX-om je šifrovana pomoću \acrshort{TLS} protokola i verifikuje se sertifikatima izdatih od strane poverljivog autoriteta za sertifikate. Za ovaj rad se koriste besplati sertifikati izdati od strane autoriteta ``Let's encrypt'', dok se verifikacija domena vrši pomoću ACME (\textit{engl.\ Automatic Certificate Management Environment}) protokola~\cite{acme}.
+
+Da bi se sertifikati mogli obnoviti automatski, postoji i DNS (\textit{engl.\ Domain Name System}) server koji potvrđuje da je domen za koji se potpisuje sertifikat zapravo pod kontrolom iste stranke koja i traži verifikaciju sertifikata. Inicijalizacija verifikacije se vrši pomoću \textit{certbot} korisničke aplikacije koja komunicira sa Let's Encrypt ACME serverima i šalje zahtev za potpisivanje sertifikata (\textit{engl.\ certificate signing request}). ACME server vraća informaciju o DNS zapisu koji je neophodno kreirati u zoni domena za koji se potpisuje sertifikat. Nakon uspešnog dodavanja zapisa, ACME server proverava isti i vraća klijentu potpisani seritifikat ukoliko se zapisi podudaraju.
+
+Sa obzirom da se zahtevi preusmeravaju isključivo unutar lokalne mreze, nema potrebe za šifrovanjem zahteva i odgovora između NGINX server i Web API-a. Zbog toga se sertifikati čuvaju samo na jednom mestu, i ne moraju se prosleđivati posebno svakom kontejneru.
+
+\section{Web API}
+Ova komponenta aplikacije služi kao tačka komunikacije sa klijentima kroz \acrshort{HTTP} protokol i telom zahteva u \acrshort{JSON} formatu. Izlaže dve krajnje tačke, \texttt{/runner/registries} i \texttt{/runner/tasks}.
+
+\subsection{\texttt{/runner/registries}}
+
+Kroz ovu krajnju tačku se vrši autentifikacija sa Docker registrom i lokalno čuvanje kredencijala za taj registar. U parametrima se definišu URL (\textit{engl.\ Uniform Resource Locator}), korisničko ime i lozinka koji se prosleđuju docker demonu za autentifikaciju sa registrom. Nakon uspešne autentifikacije kredencijali se čuvaju u tekstualnoj datoteci u sledećem \acrshort{JSON} formatu:
+
+\begin{samepage}
+    \begin{verbatim}
+        {
+            "<url>": {
+                "username": "<korisničko_ime>",
+                "password": "<lozinka>"
+            }
+        }
+    \end{verbatim}
+\end{samepage}
+
+Primer \acrshort{HTTP} zahteva za autentifikaciju sa Docker registrom:
+\begin{samepage}
+    \begin{verbatim}
+        POST /runner/registries HTTP/1.1
+        Host: localhost:5000
+        Accept: application/json
+        Content-Type: application/json
+
+        {
+            "url": "hub.docker.com",
+            "username": "test",
+            "password": "test"
+        }
+    \end{verbatim}
+\end{samepage}
+
+\subsection{\texttt{/runner/tasks}}
+Ova krajnja tačka vrši pokretanje kontejnera na osnovu slike čija lokacija je prosleđena kao parametar u zahtevu. Kao i u prethodnom delu, porsleđuje se \acrshort{JSON} telo sa apsolutnom putanjom slike što uključuje URL na registar, ime repozitorijuma u komu se čuva slika kao i privezak koji je dodeljen slici. Dalje se zadaje komanda pokretaču, čiji rad je opisan u sledećem delu.
+
+Primer \acrshort{HTTP} zahteva za pokretanje kontejnera:
+\begin{samepage}
+    \begin{verbatim}
+        POST /runner/tasks HTTP/1.1
+        Host: localhost:5000
+        Accept: application/json
+        Content-Type: application/json
+
+        {
+            "image": "hub.docker.com/assignments:1"
+        }
+    \end{verbatim}
+\end{samepage}
+
+\section{Pokretač}
+Pokretač čini Python modul koji spaja Web API sa Docker demonom. Sastoji se on jedne klase (\texttt{DockerClient}) sa metodama za autentifikaciju sa registrom, čuvanje i učitavanja kredencijala i pokretanje kontejnera.
+
+Pre i posle pokretanje kontejnera se beleži sistemsko vreme kako bi se moglo utvrditi ukupno vreme izvršavanja koje se šalje zajedno sa standardnim izlazom kontejnera nazad Web API-u. Pored zaštite koju pružaju sami kontejneri uvedene su dodatne restrikcije za izvršavanje. Količina memorije koju kontejner može da zauzme se može proslediti modulu, dok je podrazumevana vrednost 128MiB. Takođe je unutar kontejnera onemogućena komunkacija kroz mrežu i aplikacija se pokreće pod korisnikom koji nema korenske privilegije unutar kontejnera. Time se minimizuje šansa da aplikacija može da ``pobegne'' iz kontejnera i načini štetu na domaćinskom sistemu.
+
+\section{Docker registar}
+Za registar za Docker slike se koristi zvanična GoLang implementacija opisana u \hyperref[section-register]{sekciji~\ref*{section-register}}. Pokreće kao i ostatak aplikacije, unutar docker kontejnera u kom pokreće sopstveni docker demon radi veće sigurnosti.
+
+Komunikacija sa registrom je šifrovana na isti način kao i komunikacija sa NGINX web serverom. Koriste se isti sertifikati izdati od ``Let's encrypt'' autoriteta koji se uvezuju u kontejner u kome je pokrenut server registra.
+
+Pored pozadinskog dela postoji i korisnički interfejs izložen kao web aplikacija administratoru kako bi mogao da nadgleda i rukuje slikama sačuvane u registru. Aplikacija nije deo ovog rada, već se koristi postojeći softver otvorenog koda sa interneta.
+
+\chapter{Primer upotrebe}
+Upotreba kontejnera je jasna u kontekstu aplikacija na serverima, gde je neophodno da servisi rade bez prestanka i ukoliko saobraćaj prevaziđe mogućnosti servera, lako se skalira na veći broj servera ili niti.
+
+
+
+\chapter{Pravci daljeg razvoja}
+Iako funkcionalna, ova implementacija aplikacije je i dalje osnovna i ima nedostatke koji mogu biti problematični u realnim sistemima. U ovom poglavlju se ukazuje na moguća poboljšanja, kao i neke od problema i njihova rešenja.
+
+\section{Sinhronost sistema}
+Trenutna arhitektura implementacije je sinhrona, tj.\ Docker kontejner se pokreće i izvršava u toku jednog \acrshort{HTTP} zahteva i rezultat izvršavanja se vraća kao odgovor na zahtev za pokretanje. Glavni problem ovakvog rada alikacije je što je broj konekcija ograničen na to koliko je niti dodeljeno aplikaciji tokom pokretanja i ukoliko dođe do novih zahteva dok je sistem zauzet, biće odbijeni.
+
+Jedan od načina kako bi mogao da se reši ovaj problem je razdvajanje rada web aplikacije od pokretača i dodavanjem reda čekanja i raspoređivača između njih. Aplikativni sloj bi na zahtev za pokretanje vratio odmah odgovor da je zahtev primljen i zapisao ga u red čekanja. Pokretač bi pratio promene na redu čekanja i ukoliko ima slobodnih niti za pokretanje, skuplja sledeći po redu zadatak i pusti ga da se izvrši. Nakon uspešnog (ili neuspešnog) izvršavanja, javlja aplikativnom sloju rezultat kroz novi \acrshort{HTTP} zahtev.
+
+Nedostatak ovog režima rada je što korisnik ne može znati kada se izvršavanje završilo i mora postojati način da periodično proverava stanje na serveru ili da se pretplati kroz websocket konekciju na aplikativni server koji bi slao informacije o događajima čim se dogode.
+
+\section{Admin panel}
+Referentna implementacija aplikacije ne sadrži nikakav mehanizam obaveštavanja korisnika ili administratora o radu aplikacije i kontejnera, niti postoji način da se kontroliše pristup (ovaj problem se obrađuje u sledećj sekciji). Ove i druge nedostatke bi rešilo dodavanja adminskog panela kao zasebnu web aplikaciju pomoću koje bi se mogao nadgledati rad pozadinskog dela servera.
+
+\section{Autorizacija}
+Još jedan od problema koji se može javiti je zloupotreba aplikacije. Ne postoji provera ko šalje zahtev ka serveru, stoga bilo ko može preplaviti server zahtevima za pokretanje kontejnera koji bi zauzeli sve resurse i onemogućili pokretanje kontejnera validnih korisnika. Kako bi se rešio problem bilo bi neophodno uvesti neku vrstu autorizacije, tj.\ odobrenje za pokretanje kontejnera.
+
+Autorizacija se može postići na nekoliko načina, kao na primer potpisivanje zahteva unapred poznatim ključem, ili kreiranjem pojedinačnih naloga i zabraniti pristup aplikaciji zahtevima koji nisu autentifikovani.
+
+\section{Vođenje evidencije}
+% TODO
+
+\chapter{Zaključak}
+% TODO
+
+\chapter{Literatura}
+\printbibliography[heading=none]
+
+\end{document}
+
