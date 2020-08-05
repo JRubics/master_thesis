@@ -117,8 +117,22 @@ Umesto da poseduje svu svoju funkcionalnost u jezgru OS-a. Python je dizajniran 
 
 \section{Python paketi, PyPI}
 
+Python paketi su imenski prostori (eng.\ \textit{namespaces}) koji u sebi sadrže druge pakete i module - delove softvera (eng.\ \textit{software}) koji obavljaju konkretnu funkcionalnost. Svaki paket je direktorijum koji u sebi mora imati \textit{\_\_init\_\_.py} datoteku. Ova datoteka može biti prazna, što označava da je trenutni direktorijum Python paket i da može biti korišćen kao zaseban modul. Inače, \textit{\_\_init\_\_.py} datoteka čuva kod koji služi za inicijaliciju tog paketa.
+
+Da bi se koristile funkcionalnosti koje neki paket nudi, potrebno ga je uvezati (eng.\ \textit{import}) u projekat korišćenjem rezervisane reči \texttt{import}. Da bi se uvezao pojedinačni modul iz nekog paketa, treba naznačiti koji modul se iz kojeg paketa uvezuje korišćenjem sledećeg Python koda:
+
+\begin{itemize}
+    \item from <package> import <module>
+\end{itemize}
+
+Glavna uloga Python paketa je distribuiranje biblioteka za Python programski jezik. Paket može da kreira bilo ko i da ga potom podeli sa ostatkom Python zajednice. Da bi paket bio dostupan, potrebno je kreirati arhivu sa svim potrebnim konfiguracijama za njega i objaviti je na nekom repozitorijumu za Python pakete.
+
+Repozitorijumi su softverski alati za čuvanje i distribuiranje paketa. Postoje javni repozitorijumi, koji omogućavaju razmenu paketa sa bilo kim, i privatni, koji omogućavaju razmenu paketa u ograničenoj grupi korisnika koji imaju specijalne privilegije.
+
+Najčešće korišćen javni repozitorijum je PyPI \cite{pypi}  - The Python Package Index.
+
 \section{Poetry}
-Poetry \cite{poetry} je alat otvorenog koda (eng.\ \textit{open-source}) za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI - repozitorijum softvera za Python programski jezik i time omogućio lakše deljenje Python projekata sa drugim korisnicima tog jezika.
+Poetry \cite{poetry} je alat otvorenog koda (eng.\ \textit{open-source}) za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python projekata sa drugim korisnicima Python programskog jezika.
 
 Prva verzija alata objavljena je 28.02.2018. godine. Verzije programskog jezika Python koje su podržane su 2.7 i 3.4+. Ideja je da Poetry radi podjednako dobro na različitim platformama, između ostalog na Linux-u, Windows-u i OSX-u.
 
