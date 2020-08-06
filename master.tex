@@ -96,6 +96,20 @@ U današnje vreme
 \chapter{Teorijske osnove}
 U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. NABROJ
 \section{Open source razvoj}
+\section{Sistem za praćenje verzija datoteka}
+Sistem za praćenje verzija datoteka (eng.\ \textit{version control system}) je sistem zadužen za praćenje istorije promena u datotekama. Promena koja se pamti se najčešće naziva revizija. Sve promene se uglavnom čuvaju na centralizovanom sistemu za skladištenje podataka i svi korisnici sa potrebnim privilegijama mogu da mu pristupaju, preuzmu najnoviju verziju datoteke ili grupe datoteka, izmene ih i zatim objave novu verziju koja se od tog momenta smatra najnovijom.
+
+Pored najnovije verzije, čuva se i celokupna istorija promena i moguće je vratiti datoteke u bilo koju od prethodnih revizija. U poglegu softvera (eng.\ \textit{software}), ovo nam omogućava da vratimo u upotrebu bilo koju prethodnu verziju, u slučaju da dođe do greške u nekoj od novijih verzija. Istorija se čuvaju u strukturi tipa grafa:
+
+\begin{figure}[H]
+    \includegraphics[width=\linewidth]{images/version.png}
+    \caption{napravi novu sliku}
+\end{figure}
+
+Graf se najčešće sastoji od glavne grane(eng.\ \textit{branch}), na kojoj se nalaze glavne izmene, i pomoćnih grana na kojima se nalaze izmene za koje još nije odlučeno da li će pripadati glavnoj grani. Ako sve izmene na pomoćnim granama budu odgovarajuće, one se spajaju (eng.\ \textit{merge}) sa glavnom granom i postaju deo njenog sadržaja. U slučaju praćenja verzija softvera, ovakve grane najčešće predstavljaju nove funkcionalnosti (eng.\ \textit{feature}) koje se dodaju na glavnu granu projekta ili ispravljanje greške (eng.\ \textit{bugfix}) koja je nastala u nekoj od prethodnih verzija.
+
+Važne izmene se mogu dodatno naglasiti dodavanjem oznake (eng.\ \textit{tag}). One uglavnom predstavljaju objavljivanje nove verzije softvera (eng.\ \textit{release}), dodavanje nove funkcionalnosti ili ispravku greške.
+
 \section{Github}
 \section{Github akcije - mozda spojiti sa prethodnim}
 \section{Python}
@@ -117,7 +131,7 @@ Umesto da poseduje svu svoju funkcionalnost u jezgru OS-a. Python je dizajniran 
 
 \section{Python paketi, PyPI}
 
-Python paketi su imenski prostori (eng.\ \textit{namespaces}) koji u sebi sadrže druge pakete i module - delove softvera (eng.\ \textit{software}) koji obavljaju konkretnu funkcionalnost. Svaki paket je direktorijum koji u sebi mora imati \textit{\_\_init\_\_.py} datoteku. Ova datoteka može biti prazna, što označava da je trenutni direktorijum Python paket i da može biti korišćen kao zaseban modul. Inače, \textit{\_\_init\_\_.py} datoteka čuva kod koji služi za inicijaliciju tog paketa.
+Python paketi su imenski prostori (eng.\ \textit{namespaces}) koji u sebi sadrže druge pakete i module - delove softvera koji obavljaju konkretnu funkcionalnost. Svaki paket je direktorijum koji u sebi mora imati \textit{\_\_init\_\_.py} datoteku. Ova datoteka može biti prazna, što označava da je trenutni direktorijum Python paket i da može biti korišćen kao zaseban modul. Inače, \textit{\_\_init\_\_.py} datoteka čuva kod koji služi za inicijaliciju tog paketa.
 
 Da bi se koristile funkcionalnosti koje neki paket nudi, potrebno ga je uvezati (eng.\ \textit{import}) u projekat korišćenjem rezervisane reči \texttt{import}. Da bi se uvezao pojedinačni modul iz nekog paketa, treba naznačiti koji modul se iz kojeg paketa uvezuje korišćenjem sledećeg Python koda:
 
@@ -132,7 +146,7 @@ Repozitorijumi su softverski alati za čuvanje i distribuiranje paketa. Postoje 
 Najčešće korišćen javni repozitorijum je PyPI \cite{pypi}  - The Python Package Index.
 
 \section{Poetry}
-Poetry \cite{poetry} je alat otvorenog koda (eng.\ \textit{open-source}) za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python projekata sa drugim korisnicima Python programskog jezika.
+Poetry \cite{poetry} je alat otvorenog koda za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python projekata sa drugim korisnicima Python programskog jezika.
 
 Prva verzija alata objavljena je 28.02.2018. godine. Verzije programskog jezika Python koje su podržane su 2.7 i 3.4+. Ideja je da Poetry radi podjednako dobro na različitim platformama, između ostalog na Linux-u, Windows-u i OSX-u.
 
