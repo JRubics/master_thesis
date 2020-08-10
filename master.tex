@@ -83,6 +83,7 @@
 \begin{tabular}{ l l }
     \textbf{API} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{URL} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
+    \textbf{CLI} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
 \end{tabular}
 
 \mainmatter{}
@@ -103,8 +104,8 @@ Sistem za praćenje verzija datoteka (eng.\ \textit{version control system}) je 
 Pored najnovije verzije, čuva se i celokupna istorija promena i moguće je vratiti datoteke u bilo koju od prethodnih revizija. U poglegu softvera (eng.\ \textit{software}), ovo nam omogućava da vratimo u upotrebu bilo koju prethodnu verziju, u slučaju da dođe do greške u nekoj od novijih verzija. Istorija se čuvaju u strukturi tipa grafa:
 
 \begin{figure}[H]
-    \includegraphics[width=\linewidth]{images/version.png}
-    \caption{napravi novu sliku}
+    \includegraphics[width=\linewidth]{images/version_control.png}
+    \caption{Sistem za praćenje verzija datoteka}
 \end{figure}
 
 Graf se najčešće sastoji od glavne grane(eng.\ \textit{branch}), na kojoj se nalaze glavne izmene, i pomoćnih grana na kojima se nalaze izmene za koje još nije odlučeno da li će pripadati glavnoj grani. Ako sve izmene na pomoćnim granama budu odgovarajuće, one se spajaju (eng.\ \textit{merge}) sa glavnom granom i postaju deo njenog sadržaja. U slučaju praćenja verzija softvera, ovakve grane najčešće predstavljaju nove funkcionalnosti (eng.\ \textit{feature}) koje se dodaju na glavnu granu projekta ili ispravljanje greške (eng.\ \textit{bugfix}) koja je nastala u nekoj od prethodnih verzija.
@@ -131,6 +132,8 @@ U ovom trenutku, GitHub se smatra najpopularnijim alatom ovog tipa i trenutno br
     \item Bezbednost
     \item Hostovanje
 \end{enumerate}
+
+Moguće mu je pristupiti preko CLI verzije, desktop verzije, ekstenzije za Visual Studio program za uređivanje datoteka i mobilne aplikacije.
 
 \subsection{Upravljanje projektima}
 Upravljanje projektom je proces koji je potreban u bilo kojem većem programerskom projektu. Menadžeri projekta su zaduženi da prate razvoj projekta i upućuju programere u razvoj narednih delova projekata, kao i da upravljaju raspoređivanjem vremena rada na različitim zadacima koje projekat iziskuje.
