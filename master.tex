@@ -82,6 +82,7 @@
 \chaptermark{Skraćenice}
 \begin{tabular}{ l l }
     \textbf{API} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
+    \textbf{URL} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
 \end{tabular}
 
 \mainmatter{}
@@ -114,8 +115,70 @@ Važne izmene se mogu dodatno naglasiti dodavanjem oznake (eng.\ \textit{tag}). 
 Git \cite{git} je besplatan softver otvorenog koda (eng.\ \textit{open-source}) za praćenje verzija datoteka u distribuiranom okruženju. Primarno se koristi za razvoj softvera, ali se može koristiti i za praćenje bilo kojih drugih datoteka. Razvoj je započeo 2005. godine kreator Linux-a, Linus Torvalds, za potrebe razvoja jezgra Linux operativnog sistema. Distribuiran je pod GNU General Public License Version 2 licencom. Primarno je napravljen za Linux operativni sistem, ali je naknadno prilagođen i za macOS, BSD, Solaris i Windows.
 
 Za razliku od drugih sistema za praćenje verzija datoteka u distribuiranom okruženju, Git nije softver klijent-server arhitekture. Svaki Git repozitorijum na svakom računaru čuva kompletnu istoriju promena i verzija i nije zavisan od pristupa mreži ili centralizovanom serveru. Kao takav, Git je osnova za razvoj mnogih drugih nezavisnih alata za praćenje verzija datoteka.
-\section{Github}
-\section{Github akcije - mozda spojiti sa prethodnim}
+
+\section{GitHub}
+GitHub \cite{github} je servis otvorenog koda za hostovanje (eng.\ \textit{hosting}) repozitorijuma sa različitim datotekama, najčešće izvornim kodovima za razna softverska rešenja. Za praćenje verzija datoteka, GitHub koristi Git. GitHub služi kao centralizovano mesto na kojem se čuvaju i razmenjuju sve izmene koje su sačuvane upotrebom Git alata.
+
+U ovom trenutku, GitHub se smatra najpopularnijim alatom ovog tipa i trenutno broji preko 40 miliona korisnika. Stvari koje ovaj servis omogućava su:
+
+\begin{enumerate}
+    \item Upravljanje projektima
+    \item Upravljanje timom
+    \item Pregled i komentarisanje koda
+    \item Integracija
+    \item Akcije
+    \item Paketi
+    \item Bezbednost
+    \item Hostovanje
+\end{enumerate}
+
+\subsection{Upravljanje projektima}
+Upravljanje projektom je proces koji je potreban u bilo kojem većem programerskom projektu. Menadžeri projekta su zaduženi da prate razvoj projekta i upućuju programere u razvoj narednih delova projekata, kao i da upravljaju raspoređivanjem vremena rada na različitim zadacima koje projekat iziskuje.
+
+GitHub nudi mogućnost koridinacije projektom, praćenje razvoja i menjanje statusa projekta na jednom mestu. Kordinacija započinje kreiranjem zadataka (eng.\ \textit{tasks}) koji traže izmene koda ili unapređenja projekta. Zadaci mogu biti u obliku greške (eng.\ \textit{issue}), komentara (eng.\ \textit{comment}) ili pull-request-a, što podrazumeva kreiranje celine koja je spremna za spajanje sa glavnom granom na projektu. Zadacima se dodeljuju osobe koje su zadužene za njih. Time će oni dobijati obaveštenja kada dođe do bilo koje izmene u kodu vezane za njihov deo posla. Zadacima je moguće dodeliti i prioritet i oznake, što dodatno olakšava proces upravljanja projektom.
+
+Sve ove informacije moguće je pratiti i menjati u formi tabele (eng.\ \textit{board}) ili u repozitorijumu na kojem se projekat nalazi. Svaki zadatak ima unikatan URL na kojem se mogu videti sve potrebne informacije vezane za njega. Čuva se i istorija svih zadataka i izmena na projektu, kojima se stvara uvid u proces razvoja projekta. Po završetku svih zadataka, urpavljanje projektom se završava i projekat se označava kao završen.
+
+\subsection{Upravljanje timom}
+Kako u timu imamo različite uloge, koje imaju različite permisije, GitHub nudi mogućnost hijerarhijskog organizovanja učesnika na projektu gde se svakoj grupi učesnika ili pojedincu dodeljuju potrebna prava.
+
+Takođe, moguće je dodati u repozitorijum dokumente koji se tiču projekta, kao što su kodeks ponašanja (eng.\ \textit{code of conduct}) i licenca (eng.\ \textit{license}). Ove dokumente nije potrebno svaki put pisati iznova, već postoje unapred predefinisane verzije često korišćenih kodeksa ponašanja i licenci.
+
+\subsection{Pregled i komentarisanje koda}
+Komunikacija između učesnika na projektu doprinosi kvalitetu izrade samog projekta. Pored podele zadataka i raspoređivanja vremena za svaki zadatak, javlja se potreba i za diskutovanjem koda koji se dodaje u obliku pull-request-a.
+
+Pri kreiranju pull-request-a, GitHub nudi prikaz svih izmena u odnosu na granu sa koje su izmene krenule i na koju bi se dodale ako je sve u redu. Taj prikaz je dostupan svima koji učestvuju u izradi projekta. Moguće je, dodatno, zamoliti nekoga od učesnika da pregleda izmene pre njihovog spajanja sa odabranom granom (eng.\ \textit{requests a review}). Na svakoj od izmena, moguće je dodati poruku, koja otvara mogućnost diskusije sa ostalim učesnicima projekta. Po zavšetku, osoba koja je zadužena da pregleda izmene može da odobri ili dobije pull-request, uz mogućnost traženja dodatnih izmena pre odobrenja.
+
+Takođe, pri kreiranju pull-request-a, GitHub automatski pregleda kod u potrazi za bezbednosnim propustima ili konfliktima sa granom sa kojom se trenutna grana spaja. Ako ih ima, GitHub obaveštava korisnika i traži izmenu pre odobrenja i spajanja koda.
+
+\subsection{Integracija}
+Pored samog pisanja aplikacije, često se javlja potreba za testiranjem i pracenjem (eng.\ \textit{monitoring}) aplikacije, automatizovanim postavljanjem u produkciju (eng.\ \textit{deployment}), kontinualnom integracijom (eng.\ \textit{continuous integration}), proverom kvaliteta koda (eng.\ \textit{code quality}) i drugim pomocnim aktivnostima u procesu razvoja softver-a.
+
+Pošto GitHub nije u mogućnosti da ponudi sve te aktivnosti, omogućio je proces integracije sa servisima koji ih nude. Svi ovi servisi mogu se pronaći u GitHub prodavnici (eng.\ \textit{marketplace}) \cite{marketplace}. Jedna od novina u GitHub prodavnici su GitHub akcije koje će biti jedna od centralnih tema ovog rada, a bice opisane u narednoj sekciji.
+
+\subsection{Akcije}
+
+\subsection{Paketi}
+Alati poput NPM-a, Docker-a, Maven-a, Gradle-a i drugih omogućavaju kreiranje artifakta koji sadrže sve potrebne alate za pokretanje nekog softverskog rešenja. Većina ovakvih servisa ima mogućnost čuvanja artifakta na njihovim repozitorijumima.
+
+Zbog jednostavnosti korišćenja, GitHub je kreirao alat koji objedinjuje mnoge ovakve repozitorijume u jedan repozitorijum - GitHub Packages.
+
+\subsection{Bezbednost}
+Bezbednost u softverskim rešenjima igra veoma bitnu ulogu i najčešće zavisi od mnogo faktora: programera, ljudi koji održavaju kod (eng.\ \textit{maintainers}), istraživača, timova specijalizovanih za bezbednost i drugih. Da bi se postigao što veći stepen bezbednosti, potrebno je da što više različitih strana učestvuje u testiranju koda na bezbednosne propuste (eng.\ \textit{vulnerabilities}).
+
+Neke od mogućnosti koje GitHub nudi za poboljšanje bezbednosti koda koji se nalazi na njemu su:
+
+\begin{itemize}
+    \item \textbf{Automatsko skeniranje koda} - pri dodavanju koda na repozitorijum, pokreće se automatsko skeniranje koda na poznate bezbednosne propuste i obaveštava se korisnika ako se pronađe neki od njih
+    \item \textbf{Definisanje bezbednosnog procesa rada projekata otvorenog koda} - omogućava definisanje bezbednosnih polisa u okviru \textit{SECURITY.MD} datoteke u repozitorijumu u kojoj se navode sve potrebne informacije o tome koje bezbednosne probleme i na koji način treba da prijave korisnici koji ih pronađu
+    \item \textbf{Diskutovanje o uticaju bezbednosnih propusta} - kada neki od korisnika prijavi bezbednosni propust ili grešku u kodu, GitHub nudi prostor za komentarisanje i razmenu mišljenja vezanih za postavljeni problem
+    \item \textbf{Automatsko skeniranje zavisnosti} - slično skeniranju koda, pokreće se automatsko skeniranje zavisnosti nekog projekta - odnosno svih drugih softverskih rešenja od kojih projekat zavisi. Ako neko od njih ima bezbednosni propust, korisnik se obaveštava o tome. Ovakvi problemi često budu otklonjeni u narednoj verziji rešenja od kojeg projekat zavisi, pa GitHub često nudi promenu verzije kao rešenje ovakvog problema. Ovaj proces se nastavlja za vreme životnog ciklusa projekta, i ako se u bilo kojem momentu pronađe bezbednosni propust, automatski se kreira pull-request sa ispravkom
+    \item \textbf{Pretraga kredencijala} - korisnicima se može desiti da slučajno upišu kredencijale za neki od eksternih servisa u kod projekta. Takvi kredencijali imaju specifičan oblik koji GitHub prepoznaje za preko 24 servisa i obaveštava korisnika ako ih pronađe
+\end{itemize}
+
+\subsection{Hostovanje sajtova}
+Pored hostovanja repozitorijuma, što je glavna uloga GitHub-a, postoji i mogućnost hostovanja sajta pod GitHub domenom. Potrebno je napraviti repozitorijum sa nazivom \textit{username.github.io} i svi dokumenti u okviru njega će biti statički hostovani pod \textit{username.github.io} domenom.
+
 \section{Python}
 
 Python \cite{python} je programski jezik opšte namene, spada u grupu programskih jezika visokog nivoa i interpretira se. Dizajniran je tako da bude izrazito čitljiv, što se postiže velikom upotrebom belina (eng.\ \textit{whitespace character}). Pogodan je za razvoj različitih projekata pošto podržava više programskih paradigmi:
@@ -142,6 +205,8 @@ Da bi se koristile funkcionalnosti koje neki paket nudi, potrebno ga je uvezati 
 \begin{itemize}
     \item \texttt{from <package> import <module>}
 \end{itemize}
+
+\subsection{Distribuiranje Python paketa}
 
 Glavna uloga Python paketa je distribuiranje biblioteka za Python programski jezik. Paket može da kreira bilo ko i da ga potom podeli sa ostatkom Python zajednice. Da bi paket bio dostupan, potrebno je kreirati arhivu sa svim potrebnim konfiguracijama za njega i objaviti je na nekom repozitorijumu za Python pakete.
 
