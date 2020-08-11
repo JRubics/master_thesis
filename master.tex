@@ -84,16 +84,12 @@
     \textbf{API} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{URL} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{CLI} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
+    \textbf{YAML} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
 \end{tabular}
 
 \mainmatter{}
 \chapter{Uvod}
 U današnje vreme
-
-\begin{figure}[H]
-    \includegraphics[width=\linewidth]{images/vm.png}
-    \caption{Razlika između arhitekture Virtuelne Mašine a arhitekture kontejnera}
-\end{figure}
 
 \chapter{Teorijske osnove}
 U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. NABROJ
@@ -127,10 +123,10 @@ U ovom trenutku, GitHub se smatra najpopularnijim alatom ovog tipa i trenutno br
     \item Upravljanje timom
     \item Pregled i komentarisanje koda
     \item Integracija
-    \item Akcije
     \item Paketi
     \item Bezbednost
     \item Hostovanje
+    \item Akcije
 \end{enumerate}
 
 Moguće mu je pristupiti preko CLI verzije, desktop verzije, ekstenzije za Visual Studio program za uređivanje datoteka i mobilne aplikacije.
@@ -138,7 +134,7 @@ Moguće mu je pristupiti preko CLI verzije, desktop verzije, ekstenzije za Visua
 \subsection{Upravljanje projektima}
 Upravljanje projektom je proces koji je potreban u bilo kojem većem programerskom projektu. Menadžeri projekta su zaduženi da prate razvoj projekta i upućuju programere u razvoj narednih delova projekata, kao i da upravljaju raspoređivanjem vremena rada na različitim zadacima koje projekat iziskuje.
 
-GitHub nudi mogućnost koridinacije projektom, praćenje razvoja i menjanje statusa projekta na jednom mestu. Kordinacija započinje kreiranjem zadataka (eng.\ \textit{tasks}) koji traže izmene koda ili unapređenja projekta. Zadaci mogu biti u obliku greške (eng.\ \textit{issue}), komentara (eng.\ \textit{comment}) ili pull-request-a, što podrazumeva kreiranje celine koja je spremna za spajanje sa glavnom granom na projektu. Zadacima se dodeljuju osobe koje su zadužene za njih. Time će oni dobijati obaveštenja kada dođe do bilo koje izmene u kodu vezane za njihov deo posla. Zadacima je moguće dodeliti i prioritet i oznake, što dodatno olakšava proces upravljanja projektom.
+GitHub nudi mogućnost koridinacije projektom, praćenje razvoja i menjanje statusa projekta na jednom mestu. Kordinacija započinje kreiranjem zadataka (eng.\ \textit{tasks}) koji traže izmene koda ili unapređenja projekta. Zadaci mogu biti u obliku greške/pitanja (eng.\ \textit{issue}), komentara (eng.\ \textit{comment}) ili pull-request-a, što podrazumeva kreiranje celine koja je spremna za spajanje sa glavnom granom na projektu. Zadacima se dodeljuju osobe koje su zadužene za njih. Time će oni dobijati obaveštenja kada dođe do bilo koje izmene u kodu vezane za njihov deo posla. Zadacima je moguće dodeliti i prioritet i oznake, što dodatno olakšava proces upravljanja projektom.
 
 Sve ove informacije moguće je pratiti i menjati u formi tabele (eng.\ \textit{board}) ili u repozitorijumu na kojem se projekat nalazi. Svaki zadatak ima unikatan URL na kojem se mogu videti sve potrebne informacije vezane za njega. Čuva se i istorija svih zadataka i izmena na projektu, kojima se stvara uvid u proces razvoja projekta. Po završetku svih zadataka, urpavljanje projektom se završava i projekat se označava kao završen.
 
@@ -158,8 +154,6 @@ Takođe, pri kreiranju pull-request-a, GitHub automatski pregleda kod u potrazi 
 Pored samog pisanja aplikacije, često se javlja potreba za testiranjem i pracenjem (eng.\ \textit{monitoring}) aplikacije, automatizovanim postavljanjem u produkciju (eng.\ \textit{deployment}), kontinualnom integracijom (eng.\ \textit{continuous integration}), proverom kvaliteta koda (eng.\ \textit{code quality}) i drugim pomocnim aktivnostima u procesu razvoja softver-a.
 
 Pošto GitHub nije u mogućnosti da ponudi sve te aktivnosti, omogućio je proces integracije sa servisima koji ih nude. Svi ovi servisi mogu se pronaći u GitHub prodavnici (eng.\ \textit{marketplace}) \cite{marketplace}. Jedna od novina u GitHub prodavnici su GitHub akcije koje će biti jedna od centralnih tema ovog rada, a bice opisane u narednoj sekciji.
-
-\subsection{Akcije}
 
 \subsection{Paketi}
 Alati poput NPM-a, Docker-a, Maven-a, Gradle-a i drugih omogućavaju kreiranje artifakta koji sadrže sve potrebne alate za pokretanje nekog softverskog rešenja. Većina ovakvih servisa ima mogućnost čuvanja artifakta na njihovim repozitorijumima.
@@ -182,6 +176,105 @@ Neke od mogućnosti koje GitHub nudi za poboljšanje bezbednosti koda koji se na
 \subsection{Hostovanje sajtova}
 Pored hostovanja repozitorijuma, što je glavna uloga GitHub-a, postoji i mogućnost hostovanja sajta pod GitHub domenom. Potrebno je napraviti repozitorijum sa nazivom \textit{username.github.io} i svi dokumenti u okviru njega će biti statički hostovani pod \textit{username.github.io} domenom.
 
+\subsection{Akcije}
+Kao što vidimo iz prethodnih sekcija, GitHub nudi mnoge mogućnosti pored njegove osnovne namene - praćenja verzija datoteka. Ipak, ako i te mogućnosti nisu dovoljne, postoji alat - GitHub Actions koji nudi pisanje tokova posla (eng.\ \textit{workflow}) i reagovanje na mnoge događaje, tako da korisnik može, u specifičnom formatu, da definiše sve potrebne reakcije na događaje i pokrije slučajeve koje ostali GitHub alati ne pokrivaju. Ove akcije najčešće podrazumevaju automatizaciju, podešavanje i izvršavanje delova softverskih rešenja nakon nekog specifičng događaja.
+
+\subsubsection{Događaji}
+Neki od događaja na koje je moguće reagovati su:
+
+\begin{itemize}
+    \item \texttt{create} - pokreće se izvršavanje svaki put kada se kreira nova granu ili oznaka
+    \item \texttt{delete} - pokreće se izvršavanje svaki put kada se obriše granu ili oznaka
+    \item \texttt{fork} - pokreće se izvršavanje pri račvanju novog projekta iz trenutnog projekta
+    \item \texttt{gollum} - pokreće se izvršavanje svaki put kada se kreira ili izmeni Wiki stranica
+    \item \texttt{issues} - pokreće se izvršavanje svaki put kada se desi issue događaj. što podrazumeva otvaranje teme sa pitanjem, njenu izmenu, zatvaranje, brisanje, označavanje, itd.
+    \item \texttt{issue\_comment} - pokreće se izvršavanje svaki put kada se doda, izmeni ili obriše komentar na otvorenom pitanju
+    \item \texttt{label} - pokreće se izvršavanje svaki put kada se doda, izmeni ili obriše oznaka
+    \item \texttt{milestone} - pokreće se izvršavanje svaki put kada se doda, izmeni ili obriše prekretnica u projektu
+    \item \texttt{project} - pokreće se izvršavanje svaki put kada se desi project događaj, što podrazumeva kreiranje, izmenu, zatvaranje ili brisanje projekta
+    \item \texttt{public} - pokreće se izvršavanje svaki put kada privatni repozitorijum postane javni
+    \item \texttt{pull\_request} - pokreće se izvršavanje svaki put kada se desi pull\_request događaj. što podrazumeva otvaranje pull-request-a, izmenu, zatvaranje, brisanje, dodeljivanje, označavanje, sinhronizaciju, traženje pregledanja, itd.
+    \item \texttt{pull\_request\_review} - pokreće se izvršavanje kada se izvrši, izmeni ili obriše pregledanje pull-request-a
+    \item \texttt{pull\_request\_review\_comment} - pokreće se izvršavanje kada se kreira, izmeni ili obriše komentar na pregledanju pull-request-a
+    \item \texttt{push} - pokreće se izvršavanje svaki put kada se doda novi kod na granu
+    \item \texttt{registry\_package} - pokreće se izvršavanje svaki put kada se objavi ili izmeni paket
+    \item \texttt{release} - pokreće se izvršavanje svaki put kada se desi release događaj, što podrazumeva kreiranje, objavljivanje, izmenu ili brisanje nove verzije projekta
+\end{itemize}
+
+Takođe, moguće je zakazati izvršavanje neke akcije navođenjem tačnog datuma i vremena izvršavanja ili zakazivanje izvršavanja na primer svake nedelje u određeno vreme. Za opisivanje vremena koristi se softverski alat Cron, koji je zadužen za planiranje i zakazivanje poslova na osnovu vremena (eng.\ \textit{time-based job scheduler}) na Unix operativnim sistemima.
+
+Tokovi poslova se opisuju u YAML formatu. Događaji se opisuju u okviru \textit{on} sekcije, uz dodatak \textit{type} i \textit{branch} podsekcija ako ima potrebe. Na primer:
+
+\begin{samepage}
+    \begin{verbatim}
+    on:
+        pull_request:
+            branches:
+            - master
+        release:
+            types:
+            - created
+    \end{verbatim}
+\end{samepage}
+
+\subsubsection{Poslovi}
+
+Nakon prepoznavanja događaja, pokreće se izvaršavanje jednog ili više poslova (eng.\ \textit{jobs}), gde se svaki od poslova može sastojati od jednog ili više koraka (eng.\ \textit{step}).
+
+Za poslove se definiše na kojem operativnom sistemu treba da se izvrše. U ponudi su Windows Server 2019, Ubuntu 20.04, Ubuntu 18.04, Ubuntu 16.04 i macOS Catalina 10.15. Opciono se dodaje naziv posla, dodatni uslov pod kojim se izvršava, promenjive koje se preuimaju iz okruženja (eng.\ \textit{environment variables}), maksimalno vreme izvršavanja (eng.\ \textit{timeout}) i drugi parametri.
+
+\subsubsection{Koraci}
+
+Koraci su zaduženi za pokretanje komandi, pokretanje zadataka za podešavanje (eng.\ \textit{setup tasks}) ili pokretanje GitHub Akcija iz trenutnog repozitorijuma, nekog javnog repozitorijuma ili sa Docker registra (eng.\ \textit{registry}). Korak ne mora da ima akciju u sebi, ali svaka akcija koja se pokreće mora da se pokreće kao izolovani korak. Svaki korak se pokreće kao zaseban proces u okruženju pokretača (eng.\ \textit{runner}) i ima pristup svom okruženju i sistemu datoteka na kojem se pokreće. Ako ima potrebe, mogu postojati zasebni koraci koji se pokreću na početku i kraju posla, koji služe da pripreme okruženje pre početka izvršavanja i odrade završne aktivnosti na kraju izvršavanja.
+
+Kao i posao, korak sadrži svoj unikatni id, naziv, uslov izvršavanja ako postoji, ulazne parametre, promenjive koje se preuzimaju iz okruženja, maksimalno vreme izvršavanja itd. Aktivnost koja se izvršava u toku koraka može se definisati na dva načina, upotrebom jednom od sledećih rezervisanih reči:
+
+\begin{itemize}
+    \item\texttt{uses} - u slučaju kada se koristi postojeća akcija, na ovom mestu se navodi putanja do akcije (u trenutnom repozitorijumu, nekom javnom repozitorijumu ili na Docker registru) i verzija akcije u oblliku: \texttt{path/name@version}.
+    \item\texttt{run} - u slučaju kada se ne koristi postojeća akcija, već se definiše niz komandi u interfejsu komandne linije operativnog sistema. Moguće je imati više \texttt{run} komandi u okviru jednog koraka. Tada se svaka komanda pokreće kao odvojeni proces u jezgru operativnog sistema. Ako se pod jednom \texttt{run} sekcijom pokrene komanda u više linija, tada se sve komande pokreću u okviru jednog procesa. Komande se mogu pokretati u jednom od sledećih jezika komandne linije: bash, pwsh, python, sh, cmd, powershell.
+\end{itemize}
+
+\subsubsection{Kontekst okruženja}
+Na osnovu konteksta okruženja, moguće je odlučivati o tome da li će se neki korak ili posao izvršiti. Za to postoji rezervisana reč \texttt{if}. Kontekst se nalazi u nekoliko objekata koji su nosioci različitih informacija i konteksta različitih delova toka posla. Neki od najčešće korišćenih su:
+
+\begin{itemize}
+    \item\texttt{github} - informacije o toku posla
+
+    Primer: naziv akcije, putanja do akcije, id trenutnog posla koji se izvršava, koji korisnik je zaslužan za pokretanje akcije, koji korisnik je vlasnik repozitorijuma na kojem je pokrenuta akcija, grana ili oznaka na kojo se desilo pokretanje akcije, itd.
+    \item\texttt{env} - sadrži promenjive koje se preuzimaju iz okruženja podešene u okviru toka posla, posla ili koraka.
+    \item\texttt{job} - informacije o poslu koji se trenutno izvršava
+
+    Primer: status posla, kontejner u kojem se posao izvršava, servisi koji su potrebni za izvršavanje posla, itd.
+    \item\texttt{steps} - informacije o koraku koji se trenutno izvršava
+
+    Primer: status koraka, vrednost izlaznih promenjivih, itd.
+    \item\texttt{runner} - informacije o pokretaču trenutnog posla
+
+    Primer: operativni sistem, putanja privremenog (eng.\ \textit{temporary}) direktorijuma, itd.
+    \item\texttt{secrets} - sadrži promenjive koje se čuvaju kao tajne
+    \item\texttt{needs} - dozvoljava pristup promenjivama koje su izlazne promenjive prethodnih poslova
+\end{itemize}
+
+\subsubsection{Pisanje akcija}
+Neke od unapred definisanih akcija nudi GitHub, dok su druge napisane od strane zajednice koja ih koristi. Svako može da napiše akciju koji koristi za sebe ili da je podeli sa drugim korisnicima. Akcija se može pokretati direktno u okviru virtuelne mašine (eng.\ \textit{virtual machine}) ili u okviru Docker kontejnera. Mogu se definisati ulazni i izlazni parametri i promenjive koje se preuimaju iz okruženja.
+
+Pri pisanju akcije potrebno je kreirati \textit{action.yml} ili \textit{action.yaml} dotatoku koja definiše sve informacije potrebne za izvršavanje akcije. Akcija može biti u obliku Docker kontejnera, ili opisana u JavaScript programskom jeziku. Takođe, postoje kompozitne akcije (eng.\ \textit{composite run steps action}) koje omogućavaju kombinovanje nekoliko koraka u jednu akciju.
+
+\begin{itemize}
+    \item\textbf{Docker akcije} - Docker kontejneri upakuju celokupno okruženje sa kodom GitHub akcije. Ovo čini dosta pouzdano rešenje, pozto korisnik ne mora da brine o verzijama i alatima. U kontejneru se instalira izabrana verzija operativnog sistema i svi potrebni alati, što ovakav način pisanja akcija čini pogodnim za sisteme koji moraju da se prilagode specifičnom okruženju. Mana ovog pristupa je to što je potrebno dosta vremena da se kreira i pokrene kontejner pa su ove akcije sporije od JavaScript akcija.
+    \item\textbf{JavaScript akcije} - Ove akcije se pokreću direktno na računarima pokretačima, što pojednostavljuje pisanje koda akcija i znatno ubrzava njihovo izvršavanje. Da bi se mogle izvršavati na bilo kojem operativnom sistemu, ove akcije moraju biti napisane u čistom JavaScript-u.
+\end{itemize}
+
+Akcije napisane od strane pojedinaca mogu se objaviti u GitHub prodavnici i time postati dostupne svima za korišćenje. Da bi akcija bila spremna za objavljivanje, potrebno je da se ceo kod akcije i datoteke potrebne za njeno izvršavanje nalaze u jednom repozitorijumu. Taj repozitorijum ne sme ništa drugo da sadrži. Takođe, repozitorijum mora biti javan, da bi drugi korisnici mogli da mu pristupe. Potrebno je dodati oznaku na repozitorijum, koja predstavlja verziju akcije u GitHub prodavnici i zatim je objaviti.
+
+\subsubsection{Hostovanje pokretača}
+GitHub nudi mašina koje hostuju pokretače GitHub Akcija, ali i daje mogućnost hostovanja akcija na korisničkom hardveru (eng.\ \textit{hardware}). Hostovanje na korisničkim mašinama daje veću slobodu korisnicima u izboru samih hardverskih komponenti, operativnog sistema i alata koji se instaliraju na tim mašinama. Mogu biti u obliku fizičkih mašina, virtuelnih mašina, kontejnera, ili računari u oblaku (eng.\ \textit{cloud}).
+
+Korisničke mašine se povezuju sa GitHub-om preko aplikacije koju GitHub nudi. Ako se ne pokrene ni jedna akcija u roku od 30 dana, prekida se veza između korisničkog računara i GitHub-a.
+
+Problem pri hostovanju na korisničkim mašinama može biti to što je korisnik zadužen za ažuriranje verzije operativnog sistema i svih softverskih alata na njemu, dok na GitHub-ovim mašinama to radi sam GitHub. Takođe, Githab pokreće novu, čistu instancu za svaki posao koji se izvršava, dok korisnik to ne mora da radi.
+
+\section{Docker? opet ga svuda ima}
 \section{Python}
 
 Python \cite{python} je programski jezik opšte namene, spada u grupu programskih jezika visokog nivoa i interpretira se. Dizajniran je tako da bude izrazito čitljiv, što se postiže velikom upotrebom belina (eng.\ \textit{whitespace character}). Pogodan je za razvoj različitih projekata pošto podržava više programskih paradigmi:
