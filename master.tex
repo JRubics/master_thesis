@@ -403,13 +403,58 @@ U tom momentu, paket postaje dostupan na izabranom repozitorijumu i svako ko ima
 \section{Bash}
 
 \chapter{Specifikacija i implementacija projekta}
-\section{pjisp-assignment-template}
+
+Projekat o kojem ovaj rad govori sastoji se iz grupe alata koje je bilo potrebno napraviti i povezati da bi se dodale nove funkcionalnosti u postojeći projekat - \textit{pjisp-assignment-template} \cite{pjisp-assignment-template}. Pomenuti alat služi za automatizovano kreiranje studentskih zadataka, nihovo puštanje u učionicama u kojima studenti rade zadatke i na kraju pregledanje zadataka. Prvenstveno je namenjen da profesorima i asistentima olakša ceo proces od kreiranja do pregledanja kolokvijuma ili zadataka koje studenti rade.
+
+Zadatak nastavnog osoblja je pre svega da iz repozitorijuma projekta koji je šablonski (eng.\ \textit{template}) repozitorijum kreira svoj repozitorijum sa zadatkom. Važno je da nastavnik svoj repozitorijum nazove u skladu sa predefinisanim načinom imenovanja. Nakon toga se u repozitorijumu kreiraju svi potrebni materijali koji su potrebni za generisanje studentskog zadatka. Zadatak nastavnika je da pokrenje generisanje zadatka za jedan od predefinisanih testova na predmetu Programski jezici i strukture podataka. Ovaj projekat dodaje mogućnost automatizovanog kreiranja zadatka za određeni test na osnovu naziva repozitorijuma koji nastavnik napravi uz proveru ispravnosti naziva.
+
+Po završetku pisanja zadatka i njegovog testiranja, nastavnik, a najčešće asistent, je dužan da obavesti profesora o tome, da bi profesor mogao da proveri ispravnost zadatka i odobri korišćenje zadatka u nastavi ako je dobar i pogodan za studente. Kao olakšicu, nastavnik može da pokrene alat za testiranje zadatka i proveri ispravnost. Ovaj projekat uvodi isto to testiranje i nakon objavljivanja nove verzije zadatka na GitHub-u. Kao dodatnu proveru, jedan od alata iz ovog projekta proverava da li su izmenjene sve potrebne datoteke, da bi zadatak bio kompletan, odnosno da bi imao korektan tekst zadatka, primer rešenja i testove. Ako svi ovi alati vrate rezultat pozitivnog ishoda, u GitHub repozitorijumu se pojavljuje oznaka da su svi uslovi ispunjeni i da je zadatak spreman za pregledanje. U suprotnom, stoji oznaka da zadatak ne ispunjava sve potrebne uslove.
+
+Naredna poglavlja opisuju alate koji su korišćeni da bi se postigla opisana unapređenja \textit{pjisp-assignment-template} alata.
+
 \section{pjisp-template-name}
-\subsection{način imenovanja repo-a}
+Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je konzolna aplikacija kola služi za proveru ispravnosti naziva repozitorijuma. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
+
+\subsection{Način imenovanja repozitorijuma}
+Za imenovanje repozitorijuma koristi se predefinisani šablon, koji izgleda ovako:
+
+
+\begin{verbatim}
+pjisp-{SCHOOL_YEAR}-{COURSE_ID}-{TEST_ID}-{GROUP_ID}
+\end{verbatim}
+
+gde su:
+
+\begin{itemize}
+    \item \texttt{{SCHOOL\_YEAR}} - školska godina, na primer 2019
+    \item \texttt{{COURSE\_ID}} - identifikator kursa (E214 za zimski semestar ili E111 za letnji)
+    \item \texttt{{TEST\_ID}} - identifikator testa (T12, T34 ili SOV)
+    \item \texttt{{GROUP\_ID}} - identifikator grupe studenata, na primer G10
+\end{itemize}
+
+Alat pre svega proverava da li je dužina naziva ispravna, odnosno da li naziv ima sve celine odvojene znakom \textit{-}. Ako nema, ispisuje se poruke \textit{``Repository name length not valid''} i program izlazi sa izlaznim kodom \textit{1}. U suprotnom, program nastavlja sa izvršavanjem.
+
+Nakon provere dužine, proverava se ispravnost ostalih tokena, prema malopre opisanom načinu davanja imena. Ako bilo gde dođe do greške, ispisuje se poruka  \textit{``Repository name not valid. Error on <token>''} i izlase se sa izlaznim kodom \textit{1}. Ako naziv u potpunosti ispunjava šablon, kao izlazna vrednost vraća se identifikator testa, da bi na osnovu toga mogle da se generišu datoteke potrebne za kreiranje tog testa.
+
+\subsection{Instalacija i pokretanje}
+Ovaj alat se instalira kao bilo koji drugi Python paket. Potrebno je u konzolnoj liniji pokrenuti komandu:
+
+\begin{verbatim}
+pip install pjisp-template-name
+\end{verbatim}
+
+i nakon toga je alat spreman za upotrebu. Pokreće se pozivanjem komande:
+
+\begin{verbatim}
+pjisp_template_name <template_name>
+\end{verbatim}
+
 \section{pjisp-diff}
 \section{poetry-publish action}
-Koristi se za publishovanje pjisp-diff i pjisp-template-name
+oba prethodna projekta su objavljena na pypi pomocu ovoga...
 \section{Error code u smoke-test-u - zasto je potreban?}
+\section{pjisp-assignment-template}
+pisi izmene
 
 
 \chapter{Primeri korišćenja}
