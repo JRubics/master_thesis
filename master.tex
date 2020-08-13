@@ -418,7 +418,6 @@ Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je konzolna aplikac
 \subsection{Način imenovanja repozitorijuma}
 Za imenovanje repozitorijuma koristi se predefinisani šablon, koji izgleda ovako:
 
-
 \begin{verbatim}
 pjisp-{SCHOOL_YEAR}-{COURSE_ID}-{TEST_ID}-{GROUP_ID}
 \end{verbatim}
@@ -450,6 +449,53 @@ pjisp_template_name <template_name>
 \end{verbatim}
 
 \section{pjisp-diff}
+
+Alat \textit{pjisp-diff} \cite{pjisp-diff} je konzolna aplikacija kola služi pomoćni alat nastavnicima koji proverava da li su izmenili sve potrebne datoteke pri kreiranju zadataka za studente. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
+
+Pored provere da li su promenjene sve potrebne datoteke, ovaj alat proverava i da li su ostale nepromenjene sve pomoćne datoteke koje nije potrebno menjati. Datoteke koje je potrebno menjati zavise od ulaznog parametra, šablona spram kojeg se kreira zadatak. Datoteke koje je potrebno uvek menjati su:
+
+\begin{itemize}
+    \item \texttt{assignment\_solution.c}
+    \item \texttt{assignment.rst}
+\end{itemize}
+
+Ako je vrednost ulaznog parametra jednaka ``T12'', potrebno je menjati:
+
+\begin{itemize}
+    \item \texttt{fixtures/stdio-numbers.yaml}
+\end{itemize}
+
+Ako je šablon vrednost ulaznog parametra jednaka ``T34'' ili ``SOV'', potrebno je menjati:
+
+\begin{itemize}
+    \item \texttt{fixtures/file-error-input-not-readable.yaml}
+    \item \texttt{fixtures/file-error-output-not-writable.yaml}
+    \item \texttt{fixtures/fixtures/file-text.yaml}
+\end{itemize}
+
+Datoteka koju nije dozvoljeno menjati je:
+
+\begin{itemize}
+    \item \texttt{assignment\_notes.rst}
+\end{itemize}
+
+Ako su po završetku programa izmenjene sve potrebne datiteke i nisu izmenjene one koje ne smeju da se menjaju, alat vraća \textit{0} kao vrednost izlaznog koda. U suprotnom, alat vraća vrednost \textit{1} uz jednu ili više poruka u obliku: \textit{``Please change the <filename> file.''} ili \textit{``Please do not change the <filename> file.''}
+
+\subsection{Instalacija i pokretanje}
+Ovaj alat se instalira kao bilo koji drugi Python paket. Potrebno je u konzolnoj liniji pokrenuti komandu:
+
+\begin{verbatim}
+pip install pjisp-diff
+\end{verbatim}
+
+i nakon toga je alat spreman za upotrebu. Pokreće se pozivanjem komande:
+
+\begin{verbatim}
+pjisp_diff <template>
+\end{verbatim}
+
+gde \texttt{<template>} može biti T12, T34 ili SOV.
+
 \section{poetry-publish action}
 oba prethodna projekta su objavljena na pypi pomocu ovoga...
 \section{Error code u smoke-test-u - zasto je potreban?}
