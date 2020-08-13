@@ -496,8 +496,70 @@ pjisp_diff <template>
 
 gde \texttt{<template>} može biti T12, T34 ili SOV.
 
-\section{poetry-publish action}
-oba prethodna projekta su objavljena na pypi pomocu ovoga...
+\section{poetry-publish GitHub akcija}
+Alati koji su opisani u prethodna 2 poglavlja napravljeni su tako da mogu biti instalirani i korišćeni kao Python paketi. Oba paketa su dostupna na PyPI repozitorijumu Python paketa. Za postavljanje na repozitorijum, korišćen je alat Poetry. Pošto je potrebno objaviti novu verziju paketa na repozitorijumu nakon svake izmene u samom paketu, korišćena je \textit{poetry-publish} \cite{poetry-publish-repo} GitHub akcija koja pri svakom novom objavljivanju verzije alata na GitHub-u, kreira i novu verziju Python paketa i postavlja je na PyPI repozitorijum.
+
+Akcija \textit{poetry-publish} je kreirana od strane autora ovog rada pre nego što se razvila ideja za projekat koji je u ovom radu opisan, ali je znatno olakšala kreiranje malopre pomenutih paketa, tako da je imala veoma važnu ulogu i u ovom projektu. Akcija je projekat otvorenog koda i dostupna je za preuzimanje u GitHub prodavnici \cite{poetry-publish-marketplace}. Dostupna je pod BSD 3-Clause licencom.
+
+\textit{poetry-publish} je GitHub akcija koja služi za kreiranje paketa i njihovo objavljivanje na Python repozitorijumu upotrebom alata Poetry. Kreirana je u obliku Docker akcije. U Docker kontejneru se instaliraju svi potrebni alati za korišćenje Python-a i zatim se pokrenu Poetry komande za kreiranje i objavljivanje paketa:
+
+\begin{itemize}
+    \item \texttt{poetry build} - da kreira Python paket
+    \item \texttt{poetry publish} - da objavi paket na repozitorijumu koji je prethodno podešen
+\end{itemize}
+
+Paramtri koje ova akcija očekuje su:
+
+\begin{itemize}
+    \item \textbf{python\_version} - verzija Python-a koja se instalira u kontejneru i koristi za kreiranje paketa. Ako se ne navede, podrazumeva se da se koristi najnovija verzija. Za bolje performanse, poželjno je koristiti predefinisanu-najnoviju verziju.
+    \item \textbf{poetry\_version} - verzija Poetry-a koja se instalira u kontejneru i koristi za kreiranje paketa. Ako se ne navede, podrazumeva se da se koristi najnovija verzija. Navodi se u PIP sintaksi za specifikaciju verzija
+    \item \textbf{pypi\_token} - jedini obavezan parametar. Služi kao API token za autentifikaciju pri objavljivanju paketa na PyPI.
+    \item \textbf{repository\_name} - naziv repozitorijuma na kojem se objavljuje paket. Ako se ne navede, podrazumeva se da se objavljuje na PyPI repozitorijumu. Potrebno je izmeniti pri objavljivanju na PyPI test repozitorijumu ili na privatnom repozitorijumu.
+    \item \textbf{repository\_url} - adresa repozitorijuma na kojem se objavljuje paket. Ako se ne navede, podrazumeva se da se objavljuje na PyPI repozitorijumu. Potrebno je izmeniti pri objavljivanju na PyPI test repozitorijumu ili na privatnom repozitorijumu.
+\end{itemize}
+
+Takođe, potrebno je specificirati \textit{pyproject.toml} datoteku na osnovu koje će se kreirati Python paket. Ova datoteka treba da se nalazi u korenskom direktorijumu repozitorijuma koji koristi ovu akciju.
+
+Primer koraka koji koristi akciju:
+
+\begin{verbatim}
+- name: Build and publish to pypi
+uses: JRubics/poetry-publish@v1
+with:
+    python_version: '3.7.1'
+    poetry_version: '==1.0.5'  # (PIP version specifier syntax)
+    pypi_token: ${{ secrets.PYPI_TOKEN }}
+    repository_name: 'testpypi'
+    repository_url: 'https://test.pypi.org/legacy/'
+\end{verbatim}
+
+
+U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na sledeći način:
+\begin{samepage}
+    \begin{verbatim}
+    name: Python package
+    on:
+    push:
+        tags:
+        - 'v*.*.*'
+    jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Change version in pyproject.toml
+        run: |
+            REF=$(echo ${{ github.ref }} | sed "s#\(refs/tags/\)\?v\?##")
+            sed -i "s/^version = \".\+\"/version = \"$REF\"/" pyproject.toml
+        - name: Build and publish to pypi
+        uses: JRubics/poetry-publish@v1.1
+        with:
+            pypi_token: ${{ secrets.PYPI_TOKEN }}
+    \end{verbatim}
+\end{samepage}
+
+Ova akcija se izvršava samo kada se napravi nova oznaka u repozitorijumu u obliku \textit{v*.*.*}. Sastoji se od jednog posla koji se pokreće na poslednjoj verziji Ubuntu operativnog sistema i 3 koraka. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak menja verziju u \textit{pyproject.toml} datoteci na verziju oznake koja je prouzrokovala pokretanje ove akcije. Poslednji korak koristi \textit{poetry-publish} akciju za objavljivanje nove verzije paketa. Svi ulazni porametri koriste predefinisanu verziju, samo je \texttt{pypi\_token} parametar postavljen na vrednost PyPI tokena koji se preuzima iz GitHub-ovog konteksta okruženja \texttt{secrets}.
+
 \section{Error code u smoke-test-u - zasto je potreban?}
 \section{pjisp-assignment-template}
 pisi izmene
