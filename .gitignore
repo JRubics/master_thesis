@@ -24,3 +24,5 @@
 *.out
 *.run.xml
 *.synctex.gz
+*.fdb_latexmk
+*.fls

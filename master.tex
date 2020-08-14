@@ -86,6 +86,7 @@
     \textbf{CLI} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{YAML} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{GCC} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
+    \textbf{PDF} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
 \end{tabular}
 
 \mainmatter{}
@@ -178,7 +179,7 @@ Neke od mogućnosti koje GitHub nudi za poboljšanje bezbednosti koda koji se na
 Pored hostovanja repozitorijuma, što je glavna uloga GitHub-a, postoji i mogućnost hostovanja sajta pod GitHub domenom. Potrebno je napraviti repozitorijum sa nazivom \textit{username.github.io} i svi dokumenti u okviru njega će biti statički hostovani pod \textit{username.github.io} domenom.
 
 \subsection{Akcije}
-Kao što vidimo iz prethodnih sekcija, GitHub nudi mnoge mogućnosti pored njegove osnovne namene - praćenja verzija datoteka. Ipak, ako i te mogućnosti nisu dovoljne, postoji alat - GitHub Actions koji nudi pisanje tokova posla (eng.\ \textit{workflow}) i reagovanje na mnoge događaje, tako da korisnik može, u specifičnom formatu, da definiše sve potrebne reakcije na događaje i pokrije slučajeve koje ostali GitHub alati ne pokrivaju. Ove akcije najčešće podrazumevaju automatizaciju, podešavanje i izvršavanje delova softverskih rešenja nakon nekog specifičng događaja.
+Kao što vidimo iz prethodnih sekcija, GitHub nudi mnoge mogućnosti pored njegove osnovne namene - praćenja verzija datoteka. Ipak, ako i te mogućnosti nisu dovoljne, postoji alat - GitHub Actions koji nudi mogućnost pisanja tokova posla (eng.\ \textit{workflow}) i reagovanje na mnoge događaje, tako da korisnik može, u specifičnom formatu, da definiše sve potrebne reakcije na događaje i pokrije slučajeve koje ostali GitHub alati ne pokrivaju. Ove akcije najčešće podrazumevaju automatizaciju, podešavanje i izvršavanje delova softverskih rešenja nakon nekog specifičng događaja.
 
 \subsubsection{Događaji}
 Neki od događaja na koje je moguće reagovati su:
@@ -411,7 +412,7 @@ Zadatak nastavnog osoblja je pre svega da iz repozitorijuma projekta koji je ša
 
 Po završetku pisanja zadatka i njegovog testiranja, nastavnik, a najčešće asistent, je dužan da obavesti profesora o tome, da bi profesor mogao da proveri ispravnost zadatka i odobri korišćenje zadatka u nastavi ako je dobar i pogodan za studente. Kao olakšicu, nastavnik može da pokrene alat za testiranje zadatka i proveri ispravnost. Ovaj projekat uvodi isto to testiranje i nakon objavljivanja nove verzije zadatka na GitHub-u. Kao dodatnu proveru, jedan od alata iz ovog projekta proverava da li su izmenjene sve potrebne datoteke, da bi zadatak bio kompletan, odnosno da bi imao korektan tekst zadatka, primer rešenja i testove. Ako svi ovi alati vrate rezultat pozitivnog ishoda, u GitHub repozitorijumu se pojavljuje oznaka da su svi uslovi ispunjeni i da je zadatak spreman za pregledanje. U suprotnom, stoji oznaka da zadatak ne ispunjava sve potrebne uslove.
 
-Naredna poglavlja opisuju alate koji su korišćeni da bi se postigla opisana unapređenja \textit{pjisp-assignment-template} alata.
+Naredna poglavlja opisuju alate koji su korišćeni da bi se postigla opisana unapređenja \textit{pjisp-assignment-template} alata, a poslednje poglavlje opisuje njihovu integraciju u jednu celinu.
 
 \section{pjisp-template-name}
 Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je konzolna aplikacija kola služi za proveru ispravnosti naziva repozitorijuma. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
@@ -497,7 +498,7 @@ pjisp_diff <template>
 
 gde \texttt{<template>} može biti T12, T34 ili SOV.
 
-\section{poetry-publish GitHub akcija}
+\section{poetry-publish}
 Alati koji su opisani u prethodna 2 poglavlja napravljeni su tako da mogu biti instalirani i korišćeni kao Python paketi. Oba paketa su dostupna na PyPI repozitorijumu Python paketa. Za postavljanje na repozitorijum, korišćen je alat Poetry. Pošto je potrebno objaviti novu verziju paketa na repozitorijumu nakon svake izmene u samom paketu, korišćena je \textit{poetry-publish} \cite{poetry-publish-repo} GitHub akcija koja pri svakom novom objavljivanju verzije alata na GitHub-u, kreira i novu verziju Python paketa i postavlja je na PyPI repozitorijum.
 
 Akcija \textit{poetry-publish} je kreirana od strane autora ovog rada pre nego što se razvila ideja za projekat koji je u ovom radu opisan, ali je znatno olakšala kreiranje malopre pomenutih paketa, tako da je imala veoma važnu ulogu i u ovom projektu. Akcija je projekat otvorenog koda i dostupna je za preuzimanje u GitHub prodavnici \cite{poetry-publish-marketplace}. Dostupna je pod BSD 3-Clause licencom.
@@ -521,7 +522,7 @@ Paramtri koje ova akcija očekuje su:
 
 Takođe, potrebno je specificirati \textit{pyproject.toml} datoteku na osnovu koje će se kreirati Python paket. Ova datoteka treba da se nalazi u korenskom direktorijumu repozitorijuma koji koristi ovu akciju.
 
-Primer koraka koji koristi akciju:
+\subsection{Primer koraka koji koristi akciju}
 
 \begin{verbatim}
 - name: Build and publish to pypi
@@ -534,7 +535,7 @@ with:
     repository_url: 'https://test.pypi.org/legacy/'
 \end{verbatim}
 
-
+\subsection{Upotreba akcije}
 U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na sledeći način:
 \begin{samepage}
     \begin{verbatim}
@@ -569,8 +570,46 @@ Zadatak koji ovaj alat očekuje treba da bude napisan u programskom jeziku C ili
 Rezultat je u ljudski čitljivom formatu, ali je izlazni kod u svakom slučaju, bilo pri pozitivnoj ili negativnoj evaluaciji studentskog rešenja uvek bio \textit{0}. Da bi \textit{smoke\_test} alat mogao da se upotrebi u okviru GitHub akcije koja proverava ispravnost rešenja koje nastavnik kreira, i da bi se izvršavanje akcije prekinulo u slučaju negativne evaluacije studentskog rešenja, izmenjen je izlazni kod na vrednost \textit{1} ako ponuđeno rešenje ne ispunjava sve uslove navedene u \textit{.yaml} datotekama. Kada GitHub akcija u bilo kojem koraku dobije rezultat različit od \textit{0}, smatra se da taj korak nije uspešno izvršen i ne prelazi se na naredne korake. U slučaju \textit{pjisp-assignment-template} alata, to znači da nastavnik nije dobro napisao primer ispravnog rešenja i da mora da ga ispravi.
 
 \section{pjisp-assignment-template}
-pisi izmene
+Alat \textit{pjisp-assignment-template} nudi veliki broj funkcionalnosti za kreiranje i proveru ispravnosti kreiranog zadatka za studente. Ove funkcionalnosti su u velikoj meri učestvovale u dodavanju GitHub tokova poslova čije funkcionalnosti su opisane na samom početku poglavlja. Ipak, neke od funkcionalnosti je trebalo malo izmeniti i bilo je potrebno kreirati nekoliko novih.
 
+Postojeće funkcionalnosti koje alat nudi su:
+
+\begin{itemize}
+    \item \textit{help} - za prikazivanje poruke koja objašnjava ostale funkcionalnosti
+    \item \textit{init} - za generisanje datoteka specifičnih za pojedinačne testove
+    \item \textit{test-solution} - za proveru ispravnosti primera rešenja
+    \item \textit{assignment-clean} - za brisanje svih generisanih datoteka vezanih za studenstski zadatak
+    \item \textit{assignment-build} - za generisanje PDF-a sa tekstom zadatka
+    \item \textit{assignment-view} - za prikazivanje PDF-a sa tekstom zadatka
+    \item \textit{assignment-pack} - za pakovanje studentskog zadatka
+    \item \textit{assignment} - za kreiranje, prikazivanje i pakovanje studentskog zadatka
+    \item \textit{extract-exams} - za raspakivanje (eng.\ \textit{extract}) studentskih zadataka iz ispitnih datoteka
+    \item \textit{examine} - za pregledanje studentskog zadatka
+\end{itemize}
+
+Novosti koje uvodi ovaj projekat su:
+
+\begin{itemize}
+    \item \textit{assignment-diff} - za proveru da li su izmenjene sve datoteke koje je potrebno menjati i da li su ostale iste sve datoteke koje se ne smeju menjati
+    \item \textit{assignment-check} - za proveru izmena datoteka i proveru ispravnosti primera rešenja
+    \item \textit{get-template} - za pronalaženje naziva testa na osnovu naziva repozitorijuma
+\end{itemize}
+
+Takođe, uvedene su sitne izmene u neke od postojećih funkcionalnosti:
+
+\begin{itemize}
+    \item \textit{init} - dodatno, nakon generisanja datoteka na osnovu izabranog identifikatora testa, kreira se \textit{.template} datoteka u koju se smešta identifikator za kasniju upotrebu
+    \item \textit{test-solution} - dodato je da pre pokretanja funkcionalnosti zahteva da postoji \textit{assignment\_solution.c} datoteka
+    \item \textit{assignment-build} - dodato je da pre pokretanja funkcionalnosti zahteva da postoji \textit{assignment\_solution.c} datoteka
+    \item \textit{assignment-pack} - dodato je da se pre pakovanja, pored provere ispravnosti primera rešenja, proveri da li su izmenjene sve datoteke koje je potrebno menjati i da li su ostale iste sve datoteke koje se ne smeju menjati
+\end{itemize}
+
+Kao zavisnosti u projektu dodati su \textit{pjisp-template-name} i \textit{pjisp-diff}.
+
+Nakon dodavanja malopre pomenutih izmena u kod \textit{pjisp-assignment-template} alata, uvedene su sve funkcionalnosti potrebne za kreiranje GitHub tokova poslova čije funkcionalnosti su opisane na početku trenutnog poglavlja. Kreirane su dve nove datoteke na mestu koje je predviđeno za pisanje GitHub tokova poslova - \textit{.github/workflows}. Tokovi podataka nazvani su ``Project create'' i ``PJISP assignment'' i nalaze se u \textit{init-repo.yml} i \textit{test-solution.yml} datotekama respektivno.
+
+\subsection{Project create}
+\subsection{PJISP assignment}
 
 \chapter{Primeri korišćenja}
 \chapter{Diskusija i zakljuci}
