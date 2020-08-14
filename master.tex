@@ -155,7 +155,7 @@ Takođe, pri kreiranju pull-request-a, GitHub automatski pregleda kod u potrazi 
 \subsection{Integracija}
 Pored samog pisanja aplikacije, često se javlja potreba za testiranjem i pracenjem (eng.\ \textit{monitoring}) aplikacije, automatizovanim postavljanjem u produkciju (eng.\ \textit{deployment}), kontinualnom integracijom (eng.\ \textit{continuous integration}), proverom kvaliteta koda (eng.\ \textit{code quality}) i drugim pomocnim aktivnostima u procesu razvoja softver-a.
 
-Pošto GitHub nije u mogućnosti da ponudi sve te aktivnosti, omogućio je proces integracije sa servisima koji ih nude. Svi ovi servisi mogu se pronaći u GitHub prodavnici (eng.\ \textit{marketplace}) \cite{marketplace}. Jedna od novina u GitHub prodavnici su GitHub akcije koje će biti jedna od centralnih tema ovog rada, a bice opisane u narednoj sekciji.
+Pošto GitHub nije u mogućnosti da ponudi sve te aktivnosti, omogućio je proces integracije sa servisima koji ih nude. Svi ovi servisi mogu se pronaći u GitHub prodavnici (eng.\ \textit{marketplace}) \cite{marketplace}. Jedna od novina u GitHub prodavnici su GitHub akcije koje će biti jedna od centralnih tema ovog rada, a biće opisane u jednoj od narednih sekcija.
 
 \subsection{Paketi}
 Alati poput NPM-a, Docker-a, Maven-a, Gradle-a i drugih omogućavaju kreiranje artifakta koji sadrže sve potrebne alate za pokretanje nekog softverskog rešenja. Većina ovakvih servisa ima mogućnost čuvanja artifakta na njihovim repozitorijumima.
@@ -274,7 +274,7 @@ GitHub nudi mašina koje hostuju pokretače GitHub Akcija, ali i daje mogućnost
 
 Korisničke mašine se povezuju sa GitHub-om preko aplikacije koju GitHub nudi. Ako se ne pokrene ni jedna akcija u roku od 30 dana, prekida se veza između korisničkog računara i GitHub-a.
 
-Problem pri hostovanju na korisničkim mašinama može biti to što je korisnik zadužen za ažuriranje verzije operativnog sistema i svih softverskih alata na njemu, dok na GitHub-ovim mašinama to radi sam GitHub. Takođe, Githab pokreće novu, čistu instancu za svaki posao koji se izvršava, dok korisnik to ne mora da radi.
+Problem pri hostovanju na korisničkim mašinama može biti to što je korisnik zadužen za ažuriranje verzije operativnog sistema i svih softverskih alata na njemu, dok na GitHub-ovim mašinama to radi sam GitHub. Takođe, GitHub pokreće novu, čistu instancu za svaki posao koji se izvršava, dok korisnik to ne mora da radi.
 
 \section{Docker? opet ga svuda ima}
 \section{Python}
@@ -402,6 +402,9 @@ Paket se objavljuje pozivanjem komande:
 
 U tom momentu, paket postaje dostupan na izabranom repozitorijumu i svako ko ima pristup repozitorijumu može da instalira paket. Najčešće se paketi objavljuju na PyPI repozitorijumu.
 
+\section{Pipenv}
+zbog pjisp-assignment-template-a
+
 \section{Bash}
 
 \chapter{Specifikacija i implementacija projekta}
@@ -496,14 +499,14 @@ i nakon toga je alat spreman za upotrebu. Pokreće se pozivanjem komande:
 pjisp_diff <template>
 \end{verbatim}
 
-gde \texttt{<template>} može biti T12, T34 ili SOV.
+gde \texttt{<template>} predstavlja identifikator testa i može biti T12, T34 ili SOV.
 
 \section{poetry-publish}
 Alati koji su opisani u prethodna 2 poglavlja napravljeni su tako da mogu biti instalirani i korišćeni kao Python paketi. Oba paketa su dostupna na PyPI repozitorijumu Python paketa. Za postavljanje na repozitorijum, korišćen je alat Poetry. Pošto je potrebno objaviti novu verziju paketa na repozitorijumu nakon svake izmene u samom paketu, korišćena je \textit{poetry-publish} \cite{poetry-publish-repo} GitHub akcija koja pri svakom novom objavljivanju verzije alata na GitHub-u, kreira i novu verziju Python paketa i postavlja je na PyPI repozitorijum.
 
 Akcija \textit{poetry-publish} je kreirana od strane autora ovog rada pre nego što se razvila ideja za projekat koji je u ovom radu opisan, ali je znatno olakšala kreiranje malopre pomenutih paketa, tako da je imala veoma važnu ulogu i u ovom projektu. Akcija je projekat otvorenog koda i dostupna je za preuzimanje u GitHub prodavnici \cite{poetry-publish-marketplace}. Dostupna je pod BSD 3-Clause licencom.
 
-\textit{poetry-publish} je GitHub akcija koja služi za kreiranje paketa i njihovo objavljivanje na Python repozitorijumu upotrebom alata Poetry. Kreirana je u obliku Docker akcije. U Docker kontejneru se instaliraju svi potrebni alati za korišćenje Python-a i zatim se pokrenu Poetry komande za kreiranje i objavljivanje paketa:
+\textit{Poetry-publish} je GitHub akcija koja služi za kreiranje paketa i njihovo objavljivanje na Python repozitorijumu upotrebom alata Poetry. Kreirana je u obliku Docker akcije. U Docker kontejneru se instaliraju svi potrebni alati za korišćenje Python-a i zatim se pokrenu Poetry komande za kreiranje i objavljivanje paketa:
 
 \begin{itemize}
     \item \texttt{poetry build} - da kreira Python paket
@@ -604,12 +607,122 @@ Takođe, uvedene su sitne izmene u neke od postojećih funkcionalnosti:
     \item \textit{assignment-pack} - dodato je da se pre pakovanja, pored provere ispravnosti primera rešenja, proveri da li su izmenjene sve datoteke koje je potrebno menjati i da li su ostale iste sve datoteke koje se ne smeju menjati
 \end{itemize}
 
-Kao zavisnosti u projektu dodati su \textit{pjisp-template-name} i \textit{pjisp-diff}.
+Kao zavisnosti u projektu dodati su \textit{pjisp-template-name} i \textit{pjisp-diff}. \textit{Get-template} funkcionalnost poziva \textit{pjisp-template-name} sa nazivom repozitorijuma kao ulaznim parametrom i identifikatorom testa kao povratnom vrednošću. \textit{Assignment-diff} poziva \textit{pjisp-diff} sa identifikatorom testa kao ulaznim parametrom.
 
 Nakon dodavanja malopre pomenutih izmena u kod \textit{pjisp-assignment-template} alata, uvedene su sve funkcionalnosti potrebne za kreiranje GitHub tokova poslova čije funkcionalnosti su opisane na početku trenutnog poglavlja. Kreirane su dve nove datoteke na mestu koje je predviđeno za pisanje GitHub tokova poslova - \textit{.github/workflows}. Tokovi podataka nazvani su ``Project create'' i ``PJISP assignment'' i nalaze se u \textit{init-repo.yml} i \textit{test-solution.yml} datotekama respektivno.
 
 \subsection{Project create}
+``Project create'' je tok poslova koji se pokreće, kako mu i samo ime kaže, izazvan događajem kreiranja projekta, odnosno nakon pravljenja repozitorijuma na osnovu šablon repozitorijuma \textit{pjisp-assignment-template}. Uloga ovog toka posla je da postavi inicijalno stanje projekta. Na osnovu naziva repozitorijuma, zaključuje se na koji test se repozitorijum odnosi i onda se na osnovu identifikatora testa kreiraju datoteke namenjene tom testu. Identifikator testa može biti T12, T34 ili SOV. U \textit{README.rst} datoteku, koja sadrži sve bitne informacije o projektu i datotekama u njemu, postavlja bedž (eng.\ \textit{badge}) koji daje informacije o tome da li je zadatak kreiran kako treba, a menja se na osnovu rezultata drugog toka poslova - ``PJISP assignment''.
+
+Bedž može biti u jednom od tri stanja:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/nostatus.png}
+    \caption{Kada nema status}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/failing.png}
+    \caption{Kada se ``PJISP assignment'' neuspešno izvrši}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics{images/passing.png}
+    \caption{Kada se ``PJISP assignment'' uspešno izvrši}
+\end{figure}
+
+Kod toka posla izgleda ovako:
+
+\begin{verbatim}
+    name: Project create
+    on:
+        create
+    jobs:
+        build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python 2.7
+            uses: actions/setup-python@v1
+            with:
+            python-version: 2.7
+        - name: Install pipenv
+            uses: dschep/install-pipenv-action@v1
+        - name: init_template
+            run: |
+            REPO=$(echo ${{github.repository}} | cut -d "/" -f 2)
+            pipenv install
+            TEMPLATE=$(pipenv run make get-template repo_name=$REPO)
+            pipenv run make init template=$TEMPLATE
+        - name: add_badge
+            run: |
+            REPO=${{github.repository}}
+            echo "|Actions Status|
+            .. |Actions Status| \image:: \
+                https://github.com/$REPO/workflows/PJISP%20assignment/badge.svg
+                :alt: CPython build status on GitHub Actions
+                :target: https://github.com/$REPO/actions
+            " | cat - README.rst > README
+            mv README README.rst
+        - name: push_changes
+            run: |
+            git config --global user.email "action@github.com"
+            git config --global user.name "github"
+            git add .
+            git commit -m "Init template"
+            git push
+\end{verbatim}
+
+Ovaj tok posla u sebi ima jedan posao koji se sastoji od šest koraka. Posao se pokreće na Ubuntu operativnom sistemu na najnovijoj verziji. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak instalira Pythonu verziji 2.7 u okruženju pokretača. Treći korak je zadužen za instaliranje Pipenv-a, alata za upravljanje Python paketima koji \textit{pjisp-assignment-template} koristi. Ova tri koraka izvršavaju već postojeće akcije iz GitHub prodavnice, prva 2 koriste oficijalne GitHub-ove akcije, dok treći koristi akciju koju je neki od korisnika napisao i objavio.
+
+Četvrti korak je zadužen za inicijalizaciju datoteka na osnovu naziva repozitorijuma. Ovaj, kao i naredna dva koraka spada u grupu koraka koji ne koriste postojeće akcije, nego navode niz komandi koje je potrebno izvršiti. Naziv repozitorijuma dobija se iz promenjive \texttt{github.repository} koja se preuzima iz konteksta okruženja. Ova promenjiva čuva informaciju o repozitorijumu na kojem se akcija pokrenula u obliku \textit{<username>/<repo\_name>}. Da bi se preuzeo naziv repozitorijuma, iz ove promenjive se preuzima samo deo nakon kose crte. Nakon toga se instaliraju zavisnosti korišćenjem Pipenv alata i pokreće se \textit{get-template} funkcionalnost. Ova funkcionalnost proverava ispravnost naziva repozitorijuma i na osnovu njega pronalazi identifikator testa. Ako naziv repozitorijuma nije ispravan, ovde se prekida izvršavanje ovog posla i izvršavanje toka posla se smatra neuspešnim. Ako je naziv repozitorijuma ispravan, poziva se \textit{init} funkcionalnost sa identifikatorom testa kao ulaznim parametrom.
+
+Peti korak služi za kreiranje bedža i njegovo dodavanje u \textit{README.rst} datoteku. Naziv repozitorijuma se ponovo dobavlja iz \texttt{github.repository} promenjive konteksta okruženja. Na osnovu njega se kreira bedž koji prati status izvršavanja ``PJISP assignment'' toka posla i dodaje se na sam početak \textit{README.rst} datoteke.
+
+Poslednji, šesti korak je zadužen da postavi sve novonastale izmene na GitHub repozitorijum. Za tu aktivnost je potrebno podesiti email i korisničko ime korisnika koji postavlja ove izmene. U tu svrhu se koristi predefinisani korisnik radi razlikovanja sadržaja koji je pravi korisnik postavio i onog koji je GitHub kreirao. Nakon postavljanja ovih izmena, sve nove datoteke nalaze se na GitHub repozitorijumu i bedž je vidljiv na vrhu \textit{README.rst} datoteke.
+
+Po izvršavanju celog ovog toka podataka, repozitorijum je spreman za preuzimanje i kreiranje studentskih zadataka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnika da ga kreira.
+
 \subsection{PJISP assignment}
+``PJISP assignment'' tok posla se pokreće na događaj \texttt{push} ili \texttt{pull-request} na glavnoj - \texttt{master} grani. Zadužen je da svaki put nakon izmene koda na repozitorijumu proveri da li je repozitorijum spreman za pregledanje od strane profesora i davanje studentima u vidu zadatka ili kolokvijuma.
+
+Kod toka posla izgleda ovako:
+
+\begin{verbatim}
+    name: PJISP assignment
+    on:
+      push:
+        branches: [ master ]
+      pull_request:
+        branches: [ master ]
+    jobs:
+      build:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: actions/checkout@v2
+        - name: Set up Python 2.7
+          if: ${{ ! contains(github.repository,'pjisp-assignment-template') }}
+          uses: actions/setup-python@v1
+          with:
+            python-version: 2.7
+        - name: Install pipenv
+          if: ${{ ! contains(github.repository,'pjisp-assignment-template') }}
+          uses: dschep/install-pipenv-action@v1
+        - name: Run test
+          if: ${{ ! contains(github.repository,'pjisp-assignment-template') }}
+          run: |
+            pipenv install
+            pipenv run make assignment-check
+\end{verbatim}
+
+Ovaj tok posla u sebi ima jedan posao koji se sastoji od četiri koraka. Posao se pokreće na Ubuntu operativnom sistemu na najnovijoj verziji. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak instalira Pythonu verziji 2.7 u okruženju pokretača. Treći korak je zadužen za instaliranje Pipenv-a, alata za upravljanje Python paketima koji \textit{pjisp-assignment-template} koristi. Ova tri koraka izvršavaju već postojeće akcije iz GitHub prodavnice, prva 2 koriste oficijalne GitHub-ove akcije, dok treći koristi akciju koju je neki od korisnika napisao i objavio.
+
+Svi koraci osim prvog imaju uslov pod kojim se izvršavaju, a to je da u svom nazivu ne sadrže \textit{``pjisp-assignment-template''}. Ovaj uslov osigurava se na \textit{pjisp-assignment-template} repozitorijumu neće pokretati ovi koraci, pošto je on samo šablonski repozitorijum i nikada neće sadržati konkretan zadatak za studente, pa samim tim nema smisla testirati njegovu ispravnost.
+
+Poslednji, četvrti korak je zadužen za pokretanje testiranja zadatka. Prvo se instaliraju zavisnosti projekta korišćenjem Pipenv alata, a onda se pokreće \textit{assignment-check} funkcionalnost. Ova funkcionalnost prvo pokreće \textit{assignment-diff}. \textit{Assignment-diff} proverava da li su izmenjene sve datoteke koje potrebno menjati i da li su ostale nepromenjene sve datoteke koje ne bi trebalo menjati. Ako se uspešno izvrši, prelazi se na \textit{test-solution} funkcionalnost. Ako se ne izvrši uspešno, onda se izvršavanje koraka, a zatim i celog toka posla prekida i zadatak se smatra neispravnim. \textit{Test-solution} funkcionalnost ispituje ispravnost primera rešenja na osnovu testova opisanih u \textit{.yaml} datotekama. Ako se barem jedan test ne izvrši ispravno, prekida se izvršavanje koraka, a zatim i celog toka posla i zadatak se smatra neispravnim. Potrebno je da svi se testovi uspešno izvrše da bi se zadatak smatrao ispravnim. Ako se u bilo kojem momentu prekine izvršavanje toka posla, bedž se postavlja na \textit{failing} vrednost. Ako se ceo tok posla uspešno završi, bedž se postavlja na \textit{passing} vrednost, što znači da je zadatak ispravan i spreman za pregledanje ili rađenje od strane studenata.
 
 \chapter{Primeri korišćenja}
 \chapter{Diskusija i zakljuci}
