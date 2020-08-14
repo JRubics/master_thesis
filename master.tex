@@ -85,6 +85,7 @@
     \textbf{URL} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{CLI} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
     \textbf{YAML} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
+    \textbf{GCC} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
 \end{tabular}
 
 \mainmatter{}
@@ -560,7 +561,13 @@ U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na 
 
 Ova akcija se izvršava samo kada se napravi nova oznaka u repozitorijumu u obliku \textit{v*.*.*}. Sastoji se od jednog posla koji se pokreće na poslednjoj verziji Ubuntu operativnog sistema i 3 koraka. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak menja verziju u \textit{pyproject.toml} datoteci na verziju oznake koja je prouzrokovala pokretanje ove akcije. Poslednji korak koristi \textit{poetry-publish} akciju za objavljivanje nove verzije paketa. Svi ulazni porametri koriste predefinisanu verziju, samo je \texttt{pypi\_token} parametar postavljen na vrednost PyPI tokena koji se preuzima iz GitHub-ovog konteksta okruženja \texttt{secrets}.
 
-\section{Error code u smoke-test-u - zasto je potreban?}
+\section{smoke\_test}
+Još jedan alat otvorenog koda koji je korišćen i izmenjen u ovom radu je \textit{smoke\_test} \cite{smoke-test}. To je konzolna aplikacija i API koji služi za testiranje studentskih zadataka na dim (eng.\ \textit{smoke testing}). Ovaj alat se koristi i za testiranje zadataka koje nastavnici pišu kao primer tačno urađenog zadatka i samim tim se koristi u okviru \textit{pjisp-assignment-template} alata.
+
+Zadatak koji ovaj alat očekuje treba da bude napisan u programskom jeziku C ili nekom jeziku od kojeg je GCC progrmaski prevodilac sposoban da napravi izvršnu datoteku. Zadatak se prvobitno kompajlira pomoću GCC-a. Nakon toga zadatak se testira na slučajeve korišćenja opisane u \textit{.yaml} datotekama koje nastavnici pripremaju prilikom kreiranja zadatka. Oblik pojedinačnog test slučaja je uvezani par datoteka koje sadrže, respektivno, ulazne vrednosti i očekivani izlazni oblik, koji je rešenje zadatka dužno da ispoštuje. Svaki slučaj korišćenja vraća rezultat onoga za šta je bio zadužen da testira u obliku očekivane vrednosti i vrednosti koja se dobije evaluacijom studentskog rešenja. Rezultati svih slučajeva na koje se zadatak testira se grupišu u jedan krajnji rezultat koji se prikazuje korisniku.
+
+Rezultat je u ljudski čitljivom formatu, ali je izlazni kod u svakom slučaju, bilo pri pozitivnoj ili negativnoj evaluaciji studentskog rešenja uvek bio \textit{0}. Da bi \textit{smoke\_test} alat mogao da se upotrebi u okviru GitHub akcije koja proverava ispravnost rešenja koje nastavnik kreira, i da bi se izvršavanje akcije prekinulo u slučaju negativne evaluacije studentskog rešenja, izmenjen je izlazni kod na vrednost \textit{1} ako ponuđeno rešenje ne ispunjava sve uslove navedene u \textit{.yaml} datotekama. Kada GitHub akcija u bilo kojem koraku dobije rezultat različit od \textit{0}, smatra se da taj korak nije uspešno izvršen i ne prelazi se na naredne korake. U slučaju \textit{pjisp-assignment-template} alata, to znači da nastavnik nije dobro napisao primer ispravnog rešenja i da mora da ga ispravi.
+
 \section{pjisp-assignment-template}
 pisi izmene
 
