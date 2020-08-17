@@ -358,7 +358,7 @@ Komande koje takođe interaguju sa \textit{pyproject.toml} datotekom, ali je ne 
 \begin{itemize}
     \item \texttt{poetry install} - instalira pakete definisane u \textit{pyproject.toml} datoteci
     \item \texttt{poetry update} - ažurira pakete u skladu sa verzijama koje pišu u \textit{pyproject.toml} datoteci
-    \item \texttt{poetry lock} - zaključava pakete u prijektu
+    \item \texttt{poetry lock} - zaključava pakete u projektu
     \item \texttt{poetry check} - proverava ispravnost \textit{pyproject.toml} datoteke
 \end{itemize}
 
@@ -403,7 +403,65 @@ Paket se objavljuje pozivanjem komande:
 U tom momentu, paket postaje dostupan na izabranom repozitorijumu i svako ko ima pristup repozitorijumu može da instalira paket. Najčešće se paketi objavljuju na PyPI repozitorijumu.
 
 \section{Pipenv}
-zbog pjisp-assignment-template-a
+Pipenv \cite{pipenv} je alat za upravljanje paketima koje Python projekat koristi. Zaduzen je da automatski kreira i upravlja virtuelnim okruženjem i da dodaje i briše pakete iz \textit{Pipfile} datoteke svaki put kada se instalira ili deinstalira neki Python paket. \textit{Pipfile} datoteka čuva informacije o paketima i verzijama paketa koje se koriste u okviru virtuelnog okruženja. Pipenv na osnovu ove datoteke zaključava verzije paketa u projektu u okviru \textit{Pipfile.lock} datoteke i time omogućava upotrebu istih zavisnih paketa u bilo kojem okruženju.
+
+Pipenv alat je prilagođen da radi na različitim platformama, izmeđuostalog na Linux­u, Windows­u, MacOS-u i BSD-u.
+
+\subsection{Podešavanje Pipenv-a}
+
+Pipenv se, kao i svi drugi Python alati, instalira korišćenjem pip instalera za Python pakete kucanjem sledeće komande u konzoli:
+
+\begin{verbatim}
+pip install pipenv
+\end{verbatim}
+
+\subsection{Kreiranje projekta i upotreba Pipenv-a}
+
+Nakon isntalacije alata, moguće je kreirati projekat koji koristi Pipenv za upravljanje paketima ili dodati Pipenv u postojeći projekat i time kreirati virtuelno okruženje u kojem će se izvršavati naredne akcije. Ovo se postiže pozivanjem komande:
+
+\begin{verbatim}
+pipenv install
+\end{verbatim}
+
+u direktorijumu u kojem se nalazi ili će se nalaziti projekat čijim paketima Pipenv upravlja. Tada će se kreirati \textit{Pipfile} datoteka koja čuva sve bitne informacijeo projektu. Ova datoteka u početku izgleda ovako:
+
+\begin{samepage}
+    \begin{verbatim}
+    [[source]]
+    name = "pypi"
+    url = "https://pypi.org/simple"
+    verify_ssl = true
+
+    [dev-packages]
+
+    [packages]
+
+    [requires]
+    python_version = "3.8"
+    \end{verbatim}
+\end{samepage}
+
+Informacije o samom projektu nalaze se u prvom segmentu - \texttt{[[source]]}. Informacije o paketima koje projekat koristi nalaze se u naredne dve sekcije - \texttt{[dev-packages]} i \texttt{[packages]}, gde se u prvoj od ove dve sekcije nalaze informacije o paketima koji se koriste u toku razvoja projekta, a u drogoj informacije o paketima koji se koriste u produkcionom okruženju. Pri instalaciji novog paketa, njegov naziv i verzija će se dopisati u jednu od ove dve sekcije, ili u obe ako je to potrebno. Poslednja sekcija - \texttt{[requires]} specificira verziju paketa koju je potrebno instalirati.
+
+Ovu datoteku je moguće ručno menjati, ali se sa njom najčešće interaguje pozivanjem pipenv komandi u konzoli. Neke od tih komandi su:
+
+\begin{itemize}
+    \item \texttt{pipenv install} - ako se navede naziv paketa, dodaje taj paket u virtuelno okruženje i \textit{Pipfile} datoteku
+    \item \texttt{pipenv uninstall} - deinstalira paket iz virtuelnog okruženja i brše ga iz \textit{Pipfile} datoteku
+\end{itemize}
+
+Za kreiranje \textit{Pipfile.lock} datoteke koristi se komanda:
+
+\begin{verbatim}
+pipenv lock
+\end{verbatim}
+
+Pokretanje komandi u virtuelnom okruženju opisanom u \textit{Pipfile} datoteci može se uraditi na dva načina:
+
+\begin{itemize}
+    \item \texttt{pipenv shell} - kreira konzolu u virtuelnom okruženju i onda se naredne komande pozivaju u toj konzoli
+    \item \texttt{pipenv run} - očekuje komandu kao argument i pokreće je u virtuelnom okruženju
+\end{itemize}
 
 \section{Bash}
 
