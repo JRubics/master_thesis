@@ -137,7 +137,7 @@ Moguće mu je pristupiti preko CLI verzije, desktop verzije, ekstenzije za Visua
 \subsection{Upravljanje projektima}
 Upravljanje projektom je proces koji je potreban u bilo kojem većem programerskom projektu. Menadžeri projekta su zaduženi da prate razvoj projekta i upućuju programere u razvoj narednih delova projekata, kao i da upravljaju raspoređivanjem vremena rada na različitim zadacima koje projekat iziskuje.
 
-GitHub nudi mogućnost koridinacije projektom, praćenje razvoja i menjanje statusa projekta na jednom mestu. Kordinacija započinje kreiranjem zadataka (eng.\ \textit{tasks}) koji traže izmene koda ili unapređenja projekta. Zadaci mogu biti u obliku greške/pitanja (eng.\ \textit{issue}), komentara (eng.\ \textit{comment}) ili pull-request-a, što podrazumeva kreiranje celine koja je spremna za spajanje sa glavnom granom na projektu. Zadacima se dodeljuju osobe koje su zadužene za njih. Time će oni dobijati obaveštenja kada dođe do bilo koje izmene u kodu vezane za njihov deo posla. Zadacima je moguće dodeliti i prioritet i oznake, što dodatno olakšava proces upravljanja projektom.
+GitHub nudi mogućnost koridinacije projektom, praćenje razvoja i menjanje statusa projekta na jednom mestu. Kordinacija započinje kreiranjem zadataka (eng.\ \textit{tasks}) koji traže izmene koda ili unapređenja projekta. Zadaci mogu biti u obliku greške/pitanja (eng.\ \textit{issue}), komentara (eng.\ \textit{comment}) ili pull-request-a, što podrazumeva kreiranje celine koja je spremna za spajanje sa glavnom granom na projektu. Zadacima se dodeljuju osobe koje su zadužene za njih. Time će oni dobijati obaveštenja kada dođe do bilo koje izmene u projektu vezane za njihov deo posla. Zadacima je moguće dodeliti i prioritet i oznake, što dodatno olakšava proces upravljanja projektom.
 
 Sve ove informacije moguće je pratiti i menjati u formi tabele (eng.\ \textit{board}) ili u repozitorijumu na kojem se projekat nalazi. Svaki zadatak ima unikatan URL na kojem se mogu videti sve potrebne informacije vezane za njega. Čuva se i istorija svih zadataka i izmena na projektu, kojima se stvara uvid u proces razvoja projekta. Po završetku svih zadataka, urpavljanje projektom se završava i projekat se označava kao završen.
 
@@ -149,7 +149,7 @@ Takođe, moguće je dodati u repozitorijum dokumente koji se tiču projekta, kao
 \subsection{Pregled i komentarisanje koda}
 Komunikacija između učesnika na projektu doprinosi kvalitetu izrade samog projekta. Pored podele zadataka i raspoređivanja vremena za svaki zadatak, javlja se potreba i za diskutovanjem koda koji se dodaje u obliku pull-request-a.
 
-Pri kreiranju pull-request-a, GitHub nudi prikaz svih izmena u odnosu na granu sa koje su izmene krenule i na koju bi se dodale ako je sve u redu. Taj prikaz je dostupan svima koji učestvuju u izradi projekta. Moguće je, dodatno, zamoliti nekoga od učesnika da pregleda izmene pre njihovog spajanja sa odabranom granom (eng.\ \textit{requests a review}). Na svakoj od izmena, moguće je dodati poruku, koja otvara mogućnost diskusije sa ostalim učesnicima projekta. Po zavšetku, osoba koja je zadužena da pregleda izmene može da odobri ili dobije pull-request, uz mogućnost traženja dodatnih izmena pre odobrenja.
+Pri kreiranju pull-request-a ili izmena u kodu (eng.\ \textit{commit}), GitHub nudi prikaz svih izmena u odnosu na granu sa koje su izmene krenule i na koju bi se dodale ako je sve u redu. Taj prikaz je dostupan svima koji učestvuju u izradi projekta. Moguće je, dodatno, zamoliti nekoga od učesnika da pregleda izmene pre njihovog spajanja sa odabranom granom (eng.\ \textit{requests a review}). Na svakoj od izmena, moguće je dodati poruku, koja otvara mogućnost diskusije sa ostalim učesnicima projekta. Po zavšetku, osoba koja je zadužena da pregleda izmene može da odobri ili dobije pull-request, uz mogućnost traženja dodatnih izmena pre odobrenja.
 
 Takođe, pri kreiranju pull-request-a, GitHub automatski pregleda kod u potrazi za bezbednosnim propustima ili konfliktima sa granom sa kojom se trenutna grana spaja. Ako ih ima, GitHub obaveštava korisnika i traži izmenu pre odobrenja i spajanja koda.
 
@@ -519,28 +519,28 @@ Alat \textit{pjisp-diff} \cite{pjisp-diff} je aplikacija koja služi kao pomoćn
 Pored provere da li su promenjene sve potrebne datoteke, ovaj alat proverava i da li su ostale nepromenjene sve pomoćne datoteke koje nije dozvoljeno menjati. Datoteke koje je potrebno menjati zavise od ulaznog parametra, šablona spram kojeg se kreira zadatak. Datoteke koje je potrebno uvek menjati su:
 
 \begin{itemize}
-    \item \texttt{assignment\_solution.c}
-    \item \texttt{assignment.rst}
+    \item \textit{assignment\_solution.c}
+    \item \textit{assignment.rst}
 \end{itemize}
 
 Ako je vrednost ulaznog parametra jednaka ``T12'', potrebno je menjati:
 
 \begin{itemize}
-    \item \texttt{fixtures/stdio-numbers.yaml}
+    \item \textit{fixtures/stdio-numbers.yaml}
 \end{itemize}
 
 Ako je šablon vrednost ulaznog parametra jednaka ``T34'' ili ``SOV'', potrebno je menjati:
 
 \begin{itemize}
-    \item \texttt{fixtures/file-error-input-not-readable.yaml}
-    \item \texttt{fixtures/file-error-output-not-writable.yaml}
-    \item \texttt{fixtures/fixtures/file-text.yaml}
+    \item \textit{fixtures/file-error-input-not-readable.yaml}
+    \item \textit{fixtures/file-error-output-not-writable.yaml}
+    \item \textit{fixtures/fixtures/file-text.yaml}
 \end{itemize}
 
 Datoteka koju nije dozvoljeno menjati je:
 
 \begin{itemize}
-    \item \texttt{assignment\_notes.rst}
+    \item \textit{assignment\_notes.rst}
 \end{itemize}
 
 Ako su po završetku programa izmenjene sve potrebne datoteke i nisu izmenjene one koje ne smeju da se menjaju, alat vraća \textit{0} kao vrednost izlaznog koda. U suprotnom, alat vraća vrednost \textit{1} uz jednu ili više poruka u obliku: \textit{``Please change the <filename> file.''} ili \textit{``Please do not change the <filename> file.''}. U ovom slučaju,\textit{<filename>} predstavlja naziv datoteke koja nije izmenjena, a treba da bude ili je izmenjena, a ne treba da bude menjana.
@@ -743,7 +743,7 @@ Peti korak služi za kreiranje bedža i njegovo dodavanje u \textit{README.rst} 
 
 Poslednji, šesti korak je zadužen da postavi sve novonastale izmene na GitHub repozitorijum. Za tu aktivnost je potrebno podesiti email i korisničko ime korisnika koji postavlja ove izmene. U tu svrhu se koristi predefinisani korisnik radi razlikovanja sadržaja koji je pravi korisnik postavio i onog koji je GitHub akcija kreirala. Nakon postavljanja ovih izmena, sve nove datoteke nalaze se na GitHub repozitorijumu i bedž je vidljiv na vrhu \textit{README.rst} datoteke.
 
-Po izvršavanju celog ovog toka podataka, repozitorijum je spreman za preuzimanje i kreiranje studentskog zadatka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnika da ga kreira.
+Po izvršavanju celog ovog toka podlova, repozitorijum je spreman za preuzimanje i kreiranje studentskog zadatka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnika da ga kreira.
 
 \subsection{PJISP assignment}
 ``PJISP assignment'' tok posla se pokreće na događaj \texttt{push} ili \texttt{pull-request} na glavnoj - \texttt{master} grani. Zadužen je da svaki put nakon izmene koda na repozitorijumu proveri da li je repozitorijum spreman za pregledanje od strane profesora i davanje studentima u vidu zadatka ili kolokvijuma.
@@ -784,6 +784,211 @@ Svi koraci osim prvog imaju uslov pod kojim se izvršavaju, a to je da u svom na
 Poslednji, četvrti korak je zadužen za pokretanje testiranja zadatka. Prvo se instaliraju zavisnosti projekta korišćenjem Pipenv alata, a onda se pokreće \textit{assignment-check} funkcionalnost. Ova funkcionalnost prvo pokreće \textit{assignment-diff}. \textit{Assignment-diff} proverava da li su izmenjene sve datoteke koje potrebno menjati i da li su ostale nepromenjene sve datoteke koje ne bi trebalo menjati. Ako se uspešno izvrši, prelazi se na \textit{test-solution} funkcionalnost. Ako se ne izvrši uspešno, onda se izvršavanje koraka, a zatim i celog toka posla prekida i kreiranje zadatka se smatra neuspešnim. \textit{Test-solution} funkcionalnost ispituje ispravnost primera rešenja na osnovu testova opisanih u \textit{.yaml} datotekama. Ako se barem jedan test ne izvrši ispravno, prekida se izvršavanje koraka, a zatim i celog toka posla i primer rešenja zadatka se smatra neispravnim. Potrebno je da se svi testovi uspešno izvrše da bi se zadatak smatrao ispravnim. Ako se u bilo kojem momentu prekine izvršavanje toka posla, bedž se postavlja na \textit{failing} vrednost. Ako se ceo tok posla uspešno završi, bedž se postavlja na \textit{passing} vrednost, što znači da je zadatak ispravan i spreman za pregledanje ili rađenje od strane studenata.
 
 \chapter{Primeri korišćenja}
+Ovo poglavlje prikazuje primer korišćenja \textit{pjisp-assignment-template} alata. Akcenat je stavljen na akcije koje se izvršavaju prilikom kreiranja ili izmene projekta. U njima se vide funkcionalnosti koje uvodi projekat o kojem ovaj rad govori.
+
+U narednim sekcijama biće prikazan proces kreiranja repozitorijuma i onda nekoliko primera kreiranja zadatka. Prvo će biti prikazan ispravan način kreiranja zadatka, a zatim nekoliko primera grešaka koje nastavnik može da napravi, a koje će alati primetiti i omogućiti nastavniku da ih otkloni uz ponovnu proveru ispravnosti nakon toga.
+
+\section{Primer kreiranja repozitorijuma}
+
+Za kreiranje repozitorijuma sa zadatkom, potrebno je otići na \url{https://github.com/petarmaric/pjisp-assignment-template} URL i pritisnuti zeleno dugme - \textit{``Use this template''}
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/1.png}
+    \caption{Kreiranje repozitorijuma - šablon}
+\end{figure}
+
+Nakon toga se korisniku prikazuje novi prozor, sa formom za kreiranje repozitorijuma iz šablona:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/2.png}
+    \caption{Kreiranje repozitorijuma - popunjavanje forme}
+\end{figure}
+
+Od korisnika se očekuje da unese naziv repozitorijuma i da repozitorijum učini privatnim. Nakon pritiska na dugme \textit{``Create repository from template''} započinje generisanje repozitorijuma:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{images/3.png}
+    \caption{Generisanje repozitorijuma}
+\end{figure}
+
+Po završetku kreiranja repozitorijuma, na korisnikovom nalogu se pojavljuje repozitorijum sa unetim nazivom i svim potrebnim datotekama za kreiranje zadatka za studente:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/4.png}
+    \caption{Repozitorijum}
+\end{figure}
+
+Izmeđuostalog, generiše se i \textit{README.rst} datoteka na čijem početku se za sada ne nalazi ni jedan bedž:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/5.png}
+    \caption{\textit{README.rst} - nema bedž}
+\end{figure}
+
+Uporedno sa kreiranjem repozitorijuma, u odeljku \textit{Actions} se pokreću dva GitHub toka poslova:
+
+\begin{enumerate}
+    \item \textbf{Project create} - pri kreiranju repozitorijuma
+    \item \textbf{PJISP Assignment} - pri inicijalnoj izmeni repozitorijuma (što je u ovom slučaju kreiranje)
+\end{enumerate}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/6.png}
+    \caption{Prikaz tokova poslova}
+\end{figure}
+
+Svakom od tokova poslova moguće je pojedinačno pristupiti i pogledati njegov spisak poslova i koraka:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/7.png}
+    \caption{Prikaz poslova i koraka}
+\end{figure}
+
+Pritiskom mišem na neki od koraka, prikazuju se detalji njegovog izvršavanja:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/8.png}
+    \caption{Detalji izvršavanja koraka}
+\end{figure}
+
+Nakon završetka izvršavanja, odeljak \textit{Actions} će imati jedan uspešno i jedan neuspešno završen tok poslova:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/9.png}
+    \caption{Završetak izvršavanja tokova poslova}
+\end{figure}
+
+Uspešno završen tok poslova je onaj koji se pokreće pri kreiranju repozitorijuma. Nesupešno završen tok posla je onaj koji testira ispravnost zadatka. Ovakav rezultat je i očekivan, pošto nastavnik još uvek nije kreirao zadatak.
+
+Odeljak \textit{PJISP Assignment} toka poslova prikazuje koji posao se neuspešno izvršio:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/10.png}
+    \caption{``PJISP assignment'' - neuspešno izvršavanje posla}
+\end{figure}
+
+Pritiskom mišem na neuspešno izvršen posao dobijaju se detalji o koraku koji je pouzrokovao neuspešno izvršavanje:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/11.png}
+    \caption{``PJISP assignment'' - detalji o neuspešnom izvršavanju posla}
+\end{figure}
+
+U ovom slučaju, to je nedostatak \textit{assignment\_solution.c} datoteke.
+
+Pri izvršavanju \textit{Project create} toka posla, u \textit{README.rst} datoteku je dodat bedž na vrh. On za sada ima \textit{failing} vrednost zbog neuspešnog izvršavanja \textit{PJISP Assignment} toka poslova:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/12.png}
+    \caption{\textit{README.rst} - failing bedž}
+\end{figure}
+
+Dodate su i datoteke specifične za T12 test:
+
+\begin{itemize}
+    \item \textit{assignment\_solution.c}
+    \item \textit{assignment.rst}
+    \item \textit{assignment\_notes.rst}
+    \item \textit{fixtures/stdio-numbers.yaml}
+\end{itemize}
+
+Ovim je završeno izvršavanje tokova poslova koji se pokreću pri kreiranju repozitorijuma, i on je spreman za pravljenje zadatka.
+
+\section{Primer sa ispravnim kreiranjem zadatka}
+
+Kada nastavnik izmeni sve potrebne datoteke i doda novu izmenu na GitHub, ponovo se pokreće \textit{PJISP Assignment} tok poslova:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/13.png}
+    \caption{Prikaz tokova poslova}
+\end{figure}
+
+Pri uspešnom izvršavanju ovog toka poslova, bedž na početku \textit{README.rst} datoteke dobija \textit{passing} vrednost:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/14.png}
+    \caption{\textit{README.rst} - passing bedž}
+\end{figure}
+
+Ovim se uspešno završava kreiranje zadatka i on je spreman za pregledanje od strane profesora.
+
+\section{Primer sa neispravnim testovima}
+
+Ako se pri ponovnom pokretanju \textit{PJISP Assignment} toka poslova neki od testova ne izvrši uspešno, prikaz detalja o poslu će napisati razlog neuspešnog izvršavanja testa, a samim tim i toka posla:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/15.png}
+    \caption{Kada se neki od testova neuspešno izvrši}
+\end{figure}
+
+U ovom primeru, test \texttt{stdio-numbers:n=10} imao je neočekivan izlaz i zato je dalje izvršavanje toka posla obustavljeno. Zbog toga, bedž na početku \textit{README.rst} datoteke dobija \textit{failing} vrednost.
+
+\section{Primer sa neispravnim izmenama datoteka}
+
+Ako se pri ponovnom pokretanju \textit{PJISP Assignment} toka poslova neka od datoteka koje je potrebno izmeniti ne izmeni ili se izmeni neka od datoteka koje se ne smeju menjati, prikaz detalja o poslu će obavestiti korisnika koja izmena nije odgovarajuća i obustaviće izvršavanje toka posla:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/16.png}
+    \caption{Kada se ne izmeni datoteka koju je potrebno izmeniti}
+\end{figure}
+
+U ovom primeru nije izmenjena datoteka \textit{fixtures/stdio-numbers.yaml} i zbog toga se prikazuje poruka \textit{``Please change the fixtures/stdio-numbers.yaml file.''} i vraća se izlazni kod \textit{1}, a zatim se tok poslova prekida sa izlaznim kodom \textit{2}. Zbog toga, bedž na početku \textit{README.rst} datoteke dobija \textit{failing} vrednost.
+
+\section{Primer sa neispravnim nazivom repozitorijuma}
+
+Pri kreiranju repozitorija, korisnik je u mogućnosti da unese neipravan naziv repozitorijuma i nakon toga pokrene kreiranje repozitorijuma:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{images/17.png}
+    \caption{Kreiranje repozitorijuma sa neispravnim nazivom}
+\end{figure}
+
+U tom slučaju će se \textit{Project create} tok podataka neuspešno izvršiti:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/18.png}
+    \caption{Prikaz tokova poslova}
+\end{figure}
+
+Prikaz detalja o koracima će dati korisniku razlog neuspešnog izvršavanja:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/19.png}
+    \caption{Kada dužina naziva repozitorijuma nije odgovarajuća}
+\end{figure}
+
+U ovom slučaju, to je neodgovarajuća dužina naziva repozitorijuma. Zbog toga, izvršavanje ovog toka posla se zaustavlja i preostala dva koraka posla u kojem je došlo do problema se neće izvršiti.
+
+Ako je ipak dužina naziva dobra, ali neki od delova naziva ne odgovara šablonu davanja naziva repozitorijumu, ispisuje se poruka o tome i obustavlja se izvršavanje toka posla:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/20.png}
+    \caption{Kada naziv repozitorijuma nije odgovarajuć}
+\end{figure}
+
+U ovom slučaju, problem je u tome što je kao naziv testa navedeno T56, iako su T12, T34 ili SOV jedine moguće opcije. Zbog toga korisnik dobija poruku \textit{``Repository name not valid. Error on T56''}.
+
 \chapter{Diskusija i zakljuci}
 \section{Da li su github akcije spremne za produkciju?}
 \chapter{Literatura}
