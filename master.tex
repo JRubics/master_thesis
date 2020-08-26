@@ -82,11 +82,11 @@
 \chaptermark{Skraćenice}
 \begin{tabular}{ l l }
     \textbf{API} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
-    \textbf{URL} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
-    \textbf{CLI} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
-    \textbf{YAML} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
-    \textbf{GCC} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
-    \textbf{PDF} & -- \textit{Application programming interface}, Interfejs za programiranje aplikacija \\
+    \textbf{CLI} & -- \textit{Command line interface}, Interfejs komandne linije \\
+    \textbf{GCC} & -- \textit{GNU compiler collection}, GNU kolekcija kompajlera \\
+    \textbf{PDF} & -- \textit{Portable Document Format}, Portabilni format dokumenata \\
+    \textbf{URL} & -- \textit{Uniform resource locator}, Jedinstveni lokator resursa \\
+    \textbf{YAML} & -- \textit{YAML Ain't Markup Languag}, YAML nije jezik za označavanje \\
 \end{tabular}
 
 \mainmatter{}
@@ -94,7 +94,8 @@
 U današnje vreme
 
 \chapter{Teorijske osnove}
-U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. NABROJ
+U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. Tu grupu čini pre svega Open source razvoj kao koncept pod kojim je ovaj projekat razvijen. Zatim se navode osnove karakteristike Sistema za praćenje verzija datoteka i Git kao glavni predstavnik takvih sistema. Naredno poglavlje se nadovezuje pričom o GitHub-u. Ostala poglavlja bave se Python programskim jezikom, njegovim paketima, repozitorijumom za te pakete i alatima za upravljanje paketima - Poetry-jem i Pipenv-om.
+
 \section{Open source razvoj}
 \section{Sistem za praćenje verzija datoteka}
 Sistem za praćenje verzija datoteka (eng.\ \textit{version control system}) je sistem zadužen za praćenje istorije promena u datotekama. Promena koja se pamti se najčešće naziva revizija. Sve promene se uglavnom čuvaju na centralizovanom sistemu za skladištenje podataka i svi korisnici sa potrebnim privilegijama mogu da mu pristupaju, preuzmu najnoviju verziju datoteke ili grupe datoteka, izmene ih i zatim objave novu verziju koja se od tog momenta smatra najnovijom.
@@ -131,7 +132,7 @@ U ovom trenutku, GitHub se smatra najpopularnijim alatom ovog tipa i trenutno br
     \item Akcije
 \end{enumerate}
 
-Moguće mu je pristupiti preko CLI verzije, desktop verzije, ekstenzije za Visual Studio program za uređivanje datoteka i mobilne aplikacije.
+Moguće mu je pristupiti preko CLI verzije, desktop verzije, ekstenzije za Visual Studio program za uređivanje datoteka (eng.\ \textit{text editor}) i mobilne aplikacije.
 
 \subsection{Upravljanje projektima}
 Upravljanje projektom je proces koji je potreban u bilo kojem većem programerskom projektu. Menadžeri projekta su zaduženi da prate razvoj projekta i upućuju programere u razvoj narednih delova projekata, kao i da upravljaju raspoređivanjem vremena rada na različitim zadacima koje projekat iziskuje.
@@ -153,7 +154,7 @@ Pri kreiranju pull-request-a, GitHub nudi prikaz svih izmena u odnosu na granu s
 Takođe, pri kreiranju pull-request-a, GitHub automatski pregleda kod u potrazi za bezbednosnim propustima ili konfliktima sa granom sa kojom se trenutna grana spaja. Ako ih ima, GitHub obaveštava korisnika i traži izmenu pre odobrenja i spajanja koda.
 
 \subsection{Integracija}
-Pored samog pisanja aplikacije, često se javlja potreba za testiranjem i pracenjem (eng.\ \textit{monitoring}) aplikacije, automatizovanim postavljanjem u produkciju (eng.\ \textit{deployment}), kontinualnom integracijom (eng.\ \textit{continuous integration}), proverom kvaliteta koda (eng.\ \textit{code quality}) i drugim pomocnim aktivnostima u procesu razvoja softver-a.
+Pored samog pisanja aplikacije, često se javlja potreba za testiranjem i praćenjem (eng.\ \textit{monitoring}) aplikacije, automatizovanim postavljanjem u produkciju (eng.\ \textit{deployment}), kontinualnom integracijom (eng.\ \textit{continuous integration}), proverom kvaliteta koda (eng.\ \textit{code quality}) i drugim pomoćnim aktivnostima u procesu razvoja softver-a.
 
 Pošto GitHub nije u mogućnosti da ponudi sve te aktivnosti, omogućio je proces integracije sa servisima koji ih nude. Svi ovi servisi mogu se pronaći u GitHub prodavnici (eng.\ \textit{marketplace}) \cite{marketplace}. Jedna od novina u GitHub prodavnici su GitHub akcije koje će biti jedna od centralnih tema ovog rada, a biće opisane u jednoj od narednih sekcija.
 
@@ -168,9 +169,9 @@ Bezbednost u softverskim rešenjima igra veoma bitnu ulogu i najčešće zavisi 
 Neke od mogućnosti koje GitHub nudi za poboljšanje bezbednosti koda koji se nalazi na njemu su:
 
 \begin{itemize}
-    \item \textbf{Automatsko skeniranje koda} - pri dodavanju koda na repozitorijum, pokreće se automatsko skeniranje koda na poznate bezbednosne propuste i obaveštava se korisnika ako se pronađe neki od njih
+    \item \textbf{Automatsko skeniranje koda} - pri dodavanju koda na repozitorijum, pokreće se automatsko skeniranje koda na poznate bezbednosne propuste i obaveštava se korisnik ako se pronađe neki od njih
     \item \textbf{Definisanje bezbednosnog procesa rada projekata otvorenog koda} - omogućava definisanje bezbednosnih polisa u okviru \textit{SECURITY.MD} datoteke u repozitorijumu u kojoj se navode sve potrebne informacije o tome koje bezbednosne probleme i na koji način treba da prijave korisnici koji ih pronađu
-    \item \textbf{Diskutovanje o uticaju bezbednosnih propusta} - kada neki od korisnika prijavi bezbednosni propust ili grešku u kodu, GitHub nudi prostor za komentarisanje i razmenu mišljenja vezanih za postavljeni problem
+    \item \textbf{Diskutovanje o uticaju bezbednosnih propusta} - kada neki od korisnika prijavi bezbednosni propust ili grešku u kodu, GitHub nudi prostor za komentarisanje i razmenu mišljenja vezanog za postavljeni problem
     \item \textbf{Automatsko skeniranje zavisnosti} - slično skeniranju koda, pokreće se automatsko skeniranje zavisnosti nekog projekta - odnosno svih drugih softverskih rešenja od kojih projekat zavisi. Ako neko od njih ima bezbednosni propust, korisnik se obaveštava o tome. Ovakvi problemi često budu otklonjeni u narednoj verziji rešenja od kojeg projekat zavisi, pa GitHub često nudi promenu verzije kao rešenje ovakvog problema. Ovaj proces se nastavlja za vreme životnog ciklusa projekta, i ako se u bilo kojem momentu pronađe bezbednosni propust, automatski se kreira pull-request sa ispravkom
     \item \textbf{Pretraga kredencijala} - korisnicima se može desiti da slučajno upišu kredencijale za neki od eksternih servisa u kod projekta. Takvi kredencijali imaju specifičan oblik koji GitHub prepoznaje za preko 24 servisa i obaveštava korisnika ako ih pronađe
 \end{itemize}
@@ -185,17 +186,17 @@ Kao što vidimo iz prethodnih sekcija, GitHub nudi mnoge mogućnosti pored njego
 Neki od događaja na koje je moguće reagovati su:
 
 \begin{itemize}
-    \item \texttt{create} - pokreće se izvršavanje svaki put kada se kreira nova granu ili oznaka
-    \item \texttt{delete} - pokreće se izvršavanje svaki put kada se obriše granu ili oznaka
+    \item \texttt{create} - pokreće se izvršavanje svaki put kada se kreira nova grana ili oznaka
+    \item \texttt{delete} - pokreće se izvršavanje svaki put kada se obriše grana ili oznaka
     \item \texttt{fork} - pokreće se izvršavanje pri račvanju novog projekta iz trenutnog projekta
-    \item \texttt{gollum} - pokreće se izvršavanje svaki put kada se kreira ili izmeni Wiki stranica
-    \item \texttt{issues} - pokreće se izvršavanje svaki put kada se desi issue događaj. što podrazumeva otvaranje teme sa pitanjem, njenu izmenu, zatvaranje, brisanje, označavanje, itd.
+    \item \texttt{gollum} - pokreće se izvršavanje svaki put kada se kreira ili izmeni Wiki stranica vezana za projekat
+    \item \texttt{issues} - pokreće se izvršavanje svaki put kada se desi \textit{issue} događaj. što podrazumeva otvaranje teme sa pitanjem, njenu izmenu, zatvaranje, brisanje, označavanje, itd.
     \item \texttt{issue\_comment} - pokreće se izvršavanje svaki put kada se doda, izmeni ili obriše komentar na otvorenom pitanju
     \item \texttt{label} - pokreće se izvršavanje svaki put kada se doda, izmeni ili obriše oznaka
     \item \texttt{milestone} - pokreće se izvršavanje svaki put kada se doda, izmeni ili obriše prekretnica u projektu
-    \item \texttt{project} - pokreće se izvršavanje svaki put kada se desi project događaj, što podrazumeva kreiranje, izmenu, zatvaranje ili brisanje projekta
+    \item \texttt{project} - pokreće se izvršavanje svaki put kada se desi \textit{project} događaj, što podrazumeva kreiranje, izmenu, zatvaranje ili brisanje projekta
     \item \texttt{public} - pokreće se izvršavanje svaki put kada privatni repozitorijum postane javni
-    \item \texttt{pull\_request} - pokreće se izvršavanje svaki put kada se desi pull\_request događaj. što podrazumeva otvaranje pull-request-a, izmenu, zatvaranje, brisanje, dodeljivanje, označavanje, sinhronizaciju, traženje pregledanja, itd.
+    \item \texttt{pull\_request} - pokreće se izvršavanje svaki put kada se desi \textit{pull\_request} događaj. što podrazumeva otvaranje pull-request-a, izmenu, zatvaranje, brisanje, dodeljivanje, označavanje, sinhronizaciju, traženje pregledanja, itd.
     \item \texttt{pull\_request\_review} - pokreće se izvršavanje kada se izvrši, izmeni ili obriše pregledanje pull-request-a
     \item \texttt{pull\_request\_review\_comment} - pokreće se izvršavanje kada se kreira, izmeni ili obriše komentar na pregledanju pull-request-a
     \item \texttt{push} - pokreće se izvršavanje svaki put kada se doda novi kod na granu
@@ -203,7 +204,7 @@ Neki od događaja na koje je moguće reagovati su:
     \item \texttt{release} - pokreće se izvršavanje svaki put kada se desi release događaj, što podrazumeva kreiranje, objavljivanje, izmenu ili brisanje nove verzije projekta
 \end{itemize}
 
-Takođe, moguće je zakazati izvršavanje neke akcije navođenjem tačnog datuma i vremena izvršavanja ili zakazivanje izvršavanja na primer svake nedelje u određeno vreme. Za opisivanje vremena koristi se softverski alat Cron, koji je zadužen za planiranje i zakazivanje poslova na osnovu vremena (eng.\ \textit{time-based job scheduler}) na Unix operativnim sistemima.
+Takođe, moguće je zakazati izvršavanje neke akcije navođenjem tačnog datuma i vremena izvršavanja ili zakazivanjem izvršavanja na primer svake nedelje u određeno vreme. Za opisivanje vremena koristi se softverski alat \textit{Cron}, koji je zadužen za planiranje i zakazivanje poslova na osnovu vremena (eng.\ \textit{time-based job scheduler}) na Unix operativnim sistemima.
 
 Tokovi poslova se opisuju u YAML formatu. Događaji se opisuju u okviru \textit{on} sekcije, uz dodatak \textit{type} i \textit{branch} podsekcija ako ima potrebe. Na primer:
 
@@ -227,13 +228,13 @@ Za poslove se definiše na kojem operativnom sistemu treba da se izvrše. U ponu
 
 \subsubsection{Koraci}
 
-Koraci su zaduženi za pokretanje komandi, pokretanje zadataka za podešavanje (eng.\ \textit{setup tasks}) ili pokretanje GitHub Akcija iz trenutnog repozitorijuma, nekog javnog repozitorijuma ili sa Docker registra (eng.\ \textit{registry}). Korak ne mora da ima akciju u sebi, ali svaka akcija koja se pokreće mora da se pokreće kao izolovani korak. Svaki korak se pokreće kao zaseban proces u okruženju pokretača (eng.\ \textit{runner}) i ima pristup svom okruženju i sistemu datoteka na kojem se pokreće. Ako ima potrebe, mogu postojati zasebni koraci koji se pokreću na početku i kraju posla, koji služe da pripreme okruženje pre početka izvršavanja i odrade završne aktivnosti na kraju izvršavanja.
+Koraci su zaduženi za pokretanje komandi, pokretanje zadataka za podešavanje (eng.\ \textit{setup tasks}) ili pokretanje GitHub Akcija iz trenutnog repozitorijuma, nekog javnog repozitorijuma ili sa Docker registra (eng.\ \textit{registry}). Korak ne mora da ima akciju u sebi, ali svaka akcija koja se pokreće mora da se pokreće kao izolovani korak. Svaki korak se pokreće kao zaseban proces u okruženju pokretača (eng.\ \textit{runner}) i ima pristup svom okruženju i sistemu datoteka na kojem se pokreće. Ako ima potrebe, mogu postojati zasebni koraci koji se pokreću na početku i kraju posla, koji služe da pripreme okruženje pre početka izvršavanja i odrade završne aktivnosti na kraju izvršavanja posla.
 
 Kao i posao, korak sadrži svoj unikatni id, naziv, uslov izvršavanja ako postoji, ulazne parametre, promenjive koje se preuzimaju iz okruženja, maksimalno vreme izvršavanja itd. Aktivnost koja se izvršava u toku koraka može se definisati na dva načina, upotrebom jednom od sledećih rezervisanih reči:
 
 \begin{itemize}
     \item\texttt{uses} - u slučaju kada se koristi postojeća akcija, na ovom mestu se navodi putanja do akcije (u trenutnom repozitorijumu, nekom javnom repozitorijumu ili na Docker registru) i verzija akcije u oblliku: \texttt{path/name@version}.
-    \item\texttt{run} - u slučaju kada se ne koristi postojeća akcija, već se definiše niz komandi u interfejsu komandne linije operativnog sistema. Moguće je imati više \texttt{run} komandi u okviru jednog koraka. Tada se svaka komanda pokreće kao odvojeni proces u jezgru operativnog sistema. Ako se pod jednom \texttt{run} sekcijom pokrene komanda u više linija, tada se sve komande pokreću u okviru jednog procesa. Komande se mogu pokretati u jednom od sledećih jezika komandne linije: bash, pwsh, python, sh, cmd, powershell.
+    \item\texttt{run} - u slučaju kada se ne koristi postojeća akcija, već se definiše niz komandi u interfejsu komandne linije operativnog sistema. Moguće je imati više \texttt{run} komandi u okviru jednog koraka. Tada se svaka komanda pokreće kao odvojeni proces u jezgru operativnog sistema. Ako se pod jednom \texttt{run} sekcijom pokrene komanda u više linija koja sesastoji od više komandi u jednoj liniji, tada se sve jednolinijske komande pokreću u okviru jednog procesa. Komande se mogu pokretati u jednom od sledećih jezika komandne linije: bash, pwsh, python, sh, cmd, powershell.
 \end{itemize}
 
 \subsubsection{Kontekst okruženja}
@@ -242,7 +243,7 @@ Na osnovu konteksta okruženja, moguće je odlučivati o tome da li će se neki 
 \begin{itemize}
     \item\texttt{github} - informacije o toku posla
 
-    Primer: naziv akcije, putanja do akcije, id trenutnog posla koji se izvršava, koji korisnik je zaslužan za pokretanje akcije, koji korisnik je vlasnik repozitorijuma na kojem je pokrenuta akcija, grana ili oznaka na kojo se desilo pokretanje akcije, itd.
+    Primer: naziv akcije, putanja do akcije, id trenutnog posla koji se izvršava, koji korisnik je zaslužan za pokretanje akcije, koji korisnik je vlasnik repozitorijuma na kojem je pokrenuta akcija, grana ili oznaka na kojoj se desilo pokretanje akcije, itd.
     \item\texttt{env} - sadrži promenjive koje se preuzimaju iz okruženja podešene u okviru toka posla, posla ili koraka.
     \item\texttt{job} - informacije o poslu koji se trenutno izvršava
 
@@ -258,19 +259,19 @@ Na osnovu konteksta okruženja, moguće je odlučivati o tome da li će se neki 
 \end{itemize}
 
 \subsubsection{Pisanje akcija}
-Neke od unapred definisanih akcija nudi GitHub, dok su druge napisane od strane zajednice koja ih koristi. Svako može da napiše akciju koji koristi za sebe ili da je podeli sa drugim korisnicima. Akcija se može pokretati direktno u okviru virtuelne mašine (eng.\ \textit{virtual machine}) ili u okviru Docker kontejnera. Mogu se definisati ulazni i izlazni parametri i promenjive koje se preuimaju iz okruženja.
+Neke od unapred definisanih akcija nudi GitHub, dok su druge napisane od strane zajednice koja ih koristi. Svako može da napiše akciju koju koristi za sebe ili da je podeli sa drugim korisnicima. Akcija se može pokretati direktno u okviru virtuelne mašine (eng.\ \textit{virtual machine}) ili u okviru Docker kontejnera. Mogu se definisati ulazni i izlazni parametri i promenjive koje se preuzimaju iz okruženja.
 
 Pri pisanju akcije potrebno je kreirati \textit{action.yml} ili \textit{action.yaml} dotatoku koja definiše sve informacije potrebne za izvršavanje akcije. Akcija može biti u obliku Docker kontejnera, ili opisana u JavaScript programskom jeziku. Takođe, postoje kompozitne akcije (eng.\ \textit{composite run steps action}) koje omogućavaju kombinovanje nekoliko koraka u jednu akciju.
 
 \begin{itemize}
-    \item\textbf{Docker akcije} - Docker kontejneri upakuju celokupno okruženje sa kodom GitHub akcije. Ovo čini dosta pouzdano rešenje, pozto korisnik ne mora da brine o verzijama i alatima. U kontejneru se instalira izabrana verzija operativnog sistema i svi potrebni alati, što ovakav način pisanja akcija čini pogodnim za sisteme koji moraju da se prilagode specifičnom okruženju. Mana ovog pristupa je to što je potrebno dosta vremena da se kreira i pokrene kontejner pa su ove akcije sporije od JavaScript akcija.
+    \item\textbf{Docker akcije} - Docker kontejneri upakuju celokupno okruženje sa kodom GitHub akcije. Ovaj pristup čini dosta pouzdano rešenje, pošto korisnik ne mora da brine o verzijama i alatima. U kontejneru se instalira izabrana verzija operativnog sistema i svi potrebni alati, što ovakav način pisanja akcija čini pogodnim za sisteme koji moraju da se prilagode specifičnom okruženju. Mana ovog pristupa je to što je potrebno dosta vremena da se kreira i pokrene kontejner pa su ove akcije sporije od JavaScript akcija.
     \item\textbf{JavaScript akcije} - Ove akcije se pokreću direktno na računarima pokretačima, što pojednostavljuje pisanje koda akcija i znatno ubrzava njihovo izvršavanje. Da bi se mogle izvršavati na bilo kojem operativnom sistemu, ove akcije moraju biti napisane u čistom JavaScript-u.
 \end{itemize}
 
 Akcije napisane od strane pojedinaca mogu se objaviti u GitHub prodavnici i time postati dostupne svima za korišćenje. Da bi akcija bila spremna za objavljivanje, potrebno je da se ceo kod akcije i datoteke potrebne za njeno izvršavanje nalaze u jednom repozitorijumu. Taj repozitorijum ne sme ništa drugo da sadrži. Takođe, repozitorijum mora biti javan, da bi drugi korisnici mogli da mu pristupe. Potrebno je dodati oznaku na repozitorijum, koja predstavlja verziju akcije u GitHub prodavnici i zatim je objaviti.
 
 \subsubsection{Hostovanje pokretača}
-GitHub nudi mašina koje hostuju pokretače GitHub Akcija, ali i daje mogućnost hostovanja akcija na korisničkom hardveru (eng.\ \textit{hardware}). Hostovanje na korisničkim mašinama daje veću slobodu korisnicima u izboru samih hardverskih komponenti, operativnog sistema i alata koji se instaliraju na tim mašinama. Mogu biti u obliku fizičkih mašina, virtuelnih mašina, kontejnera, ili računari u oblaku (eng.\ \textit{cloud}).
+GitHub nudi mašine koje hostuju pokretače GitHub Akcija, ali i daje mogućnost hostovanja akcija na korisničkom hardveru (eng.\ \textit{hardware}). Hostovanje na korisničkim mašinama daje veću slobodu korisnicima u izboru samih hardverskih komponenti, operativnog sistema i alata koji se instaliraju na tim mašinama. Mogu biti u obliku fizičkih mašina, virtuelnih mašina, kontejnera, ili računari u oblaku (eng.\ \textit{cloud}).
 
 Korisničke mašine se povezuju sa GitHub-om preko aplikacije koju GitHub nudi. Ako se ne pokrene ni jedna akcija u roku od 30 dana, prekida se veza između korisničkog računara i GitHub-a.
 
@@ -279,13 +280,13 @@ Problem pri hostovanju na korisničkim mašinama može biti to što je korisnik 
 \section{Docker? opet ga svuda ima}
 \section{Python}
 
-Python \cite{python} je programski jezik opšte namene, spada u grupu programskih jezika visokog nivoa i interpretira se. Dizajniran je tako da bude izrazito čitljiv, što se postiže velikom upotrebom belina (eng.\ \textit{whitespace character}). Pogodan je za razvoj različitih projekata pošto podržava više programskih paradigmi:
+Python \cite{python} je programski jezik opšte namene, spada u grupu programskih jezika visokog nivoa i interpretira se. Dizajniran je tako da bude izrazito čitljiv, što se postiže čestom upotrebom belina (eng.\ \textit{whitespace character}). Pogodan je za razvoj različitih softverskih rešenja pošto podržava više programskih paradigmi:
 
 \begin{enumerate}
     \item Proceduralnu
     \item Objektno orijentisanu
     \item Funkcionalnu
-    \item Strukturalnu paradigmu
+    \item Strukturalnu
 \end{enumerate}
 
 Takođe, prilagođen je za korišćenje u radličitim okruženjima na različitim operativnim sistemima.
@@ -313,7 +314,7 @@ Repozitorijumi su softverski alati za čuvanje i distribuiranje paketa. Postoje 
 Najčešće korišćen javni repozitorijum je PyPI \cite{pypi}  - The Python Package Index.
 
 \section{Poetry}
-Poetry \cite{poetry} je alat otvorenog koda za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python projekata sa drugim korisnicima Python programskog jezika.
+Poetry \cite{poetry} je alat otvorenog koda za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python paketa sa drugim korisnicima Python programskog jezika.
 
 Prva verzija alata objavljena je 28.02.2018. godine. Verzije programskog jezika Python koje su podržane su 2.7 i 3.4+. Ideja je da Poetry radi podjednako dobro na različitim platformama, između ostalog na Linux-u, Windows-u i OSX-u.
 
@@ -409,7 +410,7 @@ Pipenv alat je prilagođen da radi na različitim platformama, izmeđuostalog na
 
 \subsection{Podešavanje Pipenv-a}
 
-Pipenv se, kao i svi drugi Python alati, instalira korišćenjem pip instalera za Python pakete kucanjem sledeće komande u konzoli:
+Pipenv se, kao i većina drugih Python alata, instalira korišćenjem pip instalera za Python pakete kucanjem sledeće komande u konzoli:
 
 \begin{verbatim}
 pip install pipenv
@@ -423,7 +424,7 @@ Nakon isntalacije alata, moguće je kreirati projekat koji koristi Pipenv za upr
 pipenv install
 \end{verbatim}
 
-u direktorijumu u kojem se nalazi ili će se nalaziti projekat čijim paketima Pipenv upravlja. Tada će se kreirati \textit{Pipfile} datoteka koja čuva sve bitne informacijeo projektu. Ova datoteka u početku izgleda ovako:
+u direktorijumu u kojem se nalazi ili će se nalaziti projekat čijim paketima Pipenv treba da upravlja. Tada će se kreirati \textit{Pipfile} datoteka koja čuva sve bitne informacije o projektu. Ova datoteka u početku izgleda ovako:
 
 \begin{samepage}
     \begin{verbatim}
@@ -441,13 +442,13 @@ u direktorijumu u kojem se nalazi ili će se nalaziti projekat čijim paketima P
     \end{verbatim}
 \end{samepage}
 
-Informacije o samom projektu nalaze se u prvom segmentu - \texttt{[[source]]}. Informacije o paketima koje projekat koristi nalaze se u naredne dve sekcije - \texttt{[dev-packages]} i \texttt{[packages]}, gde se u prvoj od ove dve sekcije nalaze informacije o paketima koji se koriste u toku razvoja projekta, a u drogoj informacije o paketima koji se koriste u produkcionom okruženju. Pri instalaciji novog paketa, njegov naziv i verzija će se dopisati u jednu od ove dve sekcije, ili u obe ako je to potrebno. Poslednja sekcija - \texttt{[requires]} specificira verziju paketa koju je potrebno instalirati.
+Informacije o samom projektu nalaze se u prvom segmentu - \texttt{[[source]]}. Informacije o paketima koje projekat koristi nalaze se u naredne dve sekcije - \texttt{[dev-packages]} i \texttt{[packages]}, gde se u prvoj od ove dve sekcije nalaze informacije o paketima koji se koriste u toku razvoja projekta, a u drogoj informacije o paketima koji se koriste u produkcionom okruženju. Pri instalaciji novog paketa, njegov naziv i verzija će se dopisati u jednu od ove dve sekcije, ili u obe ako je to potrebno. Poslednja sekcija - \texttt{[requires]} specificira verziju Python-a koju je potrebno instalirati.
 
 Ovu datoteku je moguće ručno menjati, ali se sa njom najčešće interaguje pozivanjem pipenv komandi u konzoli. Neke od tih komandi su:
 
 \begin{itemize}
     \item \texttt{pipenv install} - ako se navede naziv paketa, dodaje taj paket u virtuelno okruženje i \textit{Pipfile} datoteku
-    \item \texttt{pipenv uninstall} - deinstalira paket iz virtuelnog okruženja i brše ga iz \textit{Pipfile} datoteku
+    \item \texttt{pipenv uninstall} - deinstalira paket iz virtuelnog okruženja i brše ga iz \textit{Pipfile} datoteke
 \end{itemize}
 
 Za kreiranje \textit{Pipfile.lock} datoteke koristi se komanda:
@@ -471,12 +472,12 @@ Projekat o kojem ovaj rad govori sastoji se iz grupe alata koje je bilo potrebno
 
 Zadatak nastavnog osoblja je pre svega da iz repozitorijuma projekta koji je šablonski (eng.\ \textit{template}) repozitorijum kreira svoj repozitorijum sa zadatkom. Važno je da nastavnik svoj repozitorijum nazove u skladu sa predefinisanim načinom imenovanja. Nakon toga se u repozitorijumu kreiraju svi potrebni materijali koji su potrebni za generisanje studentskog zadatka. Zadatak nastavnika je da pokrenje generisanje zadatka za jedan od predefinisanih testova na predmetu Programski jezici i strukture podataka. Ovaj projekat dodaje mogućnost automatizovanog kreiranja zadatka za određeni test na osnovu naziva repozitorijuma koji nastavnik napravi uz proveru ispravnosti naziva.
 
-Po završetku pisanja zadatka i njegovog testiranja, nastavnik, a najčešće asistent, je dužan da obavesti profesora o tome, da bi profesor mogao da proveri ispravnost zadatka i odobri korišćenje zadatka u nastavi ako je dobar i pogodan za studente. Kao olakšicu, nastavnik može da pokrene alat za testiranje zadatka i proveri ispravnost. Ovaj projekat uvodi isto to testiranje i nakon objavljivanja nove verzije zadatka na GitHub-u. Kao dodatnu proveru, jedan od alata iz ovog projekta proverava da li su izmenjene sve potrebne datoteke, da bi zadatak bio kompletan, odnosno da bi imao korektan tekst zadatka, primer rešenja i testove. Ako svi ovi alati vrate rezultat pozitivnog ishoda, u GitHub repozitorijumu se pojavljuje oznaka da su svi uslovi ispunjeni i da je zadatak spreman za pregledanje. U suprotnom, stoji oznaka da zadatak ne ispunjava sve potrebne uslove.
+Po završetku pisanja zadatka i njegovog testiranja, nastavnik, a najčešće asistent, je dužan da obavesti profesora o tome, da bi profesor mogao da proveri ispravnost zadatka i odobri korišćenje zadatka u nastavi, naravno ako je dobar i pogodan za studente. Kao olakšicu, nastavnik može da pokrene alat za testiranje zadatka i proveri ispravnost. Ovaj projekat uvodi isto to testiranje i nakon objavljivanja nove verzije zadatka na GitHub-u. Kao dodatnu proveru, jedan od alata iz ovog projekta proverava da li su izmenjene sve potrebne datoteke, da bi zadatak bio kompletan, odnosno da bi imao korektan tekst zadatka, primer rešenja i testove. Ako svi ovi alati vrate rezultat pozitivnog ishoda, u GitHub repozitorijumu se pojavljuje oznaka da su svi uslovi ispunjeni i da je zadatak spreman za pregledanje. U suprotnom, stoji oznaka da zadatak ne ispunjava sve potrebne uslove.
 
 Naredna poglavlja opisuju alate koji su korišćeni da bi se postigla opisana unapređenja \textit{pjisp-assignment-template} alata, a poslednje poglavlje opisuje njihovu integraciju u jednu celinu.
 
 \section{pjisp-template-name}
-Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je konzolna aplikacija kola služi za proveru ispravnosti naziva repozitorijuma. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
+Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je aplikacija kola služi za proveru ispravnosti naziva repozitorijuma. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
 
 \subsection{Način imenovanja repozitorijuma}
 Za imenovanje repozitorijuma koristi se predefinisani šablon, koji izgleda ovako:
@@ -494,9 +495,9 @@ gde su:
     \item \texttt{{GROUP\_ID}} - identifikator grupe studenata, na primer G10
 \end{itemize}
 
-Alat pre svega proverava da li je dužina naziva ispravna, odnosno da li naziv ima sve celine odvojene znakom \textit{-}. Ako nema, ispisuje se poruke \textit{``Repository name length not valid''} i program izlazi sa izlaznim kodom \textit{1}. U suprotnom, program nastavlja sa izvršavanjem.
+Alat pre svega proverava da li je dužina naziva ispravna, odnosno da li naziv ima sve celine odvojene znakom \textit{``-''}. Ako nema, ispisuje se poruke \textit{``Repository name length not valid''} i program izlazi sa izlaznim kodom \textit{1}. U suprotnom, program nastavlja sa izvršavanjem.
 
-Nakon provere dužine, proverava se ispravnost ostalih tokena, prema malopre opisanom načinu davanja imena. Ako bilo gde dođe do greške, ispisuje se poruka  \textit{``Repository name not valid. Error on <token>''} i izlase se sa izlaznim kodom \textit{1}. Ako naziv u potpunosti ispunjava šablon, kao izlazna vrednost vraća se identifikator testa, da bi na osnovu toga mogle da se generišu datoteke potrebne za kreiranje tog testa.
+Nakon provere dužine, proverava se ispravnost ostalih tokena, prema malopre opisanom načinu davanja imena. Ako bilo gde dođe do greške, ispisuje se poruka  \textit{``Repository name not valid. Error on <token>''} i izlase se sa izlaznim kodom \textit{1}. U ovom slučaju, \textit{<token>} predstavlja jednu od celina odvojenih znakom \textit{``-''}. Ako naziv u potpunosti ispunjava šablon, kao izlazna vrednost vraća se identifikator testa, da bi na osnovu toga mogle da se generišu datoteke potrebne za kreiranje tog testa.
 
 \subsection{Instalacija i pokretanje}
 Ovaj alat se instalira kao bilo koji drugi Python paket. Potrebno je u konzolnoj liniji pokrenuti komandu:
@@ -513,9 +514,9 @@ pjisp_template_name <template_name>
 
 \section{pjisp-diff}
 
-Alat \textit{pjisp-diff} \cite{pjisp-diff} je konzolna aplikacija kola služi pomoćni alat nastavnicima koji proverava da li su izmenili sve potrebne datoteke pri kreiranju zadataka za studente. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
+Alat \textit{pjisp-diff} \cite{pjisp-diff} je aplikacija koja služi kao pomoćni alat nastavnicima koji proverava da li su izmenili sve potrebne datoteke pri kreiranju zadataka za studente. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
 
-Pored provere da li su promenjene sve potrebne datoteke, ovaj alat proverava i da li su ostale nepromenjene sve pomoćne datoteke koje nije potrebno menjati. Datoteke koje je potrebno menjati zavise od ulaznog parametra, šablona spram kojeg se kreira zadatak. Datoteke koje je potrebno uvek menjati su:
+Pored provere da li su promenjene sve potrebne datoteke, ovaj alat proverava i da li su ostale nepromenjene sve pomoćne datoteke koje nije dozvoljeno menjati. Datoteke koje je potrebno menjati zavise od ulaznog parametra, šablona spram kojeg se kreira zadatak. Datoteke koje je potrebno uvek menjati su:
 
 \begin{itemize}
     \item \texttt{assignment\_solution.c}
@@ -542,7 +543,7 @@ Datoteka koju nije dozvoljeno menjati je:
     \item \texttt{assignment\_notes.rst}
 \end{itemize}
 
-Ako su po završetku programa izmenjene sve potrebne datiteke i nisu izmenjene one koje ne smeju da se menjaju, alat vraća \textit{0} kao vrednost izlaznog koda. U suprotnom, alat vraća vrednost \textit{1} uz jednu ili više poruka u obliku: \textit{``Please change the <filename> file.''} ili \textit{``Please do not change the <filename> file.''}
+Ako su po završetku programa izmenjene sve potrebne datoteke i nisu izmenjene one koje ne smeju da se menjaju, alat vraća \textit{0} kao vrednost izlaznog koda. U suprotnom, alat vraća vrednost \textit{1} uz jednu ili više poruka u obliku: \textit{``Please change the <filename> file.''} ili \textit{``Please do not change the <filename> file.''}. U ovom slučaju,\textit{<filename>} predstavlja naziv datoteke koja nije izmenjena, a treba da bude ili je izmenjena, a ne treba da bude menjana.
 
 \subsection{Instalacija i pokretanje}
 Ovaj alat se instalira kao bilo koji drugi Python paket. Potrebno je u konzolnoj liniji pokrenuti komandu:
@@ -562,7 +563,7 @@ gde \texttt{<template>} predstavlja identifikator testa i može biti T12, T34 il
 \section{poetry-publish}
 Alati koji su opisani u prethodna 2 poglavlja napravljeni su tako da mogu biti instalirani i korišćeni kao Python paketi. Oba paketa su dostupna na PyPI repozitorijumu Python paketa. Za postavljanje na repozitorijum, korišćen je alat Poetry. Pošto je potrebno objaviti novu verziju paketa na repozitorijumu nakon svake izmene u samom paketu, korišćena je \textit{poetry-publish} \cite{poetry-publish-repo} GitHub akcija koja pri svakom novom objavljivanju verzije alata na GitHub-u, kreira i novu verziju Python paketa i postavlja je na PyPI repozitorijum.
 
-Akcija \textit{poetry-publish} je kreirana od strane autora ovog rada pre nego što se razvila ideja za projekat koji je u ovom radu opisan, ali je znatno olakšala kreiranje malopre pomenutih paketa, tako da je imala veoma važnu ulogu i u ovom projektu. Akcija je projekat otvorenog koda i dostupna je za preuzimanje u GitHub prodavnici \cite{poetry-publish-marketplace}. Dostupna je pod BSD 3-Clause licencom.
+Akcija \textit{poetry-publish} je kreirana od strane autora ovog rada pre nego što se razvila ideja za projektom koji je u ovom radu opisan, ali je znatno olakšala kreiranje malopre pomenutih paketa, tako da je imala veoma važnu ulogu i u ovom projektu. Akcija je projekat otvorenog koda i dostupna je za preuzimanje u GitHub prodavnici \cite{poetry-publish-marketplace}. Dostupna je pod BSD 3-Clause licencom.
 
 \textit{Poetry-publish} je GitHub akcija koja služi za kreiranje paketa i njihovo objavljivanje na Python repozitorijumu upotrebom alata Poetry. Kreirana je u obliku Docker akcije. U Docker kontejneru se instaliraju svi potrebni alati za korišćenje Python-a i zatim se pokrenu Poetry komande za kreiranje i objavljivanje paketa:
 
@@ -574,7 +575,7 @@ Akcija \textit{poetry-publish} je kreirana od strane autora ovog rada pre nego �
 Paramtri koje ova akcija očekuje su:
 
 \begin{itemize}
-    \item \textbf{python\_version} - verzija Python-a koja se instalira u kontejneru i koristi za kreiranje paketa. Ako se ne navede, podrazumeva se da se koristi najnovija verzija. Za bolje performanse, poželjno je koristiti predefinisanu-najnoviju verziju.
+    \item \textbf{python\_version} - verzija Python-a koja se instalira u kontejneru i koristi za kreiranje paketa. Ako se ne navede, podrazumeva se da se koristi najnovija verzija. Za bolje performanse, poželjno je koristiti predefinisanu - najnoviju verziju.
     \item \textbf{poetry\_version} - verzija Poetry-a koja se instalira u kontejneru i koristi za kreiranje paketa. Ako se ne navede, podrazumeva se da se koristi najnovija verzija. Navodi se u PIP sintaksi za specifikaciju verzija
     \item \textbf{pypi\_token} - jedini obavezan parametar. Služi kao API token za autentifikaciju pri objavljivanju paketa na PyPI.
     \item \textbf{repository\_name} - naziv repozitorijuma na kojem se objavljuje paket. Ako se ne navede, podrazumeva se da se objavljuje na PyPI repozitorijumu. Potrebno je izmeniti pri objavljivanju na PyPI test repozitorijumu ili na privatnom repozitorijumu.
@@ -621,14 +622,14 @@ U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na 
     \end{verbatim}
 \end{samepage}
 
-Ova akcija se izvršava samo kada se napravi nova oznaka u repozitorijumu u obliku \textit{v*.*.*}. Sastoji se od jednog posla koji se pokreće na poslednjoj verziji Ubuntu operativnog sistema i 3 koraka. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak menja verziju u \textit{pyproject.toml} datoteci na verziju oznake koja je prouzrokovala pokretanje ove akcije. Poslednji korak koristi \textit{poetry-publish} akciju za objavljivanje nove verzije paketa. Svi ulazni porametri koriste predefinisanu verziju, samo je \texttt{pypi\_token} parametar postavljen na vrednost PyPI tokena koji se preuzima iz GitHub-ovog konteksta okruženja \texttt{secrets}.
+Ova akcija se izvršava samo kada se napravi nova oznaka u repozitorijumu u obliku \textit{v*.*.*}. Sastoji se od jednog posla koji se pokreće na poslednjoj verziji Ubuntu operativnog sistema i 3 koraka. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak menja verziju u \textit{pyproject.toml} datoteci na verziju oznake koja je prouzrokovala pokretanje ove akcije. Poslednji korak koristi \textit{poetry-publish} akciju za objavljivanje nove verzije paketa. Svi ulazni parametri koriste predefinisanu verziju, samo je \texttt{pypi\_token} parametar postavljen na vrednost PyPI tokena koji se preuzima iz GitHub-ovog konteksta okruženja \texttt{secrets}.
 
 \section{smoke\_test}
 Još jedan alat otvorenog koda koji je korišćen i izmenjen u ovom radu je \textit{smoke\_test} \cite{smoke-test}. To je konzolna aplikacija i API koji služi za testiranje studentskih zadataka na dim (eng.\ \textit{smoke testing}). Ovaj alat se koristi i za testiranje zadataka koje nastavnici pišu kao primer tačno urađenog zadatka i samim tim se koristi u okviru \textit{pjisp-assignment-template} alata.
 
 Zadatak koji ovaj alat očekuje treba da bude napisan u programskom jeziku C ili nekom jeziku od kojeg je GCC progrmaski prevodilac sposoban da napravi izvršnu datoteku. Zadatak se prvobitno kompajlira pomoću GCC-a. Nakon toga zadatak se testira na slučajeve korišćenja opisane u \textit{.yaml} datotekama koje nastavnici pripremaju prilikom kreiranja zadatka. Oblik pojedinačnog test slučaja je uvezani par datoteka koje sadrže, respektivno, ulazne vrednosti i očekivani izlazni oblik, koji je rešenje zadatka dužno da ispoštuje. Svaki slučaj korišćenja vraća rezultat onoga za šta je bio zadužen da testira u obliku očekivane vrednosti i vrednosti koja se dobije evaluacijom studentskog rešenja. Rezultati svih slučajeva na koje se zadatak testira se grupišu u jedan krajnji rezultat koji se prikazuje korisniku.
 
-Rezultat je u ljudski čitljivom formatu, ali je izlazni kod u svakom slučaju, bilo pri pozitivnoj ili negativnoj evaluaciji studentskog rešenja uvek bio \textit{0}. Da bi \textit{smoke\_test} alat mogao da se upotrebi u okviru GitHub akcije koja proverava ispravnost rešenja koje nastavnik kreira, i da bi se izvršavanje akcije prekinulo u slučaju negativne evaluacije studentskog rešenja, izmenjen je izlazni kod na vrednost \textit{1} ako ponuđeno rešenje ne ispunjava sve uslove navedene u \textit{.yaml} datotekama. Kada GitHub akcija u bilo kojem koraku dobije rezultat različit od \textit{0}, smatra se da taj korak nije uspešno izvršen i ne prelazi se na naredne korake. U slučaju \textit{pjisp-assignment-template} alata, to znači da nastavnik nije dobro napisao primer ispravnog rešenja i da mora da ga ispravi.
+Rezultat je u ljudski čitljivom formatu, ali je izlazni kod u svakom slučaju, bilo pri pozitivnoj ili negativnoj evaluaciji studentskog rešenja uvek bio \textit{0}. Da bi \textit{smoke\_test} alat mogao da se upotrebi u okviru GitHub akcije koja proverava ispravnost rešenja koje nastavnik kreira, i da bi se izvršavanje akcije prekinulo u slučaju negativne evaluacije studentskog rešenja, izmenjen je izlazni kod na vrednost \textit{1} ako ponuđeno rešenje ne ispunjava sve uslove navedene u \textit{.yaml} datotekama i ako je prosleđen argument \textit{-e} kao argument komandne linije. Kada GitHub akcija u bilo kojem koraku dobije rezultat različit od \textit{0}, smatra se da taj korak nije uspešno izvršen i ne prelazi se na naredne korake. U slučaju \textit{pjisp-assignment-template} alata, to znači da nastavnik nije dobro napisao primer ispravnog rešenja i da mora da ga ispravi.
 
 \section{pjisp-assignment-template}
 Alat \textit{pjisp-assignment-template} nudi veliki broj funkcionalnosti za kreiranje i proveru ispravnosti kreiranog zadatka za studente. Ove funkcionalnosti su u velikoj meri učestvovale u dodavanju GitHub tokova poslova čije funkcionalnosti su opisane na samom početku poglavlja. Ipak, neke od funkcionalnosti je trebalo malo izmeniti i bilo je potrebno kreirati nekoliko novih.
@@ -653,7 +654,7 @@ Novosti koje uvodi ovaj projekat su:
 \begin{itemize}
     \item \textit{assignment-diff} - za proveru da li su izmenjene sve datoteke koje je potrebno menjati i da li su ostale iste sve datoteke koje se ne smeju menjati
     \item \textit{assignment-check} - za proveru izmena datoteka i proveru ispravnosti primera rešenja
-    \item \textit{get-template} - za pronalaženje naziva testa na osnovu naziva repozitorijuma
+    \item \textit{get-template} - za pronalaženje naziva testa na osnovu naziva repozitorijuma i proveru ispravnosti naziva repozitorijuma
 \end{itemize}
 
 Takođe, uvedene su sitne izmene u neke od postojećih funkcionalnosti:
@@ -665,7 +666,7 @@ Takođe, uvedene su sitne izmene u neke od postojećih funkcionalnosti:
     \item \textit{assignment-pack} - dodato je da se pre pakovanja, pored provere ispravnosti primera rešenja, proveri da li su izmenjene sve datoteke koje je potrebno menjati i da li su ostale iste sve datoteke koje se ne smeju menjati
 \end{itemize}
 
-Kao zavisnosti u projektu dodati su \textit{pjisp-template-name} i \textit{pjisp-diff}. \textit{Get-template} funkcionalnost poziva \textit{pjisp-template-name} sa nazivom repozitorijuma kao ulaznim parametrom i identifikatorom testa kao povratnom vrednošću. \textit{Assignment-diff} poziva \textit{pjisp-diff} sa identifikatorom testa kao ulaznim parametrom.
+Kao zavisnosti u projektu dodati su \textit{pjisp-template-name} i \textit{pjisp-diff} korišćenjem Pipenv alata. \textit{Get-template} funkcionalnost poziva \textit{pjisp-template-name} sa nazivom repozitorijuma kao ulaznim parametrom i identifikatorom testa kao povratnom vrednošću. \textit{Assignment-diff} poziva \textit{pjisp-diff} sa identifikatorom testa kao ulaznim parametrom.
 
 Nakon dodavanja malopre pomenutih izmena u kod \textit{pjisp-assignment-template} alata, uvedene su sve funkcionalnosti potrebne za kreiranje GitHub tokova poslova čije funkcionalnosti su opisane na početku trenutnog poglavlja. Kreirane su dve nove datoteke na mestu koje je predviđeno za pisanje GitHub tokova poslova - \textit{.github/workflows}. Tokovi podataka nazvani su ``Project create'' i ``PJISP assignment'' i nalaze se u \textit{init-repo.yml} i \textit{test-solution.yml} datotekama respektivno.
 
@@ -734,15 +735,15 @@ Kod toka posla izgleda ovako:
             git push
 \end{verbatim}
 
-Ovaj tok posla u sebi ima jedan posao koji se sastoji od šest koraka. Posao se pokreće na Ubuntu operativnom sistemu na najnovijoj verziji. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak instalira Pythonu verziji 2.7 u okruženju pokretača. Treći korak je zadužen za instaliranje Pipenv-a, alata za upravljanje Python paketima koji \textit{pjisp-assignment-template} koristi. Ova tri koraka izvršavaju već postojeće akcije iz GitHub prodavnice, prva 2 koriste oficijalne GitHub-ove akcije, dok treći koristi akciju koju je neki od korisnika napisao i objavio.
+Ovaj tok posla u sebi ima jedan posao koji se sastoji od šest koraka. Posao se pokreće na Ubuntu operativnom sistemu na najnovijoj verziji. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak instalira Python u verziji 2.7 u okruženju pokretača. Treći korak je zadužen za instaliranje Pipenv-a, alata za upravljanje Python paketima koji \textit{pjisp-assignment-template} koristi. Ova tri koraka izvršavaju već postojeće akcije iz GitHub prodavnice, prva 2 koriste oficijalne GitHub-ove akcije, dok treći koristi akciju koju je neki od korisnika napisao i objavio.
 
 Četvrti korak je zadužen za inicijalizaciju datoteka na osnovu naziva repozitorijuma. Ovaj, kao i naredna dva koraka spada u grupu koraka koji ne koriste postojeće akcije, nego navode niz komandi koje je potrebno izvršiti. Jezik komandne linije koji je ovde korišćen je \textit{bash}. Naziv repozitorijuma dobija se iz promenjive \texttt{github.repository} koja se preuzima iz konteksta okruženja. Ova promenjiva čuva informaciju o repozitorijumu na kojem se akcija pokrenula u obliku \textit{<username>/<repo\_name>}. Da bi se preuzeo naziv repozitorijuma, iz ove promenjive se preuzima samo deo nakon kose crte. Nakon toga se instaliraju zavisnosti korišćenjem Pipenv alata i pokreće se \textit{get-template} funkcionalnost. Ova funkcionalnost proverava ispravnost naziva repozitorijuma i na osnovu njega pronalazi identifikator testa. Ako naziv repozitorijuma nije ispravan, ovde se prekida izvršavanje ovog posla i izvršavanje toka posla se smatra neuspešnim. Ako je naziv repozitorijuma ispravan, poziva se \textit{init} funkcionalnost sa identifikatorom testa kao ulaznim parametrom.
 
 Peti korak služi za kreiranje bedža i njegovo dodavanje u \textit{README.rst} datoteku. Naziv repozitorijuma se ponovo dobavlja iz \texttt{github.repository} promenjive konteksta okruženja. Na osnovu njega se kreira bedž koji prati status izvršavanja ``PJISP assignment'' toka posla i dodaje se na sam početak \textit{README.rst} datoteke.
 
-Poslednji, šesti korak je zadužen da postavi sve novonastale izmene na GitHub repozitorijum. Za tu aktivnost je potrebno podesiti email i korisničko ime korisnika koji postavlja ove izmene. U tu svrhu se koristi predefinisani korisnik radi razlikovanja sadržaja koji je pravi korisnik postavio i onog koji je GitHub kreirao. Nakon postavljanja ovih izmena, sve nove datoteke nalaze se na GitHub repozitorijumu i bedž je vidljiv na vrhu \textit{README.rst} datoteke.
+Poslednji, šesti korak je zadužen da postavi sve novonastale izmene na GitHub repozitorijum. Za tu aktivnost je potrebno podesiti email i korisničko ime korisnika koji postavlja ove izmene. U tu svrhu se koristi predefinisani korisnik radi razlikovanja sadržaja koji je pravi korisnik postavio i onog koji je GitHub akcija kreirala. Nakon postavljanja ovih izmena, sve nove datoteke nalaze se na GitHub repozitorijumu i bedž je vidljiv na vrhu \textit{README.rst} datoteke.
 
-Po izvršavanju celog ovog toka podataka, repozitorijum je spreman za preuzimanje i kreiranje studentskih zadataka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnika da ga kreira.
+Po izvršavanju celog ovog toka podataka, repozitorijum je spreman za preuzimanje i kreiranje studentskog zadatka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnika da ga kreira.
 
 \subsection{PJISP assignment}
 ``PJISP assignment'' tok posla se pokreće na događaj \texttt{push} ili \texttt{pull-request} na glavnoj - \texttt{master} grani. Zadužen je da svaki put nakon izmene koda na repozitorijumu proveri da li je repozitorijum spreman za pregledanje od strane profesora i davanje studentima u vidu zadatka ili kolokvijuma.
@@ -776,11 +777,11 @@ Kod toka posla izgleda ovako:
             pipenv run make assignment-check
 \end{verbatim}
 
-Ovaj tok posla u sebi ima jedan posao koji se sastoji od četiri koraka. Posao se pokreće na Ubuntu operativnom sistemu na najnovijoj verziji. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak instalira Pythonu verziji 2.7 u okruženju pokretača. Treći korak je zadužen za instaliranje Pipenv-a, alata za upravljanje Python paketima koji \textit{pjisp-assignment-template} koristi. Ova tri koraka izvršavaju već postojeće akcije iz GitHub prodavnice, prva 2 koriste oficijalne GitHub-ove akcije, dok treći koristi akciju koju je neki od korisnika napisao i objavio. Ćetvrti korak ne sadrži ni jednu akciju, već izvršava komande napisane u \textit{bash} jeziku komandne linije.
+Ovaj tok posla u sebi ima jedan posao koji se sastoji od četiri koraka. Posao se pokreće na Ubuntu operativnom sistemu na najnovijoj verziji. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak instalira Python u verziji 2.7 u okruženju pokretača. Treći korak je zadužen za instaliranje Pipenv-a, alata za upravljanje Python paketima koji \textit{pjisp-assignment-template} koristi. Ova tri koraka izvršavaju već postojeće akcije iz GitHub prodavnice, prva 2 koriste oficijalne GitHub-ove akcije, dok treći koristi akciju koju je neki od korisnika napisao i objavio. Ćetvrti korak ne sadrži ni jednu akciju, već izvršava komande napisane u \textit{bash} jeziku komandne linije.
 
 Svi koraci osim prvog imaju uslov pod kojim se izvršavaju, a to je da u svom nazivu ne sadrže \textit{``pjisp-assignment-template''}. Ovaj uslov osigurava se na \textit{pjisp-assignment-template} repozitorijumu neće pokretati ovi koraci, pošto je on samo šablonski repozitorijum i nikada neće sadržati konkretan zadatak za studente, pa samim tim nema smisla testirati njegovu ispravnost.
 
-Poslednji, četvrti korak je zadužen za pokretanje testiranja zadatka. Prvo se instaliraju zavisnosti projekta korišćenjem Pipenv alata, a onda se pokreće \textit{assignment-check} funkcionalnost. Ova funkcionalnost prvo pokreće \textit{assignment-diff}. \textit{Assignment-diff} proverava da li su izmenjene sve datoteke koje potrebno menjati i da li su ostale nepromenjene sve datoteke koje ne bi trebalo menjati. Ako se uspešno izvrši, prelazi se na \textit{test-solution} funkcionalnost. Ako se ne izvrši uspešno, onda se izvršavanje koraka, a zatim i celog toka posla prekida i zadatak se smatra neispravnim. \textit{Test-solution} funkcionalnost ispituje ispravnost primera rešenja na osnovu testova opisanih u \textit{.yaml} datotekama. Ako se barem jedan test ne izvrši ispravno, prekida se izvršavanje koraka, a zatim i celog toka posla i zadatak se smatra neispravnim. Potrebno je da svi se testovi uspešno izvrše da bi se zadatak smatrao ispravnim. Ako se u bilo kojem momentu prekine izvršavanje toka posla, bedž se postavlja na \textit{failing} vrednost. Ako se ceo tok posla uspešno završi, bedž se postavlja na \textit{passing} vrednost, što znači da je zadatak ispravan i spreman za pregledanje ili rađenje od strane studenata.
+Poslednji, četvrti korak je zadužen za pokretanje testiranja zadatka. Prvo se instaliraju zavisnosti projekta korišćenjem Pipenv alata, a onda se pokreće \textit{assignment-check} funkcionalnost. Ova funkcionalnost prvo pokreće \textit{assignment-diff}. \textit{Assignment-diff} proverava da li su izmenjene sve datoteke koje potrebno menjati i da li su ostale nepromenjene sve datoteke koje ne bi trebalo menjati. Ako se uspešno izvrši, prelazi se na \textit{test-solution} funkcionalnost. Ako se ne izvrši uspešno, onda se izvršavanje koraka, a zatim i celog toka posla prekida i kreiranje zadatka se smatra neuspešnim. \textit{Test-solution} funkcionalnost ispituje ispravnost primera rešenja na osnovu testova opisanih u \textit{.yaml} datotekama. Ako se barem jedan test ne izvrši ispravno, prekida se izvršavanje koraka, a zatim i celog toka posla i primer rešenja zadatka se smatra neispravnim. Potrebno je da se svi testovi uspešno izvrše da bi se zadatak smatrao ispravnim. Ako se u bilo kojem momentu prekine izvršavanje toka posla, bedž se postavlja na \textit{failing} vrednost. Ako se ceo tok posla uspešno završi, bedž se postavlja na \textit{passing} vrednost, što znači da je zadatak ispravan i spreman za pregledanje ili rađenje od strane studenata.
 
 \chapter{Primeri korišćenja}
 \chapter{Diskusija i zakljuci}
