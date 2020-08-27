@@ -634,7 +634,7 @@ U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na 
         - name: Change version in pyproject.toml
         run: |
             REF=$(echo ${{ github.ref }} | sed "s#\(refs/tags/\)\?v\?##")
-            sed -i "s/^version = \".\+\"/version = \"$REF\"/" pyproject.toml
+            sed -i "s/^version=\".\+\"/version=\"$REF\"/" pyproject.toml
         - name: Build and publish to pypi
         uses: JRubics/poetry-publish@v1.1
         with:
@@ -741,7 +741,8 @@ Kod toka posla izgleda ovako:
             REPO=${{github.repository}}
             echo "|Actions Status|
             .. |Actions Status| \image:: \
-                https://github.com/$REPO/workflows/PJISP%20assignment/badge.svg
+                https://github.com/ \
+                $REPO/workflows/PJISP%20assignment/badge.svg
                 :alt: CPython build status on GitHub Actions
                 :target: https://github.com/$REPO/actions
             " | cat - README.rst > README
@@ -783,15 +784,15 @@ Kod toka posla izgleda ovako:
         steps:
         - uses: actions/checkout@v2
         - name: Set up Python 2.7
-          if: ${{ ! contains(github.repository,'pjisp-assignment-template') }}
+          if: ${{!contains(github.repository,'pjisp-assignment-template')}}
           uses: actions/setup-python@v1
           with:
             python-version: 2.7
         - name: Install pipenv
-          if: ${{ ! contains(github.repository,'pjisp-assignment-template') }}
+          if: ${{!contains(github.repository,'pjisp-assignment-template')}}
           uses: dschep/install-pipenv-action@v1
         - name: Run test
-          if: ${{ ! contains(github.repository,'pjisp-assignment-template') }}
+          if: ${{!contains(github.repository,'pjisp-assignment-template')}}
           run: |
             pipenv install
             pipenv run make assignment-check
