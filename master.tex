@@ -94,13 +94,27 @@
 U današnje vreme
 
 \chapter{Teorijske osnove}
-U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. Tu grupu čini pre svega Open source razvoj kao koncept pod kojim je ovaj projekat razvijen. Zatim se navode osnove karakteristike Sistema za praćenje verzija datoteka i Git kao glavni predstavnik takvih sistema. Naredno poglavlje se nadovezuje pričom o GitHub-u. Ostala poglavlja bave se Python programskim jezikom, njegovim paketima, repozitorijumom za te pakete i alatima za upravljanje paketima - Poetry-jem i Pipenv-om.
+U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. Tu grupu čini pre svega Softver otvorenog koda kao koncept pod kojim je ovaj projekat razvijen. Zatim se navode osnove karakteristike Sistema za praćenje verzija datoteka i Git kao glavni predstavnik takvih sistema. Naredno poglavlje se nadovezuje pričom o GitHub-u. Sledećih nekoliko poglavlja se bave se Python programskim jezikom, njegovim paketima, repozitorijumom za te pakete i alatima za upravljanje paketima - Poetry-jem i Pipenv-om. Poslednje poglavlje opisuje Bash jezik komandne linije.
 
-\section{Open source razvoj}
+\section{Softver otvorenog koda}
+Pojam otvoreni kod (eng.\ \textit{open-source}) se odnosi na nešto što je dostupno svima za pravljenje izmena ili deljenje. Javio se kao pojam vezan za razvoj softvera (eng.\ \textit{software}), ali se danas koristi i u drugim kontekstima vezanim za otvorenost i dostupnost.
+
+Softver otvorenog koda je sotver čiji izvorni kod svako može da posmatra, menja, poboljšava ispravlja greske, dodaje nove funkcionalnosti, itd. Ovakav softver se objavljuje pod licencama otvorenog koda. Ove licence dozvoljavaju korišćenje i deljenje koda pod određenim uslovima. Najčešće se kodu može pristupiti besplatno. Nekada se licencom zahteva da se kod koristi samo u nekomercijalne svrhe ili da se navede originalni autor koda. Često licenca traži i da se izmenjeni kod deli pod istom tom licencom.
+
+Pogodnosti pisanja i korišćenja ovakvog koda su mnogobrojne, a ovo su neke od njih:
+
+\begin{itemize}
+    \item \textbf{Kontrola} - Korisnici softvera otvorenog koda imaju uvid u kod koji koriste, i samim tim veću kontrolu nad onim što instaliraju i koriste na svojim računarima. Takođe, mogu da menjaju delove koda koji im se ne dopadaju.
+    \item \textbf{Učenje} - Dostupnost koda omogućava korisnicima da analiziraju kod i time postaju bolji programeri. Takođe, pravljenjem softvera otvorenog koda, korisnici ostavljaju mogućnost drugim korisnicima da vide njihov kod i da im daju sugestije/kritike. Pri pronalaženju grešaka u kodu, korisnici mogu da ih podele sa drugima i time spreče druge korisnike u pravljenju istih grešaka.
+    \item \textbf{Bezbednost} - Mnogi smatraju softver otvorenog koda bezbednijim od softvera zatvorenog koda. Zato što je kod javan i dostupan svima za izmene, postoji mogućnost da će neko od korisnika pronaći i ispraviti propuste koje autor nije primetio. Takođe, nađene greške se brže ispravljaju pošto nema potrebe da se čeka na autora koda da ih ispravi, već to može da uradi bilo ko.
+    \item \textbf{Stabilnost} - Softver otvorenog koda se takođe smatra stabilnijim i pouzdanijim rešenjem za projekte koji treba da se koriste dugi niz godina. Čak i ako originalni autor koda odustane od razvoja, postoji velika mogućnost da će neko od korisnika i učesnika nastaviti da ga održava.
+    \item \textbf{Zajednica} - Oko softvera otvorenog koda često se oformljava zajednica korisnika i učesnika u razvoju koda. To su ljudi koji pišu, testiraju i koriste kod i zajedno razmenjuju ideje o poboljšanjima projekta i napretku.
+\end{itemize}
+
 \section{Sistem za praćenje verzija datoteka}
 Sistem za praćenje verzija datoteka (eng.\ \textit{version control system}) je sistem zadužen za praćenje istorije promena u datotekama. Promena koja se pamti se najčešće naziva revizija. Sve promene se uglavnom čuvaju na centralizovanom sistemu za skladištenje podataka i svi korisnici sa potrebnim privilegijama mogu da mu pristupaju, preuzmu najnoviju verziju datoteke ili grupe datoteka, izmene ih i zatim objave novu verziju koja se od tog momenta smatra najnovijom.
 
-Pored najnovije verzije, čuva se i celokupna istorija promena i moguće je vratiti datoteke u bilo koju od prethodnih revizija. U poglegu softvera (eng.\ \textit{software}), ovo nam omogućava da vratimo u upotrebu bilo koju prethodnu verziju, u slučaju da dođe do greške u nekoj od novijih verzija. Istorija se čuvaju u strukturi tipa grafa:
+Pored najnovije verzije, čuva se i celokupna istorija promena i moguće je vratiti datoteke u bilo koju od prethodnih revizija. U poglegu softvera, ovo nam omogućava da vratimo u upotrebu bilo koju prethodnu verziju, u slučaju da dođe do greške u nekoj od novijih verzija. Istorija se čuvaju u strukturi tipa grafa:
 
 \begin{figure}[H]
     \includegraphics[width=\linewidth]{images/version_control.png}
@@ -112,7 +126,7 @@ Graf se najčešće sastoji od glavne grane(eng.\ \textit{branch}), na kojoj se 
 Važne izmene se mogu dodatno naglasiti dodavanjem oznake (eng.\ \textit{tag}). One uglavnom predstavljaju objavljivanje nove verzije softvera (eng.\ \textit{release}), dodavanje nove funkcionalnosti ili ispravku greške.
 
 \section{Git}
-Git \cite{git} je besplatan softver otvorenog koda (eng.\ \textit{open-source}) za praćenje verzija datoteka u distribuiranom okruženju. Primarno se koristi za razvoj softvera, ali se može koristiti i za praćenje bilo kojih drugih datoteka. Razvoj je započeo 2005. godine kreator Linux-a, Linus Torvalds, za potrebe razvoja jezgra Linux operativnog sistema. Distribuiran je pod GNU General Public License Version 2 licencom. Primarno je napravljen za Linux operativni sistem, ali je naknadno prilagođen i za macOS, BSD, Solaris i Windows.
+Git \cite{git} je besplatan softver otvorenog koda za praćenje verzija datoteka u distribuiranom okruženju. Primarno se koristi za razvoj softvera, ali se može koristiti i za praćenje bilo kojih drugih datoteka. Razvoj je započeo 2005. godine kreator Linux-a, Linus Torvalds, za potrebe razvoja jezgra Linux operativnog sistema. Distribuiran je pod GNU General Public License Version 2 licencom. Primarno je napravljen za Linux operativni sistem, ali je naknadno prilagođen i za macOS, BSD, Solaris i Windows.
 
 Za razliku od drugih sistema za praćenje verzija datoteka u distribuiranom okruženju, Git nije softver klijent-server arhitekture. Svaki Git repozitorijum na svakom računaru čuva kompletnu istoriju promena i verzija i nije zavisan od pristupa mreži ili centralizovanom serveru. Kao takav, Git je osnova za razvoj mnogih drugih nezavisnih alata za praćenje verzija datoteka.
 
@@ -468,7 +482,7 @@ Pokretanje komandi u virtuelnom okruženju opisanom u \textit{Pipfile} datoteci 
 
 GNU Bash \cite{bash} ili češće nazvan samo Bash (Bourne Again SHell) je Unix interpreter i jezik komandne linije koji je napravljen za GNU projekat kombinujući korisne funkcionalnosti iz Korn i C interpretera.
 
-Objavljen je 1989. godine i od tada se koristi kao uobičajena konzola za prijavljivanje na većini Linux distribucija i svim verzijama macOS-a pre macOS Catalina verzije. U skorije vreme je dostupan i za Windows pomoću Windows podsistema za linux (eng.\ \textit{Windows Subsystem for Linux}).
+Objavljen je 1989. godine i od tada se koristi kao uobičajena konzola za prijavljivanje na većini Linux distribucija i svim verzijama macOS-a pre macOS Catalina verzije. U skorije vreme je dostupan i za Windows pomoću Windows podsistema za Linux (eng.\ \textit{Windows Subsystem for Linux}).
 
 Najčešće se pokreće kao tekstualni prozor u kojem korisnik kuca komande koje pokreću određene akcije. Takođe, može da pokreće i komande koje se zadaju u obliku tekstualne datoteke.
 
@@ -913,7 +927,7 @@ Dodate su i datoteke specifične za T12 test:
 
 Ovim je završeno izvršavanje tokova poslova koji se pokreću pri kreiranju repozitorijuma, i on je spreman za pravljenje zadatka.
 
-\section{Primer sa ispravnim kreiranjem zadatka}
+\section{Primer ispravnog kreiranja zadatka}
 
 Kada nastavnik izmeni sve potrebne datoteke i doda novu izmenu na GitHub, ponovo se pokreće \textit{PJISP Assignment} tok poslova:
 
@@ -933,7 +947,10 @@ Pri uspešnom izvršavanju ovog toka poslova, bedž na početku \textit{README.r
 
 Ovim se uspešno završava kreiranje zadatka i on je spreman za pregledanje od strane profesora.
 
-\section{Primer sa neispravnim testovima}
+\section{Primeri grešaka}
+Ova sekcija prikazuje po jedan primer za svaku od čestih grešaka koje nastavnik može da napravi. Bilo koja slična greška, izazvaće isto ponašanje programa.
+
+\subsection{Primer sa neispravnim testovima}
 
 Ako se pri ponovnom pokretanju \textit{PJISP Assignment} toka poslova neki od testova ne izvrši uspešno, prikaz detalja o poslu će napisati razlog neuspešnog izvršavanja testa, a samim tim i toka posla:
 
@@ -945,7 +962,7 @@ Ako se pri ponovnom pokretanju \textit{PJISP Assignment} toka poslova neki od te
 
 U ovom primeru, test \texttt{stdio-numbers:n=10} imao je neočekivan izlaz i zato je dalje izvršavanje toka posla obustavljeno. Zbog toga, bedž na početku \textit{README.rst} datoteke dobija \textit{failing} vrednost.
 
-\section{Primer sa neispravnim izmenama datoteka}
+\subsection{Primer sa neispravnim izmenama datoteka}
 
 Ako se pri ponovnom pokretanju \textit{PJISP Assignment} toka poslova neka od datoteka koje je potrebno izmeniti ne izmeni ili se izmeni neka od datoteka koje se ne smeju menjati, prikaz detalja o poslu će obavestiti korisnika koja izmena nije odgovarajuća i obustaviće izvršavanje toka posla:
 
@@ -957,7 +974,7 @@ Ako se pri ponovnom pokretanju \textit{PJISP Assignment} toka poslova neka od da
 
 U ovom primeru nije izmenjena datoteka \textit{fixtures/stdio-numbers.yaml} i zbog toga se prikazuje poruka \textit{``Please change the fixtures/stdio-numbers.yaml file.''} i vraća se izlazni kod \textit{1}, a zatim se tok poslova prekida sa izlaznim kodom \textit{2}. Zbog toga, bedž na početku \textit{README.rst} datoteke dobija \textit{failing} vrednost.
 
-\section{Primer sa neispravnim nazivom repozitorijuma}
+\subsection{Primer sa neispravnim nazivom repozitorijuma}
 
 Pri kreiranju repozitorija, korisnik je u mogućnosti da unese neipravan naziv repozitorijuma i nakon toga pokrene kreiranje repozitorijuma:
 
@@ -996,7 +1013,33 @@ Ako je ipak dužina naziva dobra, ali neki od delova naziva ne odgovara šablonu
 U ovom slučaju, problem je u tome što je kao naziv testa navedeno T56, iako su T12, T34 ili SOV jedine moguće opcije. Zbog toga korisnik dobija poruku \textit{``Repository name not valid. Error on T56''}.
 
 \chapter{Diskusija i zakljuci}
-\section{Da li su github akcije spremne za produkciju?}
+
+U ovom radu je predstavljen celokupan proces razvoja i unapređenja projekata otvorenog koda. Ideja je krenula od postojećeg projekta - \textit{pjisp-assignment-template} i u njega su se dodavale dodatne funkcionalnosti (\textit{pjisp-assignment-template} i \textit{pjisp-template-name}). Svaka od tih funkcionalnosti je projekat za sebe, koji je odvojeno razvijan, a zatim integrisan sa malopre pomenutim projektom upotrebom GitHub tokova poslova i akcija. Jedan od postojećih Github akcija - \textit{poetry-publish} takođe igra važnu ulogu u razvoju projekata koji su nastali kao unapređenje \textit{pjisp-assignment-template} alata.
+
+\section{Zaključci nakon upotrebe GitHub akcija}
+
+Iz prethodnog pasusa vidimo da se mnoge nove funkcionalnosti u malopre pomenutom projektu oslanjaju na funkcionalnosti koje GitHub Actions servis nudi. Ovaj servis je dosta mlad, nastao je u novembru 2019. godine i to sa sobom donosi neke probleme. Još uvek nije u potpunosti pouzdan, pošto su neke od njegovih funkcionalnosti povremeno nedostupne \cite{status}. U trenutku pisanja ovog rada, funkcionalnosti su bile uglavnom dostupne:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\linewidth]{images/status.png}
+    \caption{GitHub status, Avgust 2020}
+\end{figure}
+
+Svaki podeok na vremenskoj liniji (eng.\ \textit{timeline}) predstavlja jedan dan od proteklih 90 dana. Žute linije predstavljaju dane kada Akcije nisu bile dostupne manje od jednog sata. Narandžasta boja označava nedostupnost funkcionalnosti između jednog i dva sata, a crvena više od 2 sata.
+
+Takođe, zbog brzog razvoja softvera, dokumentacija nije u svakom momentu usklađena sa alatom, pa to nekada može predstavljati problem za programere koji žele da koriste nove funkcionalnosti alata čim se one pojave.
+
+I pored pomenutih problema, za potrebe ovakvog projekta, GitHub akcije donese mnoge beneficije i znatno olakšavaju razvoj i korišćenje svih prethodno pomenutih alata. Integracija alata je bila veoma jednostavna, pošto se šablon repozitorijum već nalazi na GitHub-u i onda nije bilo potrebno uvoditi dodatne alate u proces integracije.
+
+Funkcionalnosti koje ove akcije uvode mogu znatno da smanje učestalost grešaka koje nastavnici prave prilikom kreiranja zadataka za studente. Olakšavaju i profesorima procenu spremnosti zadataka za davanje studentima, pošto bedž na početku \textit{README.rst} datoteke u repozitorijumu zadatka već naznačava da je zadatak prošao sve testove koje alat trenutno pokreće nad njim i da je spreman za dalje pregledanje.
+
+\section{Dalji razvoj projekta}
+
+Dalji razvoj ovog projekta bi pre svega obuhvatao praćenje razvoja GitHub akcija i implementaciju novih funkcionalnosti iz njih u projekat. Vremenom se mnoge funkcionalnosti menjaju i dodaju, i samim tim i korisničke akcije treba da se menjaju i poboljšavaju. Time će performanse i pouzdanost ovog projekta rasti.
+
+Još neke stvari koje bi se mogle dodati bi bile dodatne provere prilikom kreiranja repozitorijuma ili dodavanja koda na repozitorijum. Ipak, svaki ovakav dodatak zahteva dodatno vreme izvršavanja toka posla. Zato, treba odrediti pravi odnos između benefita koji dodatne provere donose i vremena koje je potrebno za njihovo izvršavanje.
+
 \chapter{Literatura}
 \sloppy
 \printbibliography[heading=none]
