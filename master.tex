@@ -91,13 +91,19 @@
 
 \mainmatter{}
 \chapter{Uvod}
-U današnje vreme
+Od samog početka razvoja računarstva, ideja je bila da računari i softverski alati koji se na njima koriste olakšaju ljudske aktivnosti koje zahtevaju mnogo uloženog vremena ili resursa da bi bile izvršene jednom ili više puta. Ove aktivnosti su vremenom postajale sve kompleksnije, a alati koji ih rešavaju sve moćniji. Jedan od takvih alata, koji je nastao pre svega nekoliko meseci, su GitHub akcije.
+
+Zadatak ovog rada je da kroz realan primer razvoja softvera otvorenog koda (eng.\ \textit{open-source}) testira primer upotrebe Github akcija i sve prednosti i mane koje ovaj alat donosi. Projekat otvorenog koda koji se koristi u ovom primeru je \textit{pjisp-assignment-template}. To je softverski alat koji se koristi za automatizovano kreiranja zadataka za studente na predmetu Programski jezici i strukture podataka na Fakultetu tehničkih nauka u Novom Sadu.
+
+Proces kreiranja zadatka upotrebom \textit{pjisp-assignment-template} alata sastoji se iz nekoliko koraka, te postoji mogućnost da se napravi greška. Pomoću GitHub akcija, u malopre pomenuti alat se integrišu drugi alati koji služe za vršenje provera ispravnosti nekih od koraka i koji dodatno olakšavaju proces kreiranja zadatka. Ovi alati predstavljaju programe koji se mogu instalirati i nezavisno od \textit{pjisp-assignment-template} alata, a i sami za pripremanje izvršne verzije koriste GitHub akcije.
+
+Ovaj rad opisuje sve prethodno pomenute alate, tehnologije koje se koriste za njihovu implementaciju i način njihove integracije u celinu upotrebom GitHub akcija. Na kraju smog rada, izvedeni su zaključci o GitHub akcijama stečeni na osnovu njihovog korišćenja u procesu izrade ovog rada.
 
 \chapter{Teorijske osnove}
 U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. Tu grupu čini pre svega Softver otvorenog koda kao koncept pod kojim je ovaj projekat razvijen. Zatim se navode osnove karakteristike Sistema za praćenje verzija datoteka i Git kao glavni predstavnik takvih sistema. Naredno poglavlje se nadovezuje pričom o GitHub-u. Sledećih nekoliko poglavlja se bave se Python programskim jezikom, njegovim paketima, repozitorijumom za te pakete i alatima za upravljanje paketima - Poetry-jem i Pipenv-om. Poslednje poglavlje opisuje Bash jezik komandne linije.
 
 \section{Softver otvorenog koda}
-Pojam otvoreni kod (eng.\ \textit{open-source}) se odnosi na nešto što je dostupno svima za pravljenje izmena ili deljenje. Javio se kao pojam vezan za razvoj softvera (eng.\ \textit{software}), ali se danas koristi i u drugim kontekstima vezanim za otvorenost i dostupnost.
+Pojam otvoreni kod se odnosi na nešto što je dostupno svima za pravljenje izmena ili deljenje. Javio se kao pojam vezan za razvoj softvera (eng.\ \textit{software}), ali se danas koristi i u drugim kontekstima vezanim za otvorenost i dostupnost.
 
 Softver otvorenog koda je sotver čiji izvorni kod svako može da posmatra, menja, poboljšava ispravlja greske, dodaje nove funkcionalnosti, itd. Ovakav softver se objavljuje pod licencama otvorenog koda. Ove licence dozvoljavaju korišćenje i deljenje koda pod određenim uslovima. Najčešće se kodu može pristupiti besplatno. Nekada se licencom zahteva da se kod koristi samo u nekomercijalne svrhe ili da se navede originalni autor koda. Često licenca traži i da se izmenjeni kod deli pod istom tom licencom.
 
@@ -291,7 +297,6 @@ Korisničke mašine se povezuju sa GitHub-om preko aplikacije koju GitHub nudi. 
 
 Problem pri hostovanju na korisničkim mašinama može biti to što je korisnik zadužen za ažuriranje verzije operativnog sistema i svih softverskih alata na njemu, dok na GitHub-ovim mašinama to radi sam GitHub. Takođe, GitHub pokreće novu, čistu instancu za svaki posao koji se izvršava, dok korisnik to ne mora da radi.
 
-\section{Docker? opet ga svuda ima}
 \section{Python}
 
 Python \cite{python} je programski jezik opšte namene, spada u grupu programskih jezika visokog nivoa i interpretira se. Dizajniran je tako da bude izrazito čitljiv, što se postiže čestom upotrebom belina (eng.\ \textit{whitespace character}). Pogodan je za razvoj različitih softverskih rešenja pošto podržava više programskih paradigmi:
