@@ -97,7 +97,7 @@ Zadatak ovog rada je da kroz realan primer razvoja softvera otvorenog koda (eng.
 
 Proces kreiranja zadatka upotrebom \textit{pjisp-assignment-template} alata sastoji se iz nekoliko koraka, te postoji mogućnost da se napravi greška. Pomoću GitHub akcija, u malopre pomenuti alat se integrišu drugi alati koji služe za vršenje provera ispravnosti nekih od koraka i koji dodatno olakšavaju proces kreiranja zadatka. Ovi alati predstavljaju programe koji se mogu instalirati i nezavisno od \textit{pjisp-assignment-template} alata, a i sami za pripremanje izvršne verzije koriste GitHub akcije.
 
-Ovaj rad opisuje sve prethodno pomenute alate, tehnologije koje se koriste za njihovu implementaciju i način njihove integracije u celinu upotrebom GitHub akcija. Na kraju smog rada, izvedeni su zaključci o GitHub akcijama stečeni na osnovu njihovog korišćenja u procesu izrade ovog rada.
+Ovaj rad opisuje sve prethodno pomenute alate, tehnologije koje se koriste za njihovu implementaciju i način njihove integracije u celinu upotrebom GitHub akcija. Na kraju samog rada, izvedeni su zaključci o GitHub akcijama stečeni na osnovu njihovog korišćenja u procesu izrade ovog rada.
 
 \chapter{Teorijske osnove}
 U ovom poglavlju će biti ukratko objašnjeni svi koncepti i alati koji su bili potrebni za izradu projekta o kojem ovaj rad govori. Tu grupu čini pre svega Softver otvorenog koda kao koncept pod kojim je ovaj projekat razvijen. Zatim se navode osnove karakteristike Sistema za praćenje verzija datoteka i Git kao glavni predstavnik takvih sistema. Naredno poglavlje se nadovezuje pričom o GitHub-u. Sledećih nekoliko poglavlja se bave se Python programskim jezikom, njegovim paketima, repozitorijumom za te pakete i alatima za upravljanje paketima - Poetry-jem i Pipenv-om. Poslednje poglavlje opisuje Bash jezik komandne linije.
@@ -169,7 +169,7 @@ Takođe, moguće je dodati u repozitorijum dokumente koji se tiču projekta, kao
 \subsection{Pregled i komentarisanje koda}
 Komunikacija između učesnika na projektu doprinosi kvalitetu izrade samog projekta. Pored podele zadataka i raspoređivanja vremena za svaki zadatak, javlja se potreba i za diskutovanjem koda koji se dodaje u obliku pull-request-a.
 
-Pri kreiranju pull-request-a ili izmena u kodu (eng.\ \textit{commit}), GitHub nudi prikaz svih izmena u odnosu na granu sa koje su izmene krenule i na koju bi se dodale ako je sve u redu. Taj prikaz je dostupan svima koji učestvuju u izradi projekta. Moguće je, dodatno, zamoliti nekoga od učesnika da pregleda izmene pre njihovog spajanja sa odabranom granom (eng.\ \textit{requests a review}). Na svakoj od izmena, moguće je dodati poruku, koja otvara mogućnost diskusije sa ostalim učesnicima projekta. Po zavšetku, osoba koja je zadužena da pregleda izmene može da odobri ili dobije pull-request, uz mogućnost traženja dodatnih izmena pre odobrenja.
+Pri kreiranju pull-request-a ili izmena u kodu (eng.\ \textit{commit}), GitHub nudi prikaz svih izmena u odnosu na granu sa koje su izmene krenule i na koju bi se dodale ako je sve u redu. Taj prikaz je dostupan svima koji učestvuju u izradi projekta. Moguće je, dodatno, zamoliti nekoga od učesnika da pregleda izmene pre njihovog spajanja sa odabranom granom (eng.\ \textit{requests a review}). Na svakoj od izmena, moguće je dodati poruku, koja otvara mogućnost diskusije sa ostalim učesnicima projekta. Po završetku, osoba koja je zadužena da pregleda izmene može da odobri ili odbije pull-request, uz mogućnost traženja dodatnih izmena pre odobrenja.
 
 Takođe, pri kreiranju pull-request-a, GitHub automatski pregleda kod u potrazi za bezbednosnim propustima ili konfliktima sa granom sa kojom se trenutna grana spaja. Ako ih ima, GitHub obaveštava korisnika i traži izmenu pre odobrenja i spajanja koda.
 
@@ -254,7 +254,7 @@ Kao i posao, korak sadrži svoj unikatni id, naziv, uslov izvršavanja ako posto
 
 \begin{itemize}
     \item\texttt{uses} - u slučaju kada se koristi postojeća akcija, na ovom mestu se navodi putanja do akcije (u trenutnom repozitorijumu, nekom javnom repozitorijumu ili na Docker registru) i verzija akcije u oblliku: \texttt{path/name@version}.
-    \item\texttt{run} - u slučaju kada se ne koristi postojeća akcija, već se definiše niz komandi u interfejsu komandne linije operativnog sistema. Moguće je imati više \texttt{run} komandi u okviru jednog koraka. Tada se svaka komanda pokreće kao odvojeni proces u jezgru operativnog sistema. Ako se pod jednom \texttt{run} sekcijom pokrene komanda u više linija koja sesastoji od više komandi u jednoj liniji, tada se sve jednolinijske komande pokreću u okviru jednog procesa. Komande se mogu pokretati u jednom od sledećih jezika komandne linije: bash, pwsh, python, sh, cmd, powershell.
+    \item\texttt{run} - u slučaju kada se ne koristi postojeća akcija, već se definiše niz komandi u interfejsu komandne linije operativnog sistema. Moguće je imati više \texttt{run} komandi u okviru jednog koraka. Tada se svaka komanda pokreće kao odvojeni proces u jezgru operativnog sistema. Ako se pod jednom \texttt{run} sekcijom pokrene komanda u više linija koja se sastoji od više komandi u jednoj liniji, tada se sve jednolinijske komande pokreću u okviru jednog procesa. Komande se mogu pokretati u jednom od sledećih jezika komandne linije: bash, pwsh, python, sh, cmd, powershell.
 \end{itemize}
 
 \subsubsection{Kontekst okruženja}
@@ -308,11 +308,11 @@ Python \cite{python} je programski jezik opšte namene, spada u grupu programski
     \item Strukturalnu
 \end{enumerate}
 
-Takođe, prilagođen je za korišćenje u radličitim okruženjima na različitim operativnim sistemima.
+Takođe, prilagođen je za korišćenje u različitim okruženjima na različitim operativnim sistemima.
 
-Python se prvi put spominje krajem 1980-tih kao naslednik ABC programskih jezika. Dizajnirao ga je Guido van Rossum i objavio prvu verziju 1991. godine. Python 2.0, koji je izdat 2000. godine je znatno unapređenje prve verzije, koje se do skoro koristilo.  Poslednja velika revizija urađena je 2008. godine kada je nastao Python 3.0. Zbog toga što Python 3 nije u potpunosti kompatibilan sa prethodnim verzijama, podrška za Python prestala je u januru 2020. godine.
+Python se prvi put spominje krajem 1980-tih kao naslednik ABC programskih jezika. Dizajnirao ga je Guido van Rossum i objavio prvu verziju 1991. godine. Python 2.0, koji je izdat 2000. godine je znatno unapređenje prve verzije, koje se do skoro koristilo.  Poslednja velika revizija urađena je 2008. godine kada je nastao Python 3.0. Zbog toga što Python 3 nije u potpunosti kompatibilan sa prethodnim verzijama, podrška za Python 2 prestala je u januaru 2020. godine.
 
-Umesto da poseduje svu svoju funkcionalnost u jezgru OS-a. Python je dizajniran tako da  bude veoma proširiv, što ga je učinilo veoma pogodnim za dodavanje programabilnih interfejsa postojećim aplikacijama.
+Iako sam jezik ima jako puno funkcionalnosti i većina stvari se može uraditi upotrebom standardne biblioteke, Python je dizajniran tako da podrži lako pravljenje novih biblioteka i lako dodavanje biblioteka u projekat. Ovo ga je učinilo pogodnim za pravljenje širokog spektra aplikacija različite namene.
 
 \section{Python paketi, PyPI}
 
@@ -333,7 +333,7 @@ Repozitorijumi su softverski alati za čuvanje i distribuiranje paketa. Postoje 
 Najčešće korišćen javni repozitorijum je PyPI \cite{pypi}  - The Python Package Index.
 
 \section{Poetry}
-Poetry \cite{poetry} je alat otvorenog koda za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora pretkodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python paketa sa drugim korisnicima Python programskog jezika.
+Poetry \cite{poetry} je alat otvorenog koda za kreiranje Python paketa i upravljanje paketima koje Python projekat koristi(eng.\ \textit{dependency management}). Pomaže korisnicima tako što umesto njih instalira i menja verzije  bibliotekama od kojih projekat zavisi, a koje korisnik mora prethodno da specificira. Poetry je takođe znatno olakšao kreiranje, pakovanje i objavljivanje paketa na PyPI repozitorijumu i time omogućio lakše deljenje Python paketa sa drugim korisnicima Python programskog jezika.
 
 Prva verzija alata objavljena je 28.02.2018. godine. Verzije programskog jezika Python koje su podržane su 2.7 i 3.4+. Ideja je da Poetry radi podjednako dobro na različitim platformama, između ostalog na Linux-u, Windows-u i OSX-u.
 
@@ -342,11 +342,11 @@ Za razliku od drugih Python alata za upravljanje paketima od kojih projekat zavi
 
 \begin{enumerate}
     \item može dovesti do konflikta sa drugim sistemskim fajlovima
-    \item otežava održavanje konzistentnosti pre korišćenju različitih verzija Python-a i različitih virtuelnih okruženja (eng.\ \textit{virtual environments})
+    \item otežava održavanje konzistentnosti pri korišćenju različitih verzija Python-a i različitih virtuelnih okruženja (eng.\ \textit{virtual environments})
 \end{enumerate}
 
 \subsection{Kreiranje Python projekta koji koristi Poetry}
-Nakon isntalacije alata, moguće je kreirati projekat koji koristi Poetry za upravljanje paketima ili dodati Poetry u postojeći projekat i time kreirati virtuelno okruženje u kojem će se izvršavati naredne akcije. U oba slučaja će se kreirati \textit{pyproject.toml} datoteka koja čuva sve bitne informacije o projektu. U početku ova datoteka sadrži samo osnovne informacije o projektu:
+Nakon instalacije alata, moguće je kreirati projekat koji koristi Poetry za upravljanje paketima ili dodati Poetry u postojeći projekat i time kreirati virtuelno okruženje u kojem će se izvršavati naredne akcije. U oba slučaja će se kreirati \textit{pyproject.toml} datoteka koja čuva sve bitne informacije o projektu. U početku ova datoteka sadrži samo osnovne informacije o projektu:
 
 \begin{samepage}
     \begin{verbatim}
@@ -425,7 +425,7 @@ U tom momentu, paket postaje dostupan na izabranom repozitorijumu i svako ko ima
 \section{Pipenv}
 Pipenv \cite{pipenv} je alat za upravljanje paketima koje Python projekat koristi. Zaduzen je da automatski kreira i upravlja virtuelnim okruženjem i da dodaje i briše pakete iz \textit{Pipfile} datoteke svaki put kada se instalira ili deinstalira neki Python paket. \textit{Pipfile} datoteka čuva informacije o paketima i verzijama paketa koje se koriste u okviru virtuelnog okruženja. Pipenv na osnovu ove datoteke zaključava verzije paketa u projektu u okviru \textit{Pipfile.lock} datoteke i time omogućava upotrebu istih zavisnih paketa u bilo kojem okruženju.
 
-Pipenv alat je prilagođen da radi na različitim platformama, izmeđuostalog na Linux­u, Windows­u, MacOS-u i BSD-u.
+Pipenv alat je prilagođen da radi na različitim platformama, između ostalog na Linux­u, Windows­u, MacOS-u i BSD-u.
 
 \subsection{Podešavanje Pipenv-a}
 
@@ -437,7 +437,7 @@ pip install pipenv
 
 \subsection{Kreiranje projekta i upotreba Pipenv-a}
 
-Nakon isntalacije alata, moguće je kreirati projekat koji koristi Pipenv za upravljanje paketima ili dodati Pipenv u postojeći projekat i time kreirati virtuelno okruženje u kojem će se izvršavati naredne akcije. Ovo se postiže pozivanjem komande:
+Nakon instalacije alata, moguće je kreirati projekat koji koristi Pipenv za upravljanje paketima ili dodati Pipenv u postojeći projekat i time kreirati virtuelno okruženje u kojem će se izvršavati naredne akcije. Ovo se postiže pozivanjem komande:
 
 \begin{verbatim}
 pipenv install
@@ -493,16 +493,16 @@ Najčešće se pokreće kao tekstualni prozor u kojem korisnik kuca komande koje
 
 \chapter{Specifikacija i implementacija projekta}
 
-Projekat o kojem ovaj rad govori sastoji se iz grupe alata koje je bilo potrebno napraviti i povezati da bi se dodale nove funkcionalnosti u postojeći projekat - \textit{pjisp-assignment-template} \cite{pjisp-assignment-template}. Pomenuti alat služi za automatizovano kreiranje studentskih zadataka, nihovo puštanje u učionicama u kojima studenti rade zadatke i na kraju pregledanje zadataka. Prvenstveno je namenjen da profesorima i asistentima olakša ceo proces od kreiranja do pregledanja kolokvijuma ili zadataka koje studenti rade.
+Projekat o kojem ovaj rad govori sastoji se iz grupe alata koje je bilo potrebno napraviti i povezati da bi se dodale nove funkcionalnosti u postojeći projekat - \textit{pjisp-assignment-template} \cite{pjisp-assignment-template}. Pomenuti alat služi za automatizovano kreiranje studentskih zadataka, nihovo puštanje u učionicama u kojima studenti rade zadatke i na kraju pregledanje zadataka. Prvenstveno je namenjen da nastavnom osoblju olakša ceo proces od kreiranja do pregledanja kolokvijuma ili zadataka koje studenti rade.
 
-Zadatak nastavnog osoblja je pre svega da iz repozitorijuma projekta koji je šablonski (eng.\ \textit{template}) repozitorijum kreira svoj repozitorijum sa zadatkom. Važno je da nastavnik svoj repozitorijum nazove u skladu sa predefinisanim načinom imenovanja. Nakon toga se u repozitorijumu kreiraju svi potrebni materijali koji su potrebni za generisanje studentskog zadatka. Zadatak nastavnika je da pokrenje generisanje zadatka za jedan od predefinisanih testova na predmetu Programski jezici i strukture podataka. Ovaj projekat dodaje mogućnost automatizovanog kreiranja zadatka za određeni test na osnovu naziva repozitorijuma koji nastavnik napravi uz proveru ispravnosti naziva.
+Zadatak nastavnog osoblja je pre svega da iz repozitorijuma projekta koji je šablonski (eng.\ \textit{template}) repozitorijum kreira svoj repozitorijum sa zadatkom. Važno je da svoj repozitorijum nazove u skladu sa predefinisanim načinom imenovanja. Nakon toga se u repozitorijumu kreiraju svi potrebni materijali koji su potrebni za generisanje studentskog zadatka. Zadatak nastavnog osoblja je da pokrene generisanje zadatka za jedan od predefinisanih testova na predmetu Programski jezici i strukture podataka. Jedan od alata o kojem ovaj rad govori - \textit{pjisp-template-name} dodaje mogućnost automatizovanog kreiranja šablona za zadatak za određeni test na osnovu naziva repozitorijuma koji kreator zadatka napravi uz proveru ispravnosti naziva.
 
-Po završetku pisanja zadatka i njegovog testiranja, nastavnik, a najčešće asistent, je dužan da obavesti profesora o tome, da bi profesor mogao da proveri ispravnost zadatka i odobri korišćenje zadatka u nastavi, naravno ako je dobar i pogodan za studente. Kao olakšicu, nastavnik može da pokrene alat za testiranje zadatka i proveri ispravnost. Ovaj projekat uvodi isto to testiranje i nakon objavljivanja nove verzije zadatka na GitHub-u. Kao dodatnu proveru, jedan od alata iz ovog projekta proverava da li su izmenjene sve potrebne datoteke, da bi zadatak bio kompletan, odnosno da bi imao korektan tekst zadatka, primer rešenja i testove. Ako svi ovi alati vrate rezultat pozitivnog ishoda, u GitHub repozitorijumu se pojavljuje oznaka da su svi uslovi ispunjeni i da je zadatak spreman za pregledanje. U suprotnom, stoji oznaka da zadatak ne ispunjava sve potrebne uslove.
+Po završetku pisanja zadatka i njegovog testiranja, nastavnik ili saradnik je dužan da obavesti drugog nastavnika o tome, da bi on mogao da proveri ispravnost zadatka i odobri korišćenje zadatka u nastavi, naravno ako je dobar i pogodan za studente. Kao olakšicu, kreator zadatka može da pokrene alat za testiranje zadatka i proveri ispravnost. Projekat o kojem ovaj rad govori uvodi isto to testiranje i nakon objavljivanja nove verzije zadatka na GitHub-u. Kao dodatnu proveru, jedan od alata iz ovog projekta - \textit{pjisp-diff} proverava da li su izmenjene sve potrebne datoteke, da bi zadatak bio kompletan, odnosno da bi imao korektan tekst zadatka, primer rešenja i testove. Ako svi ovi alati vrate rezultat pozitivnog ishoda, u GitHub repozitorijumu se pojavljuje oznaka da su svi uslovi ispunjeni i da je zadatak spreman za pregledanje. U suprotnom, stoji oznaka da zadatak ne ispunjava sve potrebne uslove.
 
 Naredna poglavlja opisuju alate koji su korišćeni da bi se postigla opisana unapređenja \textit{pjisp-assignment-template} alata, a poslednje poglavlje opisuje njihovu integraciju u jednu celinu.
 
 \section{pjisp-template-name}
-Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je aplikacija kola služi za proveru ispravnosti naziva repozitorijuma. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
+Alat \textit{pjisp-template-name} \cite{pjisp-template-name} je aplikacija koja služi za proveru ispravnosti naziva repozitorijuma. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
 
 \subsection{Način imenovanja repozitorijuma}
 Za imenovanje repozitorijuma koristi se predefinisani šablon, koji izgleda ovako:
@@ -539,7 +539,7 @@ pjisp_template_name <template_name>
 
 \section{pjisp-diff}
 
-Alat \textit{pjisp-diff} \cite{pjisp-diff} je aplikacija koja služi kao pomoćni alat nastavnicima koji proverava da li su izmenili sve potrebne datoteke pri kreiranju zadataka za studente. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
+Alat \textit{pjisp-diff} \cite{pjisp-diff} je aplikacija koja služi kao pomoćni alat nastavnom osoblju koji proverava da li su izmenili sve potrebne datoteke pri kreiranju zadataka za studente. Napisana je u obliku konzolne aplikacije otvorenog koda u programskom jeziku Python.
 
 Pored provere da li su promenjene sve potrebne datoteke, ovaj alat proverava i da li su ostale nepromenjene sve pomoćne datoteke koje nije dozvoljeno menjati. Datoteke koje je potrebno menjati zavise od ulaznog parametra, šablona spram kojeg se kreira zadatak. Datoteke koje je potrebno uvek menjati su:
 
@@ -628,21 +628,21 @@ U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na 
     \begin{verbatim}
     name: Python package
     on:
-    push:
+      push:
         tags:
         - 'v*.*.*'
     jobs:
-    build:
+      build:
         runs-on: ubuntu-latest
         steps:
         - uses: actions/checkout@v2
         - name: Change version in pyproject.toml
-        run: |
+          run: |
             REF=$(echo ${{ github.ref }} | sed "s#\(refs/tags/\)\?v\?##")
             sed -i "s/^version=\".\+\"/version=\"$REF\"/" pyproject.toml
         - name: Build and publish to pypi
-        uses: JRubics/poetry-publish@v1.1
-        with:
+          uses: JRubics/poetry-publish@v1.1
+          with:
             pypi_token: ${{ secrets.PYPI_TOKEN }}
     \end{verbatim}
 \end{samepage}
@@ -650,11 +650,11 @@ U \textit{pjisp-template-name} i \textit{pjisp-diff} akcija je iskorišćena na 
 Ova akcija se izvršava samo kada se napravi nova oznaka u repozitorijumu u obliku \textit{v*.*.*}. Sastoji se od jednog posla koji se pokreće na poslednjoj verziji Ubuntu operativnog sistema i 3 koraka. Prvi korak preuzima sadržaj repozitorijuma. Drugi korak menja verziju u \textit{pyproject.toml} datoteci na verziju oznake koja je prouzrokovala pokretanje ove akcije. Poslednji korak koristi \textit{poetry-publish} akciju za objavljivanje nove verzije paketa. Svi ulazni parametri koriste predefinisanu verziju, samo je \texttt{pypi\_token} parametar postavljen na vrednost PyPI tokena koji se preuzima iz GitHub-ovog konteksta okruženja \texttt{secrets}.
 
 \section{smoke\_test}
-Još jedan alat otvorenog koda koji je korišćen i izmenjen u ovom radu je \textit{smoke\_test} \cite{smoke-test}. To je konzolna aplikacija i API koji služi za testiranje studentskih zadataka na dim (eng.\ \textit{smoke testing}). Ovaj alat se koristi i za testiranje zadataka koje nastavnici pišu kao primer tačno urađenog zadatka i samim tim se koristi u okviru \textit{pjisp-assignment-template} alata.
+Još jedan alat otvorenog koda koji je korišćen i izmenjen u ovom radu je \textit{smoke\_test} \cite{smoke-test}. To je konzolna aplikacija i API koji služi za testiranje studentskih zadataka na dim (eng.\ \textit{smoke testing}). Ovaj alat se koristi i za testiranje zadataka koje nastavno osoblje piše kao primer tačno urađenog zadatka i samim tim se koristi u okviru \textit{pjisp-assignment-template} alata.
 
-Zadatak koji ovaj alat očekuje treba da bude napisan u programskom jeziku C ili nekom jeziku od kojeg je GCC progrmaski prevodilac sposoban da napravi izvršnu datoteku. Zadatak se prvobitno kompajlira pomoću GCC-a. Nakon toga zadatak se testira na slučajeve korišćenja opisane u \textit{.yaml} datotekama koje nastavnici pripremaju prilikom kreiranja zadatka. Oblik pojedinačnog test slučaja je uvezani par datoteka koje sadrže, respektivno, ulazne vrednosti i očekivani izlazni oblik, koji je rešenje zadatka dužno da ispoštuje. Svaki slučaj korišćenja vraća rezultat onoga za šta je bio zadužen da testira u obliku očekivane vrednosti i vrednosti koja se dobije evaluacijom studentskog rešenja. Rezultati svih slučajeva na koje se zadatak testira se grupišu u jedan krajnji rezultat koji se prikazuje korisniku.
+Zadatak koji ovaj alat očekuje treba da bude napisan u programskom jeziku C ili nekom jeziku od kojeg je GCC progrmaski prevodilac sposoban da napravi izvršnu datoteku. Zadatak se prvobitno kompajlira pomoću GCC-a. Nakon toga zadatak se testira na slučajeve korišćenja opisane u \textit{.yaml} datotekama koje nastavno osoblje priprema prilikom kreiranja zadatka. Oblik pojedinačnog test slučaja je uvezani par datoteka koje sadrže, respektivno, ulazne vrednosti i očekivani izlazni oblik, koji je rešenje zadatka dužno da ispoštuje. Svaki slučaj korišćenja vraća rezultat onoga za šta je bio zadužen da testira u obliku očekivane vrednosti i vrednosti koja se dobije evaluacijom studentskog rešenja. Rezultati svih slučajeva na koje se zadatak testira se grupišu u jedan krajnji rezultat koji se prikazuje korisniku.
 
-Rezultat je u ljudski čitljivom formatu, ali je izlazni kod u svakom slučaju, bilo pri pozitivnoj ili negativnoj evaluaciji studentskog rešenja uvek bio \textit{0}. Da bi \textit{smoke\_test} alat mogao da se upotrebi u okviru GitHub akcije koja proverava ispravnost rešenja koje nastavnik kreira, i da bi se izvršavanje akcije prekinulo u slučaju negativne evaluacije studentskog rešenja, izmenjen je izlazni kod na vrednost \textit{1} ako ponuđeno rešenje ne ispunjava sve uslove navedene u \textit{.yaml} datotekama i ako je prosleđen argument \textit{-e} kao argument komandne linije. Kada GitHub akcija u bilo kojem koraku dobije rezultat različit od \textit{0}, smatra se da taj korak nije uspešno izvršen i ne prelazi se na naredne korake. U slučaju \textit{pjisp-assignment-template} alata, to znači da nastavnik nije dobro napisao primer ispravnog rešenja i da mora da ga ispravi.
+Rezultat je u ljudski čitljivom formatu, ali je izlazni kod u svakom slučaju, bilo pri pozitivnoj ili negativnoj evaluaciji studentskog rešenja uvek bio \textit{0}. Da bi \textit{smoke\_test} alat mogao da se upotrebi u okviru GitHub akcije koja proverava ispravnost rešenja koje nastavno osoblje kreira, i da bi se izvršavanje akcije prekinulo u slučaju negativne evaluacije studentskog rešenja, izmenjen je izlazni kod na vrednost \textit{1} ako ponuđeno rešenje ne ispunjava sve uslove navedene u \textit{.yaml} datotekama i ako je prosleđen argument \textit{-e} kao argument komandne linije. Kada GitHub akcija u bilo kojem koraku dobije rezultat različit od \textit{0}, smatra se da taj korak nije uspešno izvršen i ne prelazi se na naredne korake. U slučaju \textit{pjisp-assignment-template} alata, to znači da kreator zadatka nije dobro napisao primer ispravnog rešenja i da mora da ga ispravi.
 
 \section{pjisp-assignment-template}
 Alat \textit{pjisp-assignment-template} nudi veliki broj funkcionalnosti za kreiranje i proveru ispravnosti kreiranog zadatka za studente. Ove funkcionalnosti su u velikoj meri učestvovale u dodavanju GitHub tokova poslova čije funkcionalnosti su opisane na samom početku poglavlja. Ipak, neke od funkcionalnosti je trebalo malo izmeniti i bilo je potrebno kreirati nekoliko novih.
@@ -769,10 +769,10 @@ Peti korak služi za kreiranje bedža i njegovo dodavanje u \textit{README.rst} 
 
 Poslednji, šesti korak je zadužen da postavi sve novonastale izmene na GitHub repozitorijum. Za tu aktivnost je potrebno podesiti email i korisničko ime korisnika koji postavlja ove izmene. U tu svrhu se koristi predefinisani korisnik radi razlikovanja sadržaja koji je pravi korisnik postavio i onog koji je GitHub akcija kreirala. Nakon postavljanja ovih izmena, sve nove datoteke nalaze se na GitHub repozitorijumu i bedž je vidljiv na vrhu \textit{README.rst} datoteke.
 
-Po izvršavanju celog ovog toka podlova, repozitorijum je spreman za preuzimanje i kreiranje studentskog zadatka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnika da ga kreira.
+Po izvršavanju celog ovog toka poslova, repozitorijum je spreman za preuzimanje i kreiranje studentskog zadatka. Bedž u početku ima \textit{failing} vrednost, pošto zadatak nije spreman za studente i očekuje se od nastavnog osoblja da ga kreira.
 
 \subsection{PJISP assignment}
-``PJISP assignment'' tok posla se pokreće na događaj \texttt{push} ili \texttt{pull-request} na glavnoj - \texttt{master} grani. Zadužen je da svaki put nakon izmene koda na repozitorijumu proveri da li je repozitorijum spreman za pregledanje od strane profesora i davanje studentima u vidu zadatka ili kolokvijuma.
+``PJISP assignment'' tok posla se pokreće na događaj \texttt{push} ili \texttt{pull-request} na glavnoj - \texttt{master} grani. Zadužen je da svaki put nakon izmene koda na repozitorijumu proveri da li je repozitorijum spreman za pregledanje od strane nastavnika i davanje studentima u vidu zadatka ili kolokvijuma.
 
 Kod toka posla izgleda ovako:
 
@@ -812,7 +812,7 @@ Poslednji, četvrti korak je zadužen za pokretanje testiranja zadatka. Prvo se 
 \chapter{Primeri korišćenja}
 Ovo poglavlje prikazuje primer korišćenja \textit{pjisp-assignment-template} alata. Akcenat je stavljen na akcije koje se izvršavaju prilikom kreiranja ili izmene projekta. U njima se vide funkcionalnosti koje uvodi projekat o kojem ovaj rad govori.
 
-U narednim sekcijama biće prikazan proces kreiranja repozitorijuma i onda nekoliko primera kreiranja zadatka. Prvo će biti prikazan ispravan način kreiranja zadatka, a zatim nekoliko primera grešaka koje nastavnik može da napravi, a koje će alati primetiti i omogućiti nastavniku da ih otkloni uz ponovnu proveru ispravnosti nakon toga.
+U narednim sekcijama biće prikazan proces kreiranja repozitorijuma i onda nekoliko primera kreiranja zadatka. Prvo će biti prikazan ispravan način kreiranja zadatka, a zatim nekoliko primera grešaka koje nastavno osoblje može da napravi, a koje će alati primetiti i omogućiti autoru zadatka da ih otkloni uz ponovnu proveru ispravnosti nakon toga.
 
 \section{Primer kreiranja repozitorijuma}
 
@@ -849,7 +849,7 @@ Po završetku kreiranja repozitorijuma, na korisnikovom nalogu se pojavljuje rep
     \caption{Repozitorijum}
 \end{figure}
 
-Izmeđuostalog, generiše se i \textit{README.rst} datoteka na čijem početku se za sada ne nalazi ni jedan bedž:
+Između ostalog, generiše se i \textit{README.rst} datoteka na čijem početku se za sada ne nalazi ni jedan bedž:
 
 \begin{figure}[H]
     \centering
@@ -894,7 +894,7 @@ Nakon završetka izvršavanja, odeljak \textit{Actions} će imati jedan uspešno
     \caption{Završetak izvršavanja tokova poslova}
 \end{figure}
 
-Uspešno završen tok poslova je onaj koji se pokreće pri kreiranju repozitorijuma. Nesupešno završen tok posla je onaj koji testira ispravnost zadatka. Ovakav rezultat je i očekivan, pošto nastavnik još uvek nije kreirao zadatak.
+Uspešno završen tok poslova je onaj koji se pokreće pri kreiranju repozitorijuma. Nesupešno završen tok posla je onaj koji testira ispravnost zadatka. Ovakav rezultat je i očekivan, pošto zaduženi iz nastavnog osoblja još uvek nije kreirao zadatak.
 
 Odeljak \textit{PJISP Assignment} toka poslova prikazuje koji posao se neuspešno izvršio:
 
@@ -935,7 +935,7 @@ Ovim je završeno izvršavanje tokova poslova koji se pokreću pri kreiranju rep
 
 \section{Primer ispravnog kreiranja zadatka}
 
-Kada nastavnik izmeni sve potrebne datoteke i doda novu izmenu na GitHub, ponovo se pokreće \textit{PJISP Assignment} tok poslova:
+Kada autor zadatka izmeni sve potrebne datoteke i doda novu izmenu na GitHub, ponovo se pokreće \textit{PJISP Assignment} tok poslova:
 
 \begin{figure}[H]
     \centering
@@ -951,10 +951,10 @@ Pri uspešnom izvršavanju ovog toka poslova, bedž na početku \textit{README.r
     \caption{\textit{README.rst} - passing bedž}
 \end{figure}
 
-Ovim se uspešno završava kreiranje zadatka i on je spreman za pregledanje od strane profesora.
+Ovim se uspešno završava kreiranje zadatka i on je spreman za pregledanje od strane nekog od nastavnika.
 
 \section{Primeri grešaka}
-Ova sekcija prikazuje po jedan primer za svaku od čestih grešaka koje nastavnik može da napravi. Bilo koja slična greška, izazvaće isto ponašanje programa.
+Ova sekcija prikazuje po jedan primer za svaku od čestih grešaka koje nastavno osoblje može da napravi. Bilo koja slična greška, izazvaće isto ponašanje programa.
 
 \subsection{Primer sa neispravnim testovima}
 
@@ -1020,7 +1020,7 @@ U ovom slučaju, problem je u tome što je kao naziv testa navedeno T56, iako su
 
 \chapter{Diskusija i zakljuci}
 
-U ovom radu je predstavljen celokupan proces razvoja i unapređenja projekata otvorenog koda. Ideja je krenula od postojećeg projekta - \textit{pjisp-assignment-template} i u njega su se dodavale dodatne funkcionalnosti (\textit{pjisp-assignment-template} i \textit{pjisp-template-name}). Svaka od tih funkcionalnosti je projekat za sebe, koji je odvojeno razvijan, a zatim integrisan sa malopre pomenutim projektom upotrebom GitHub tokova poslova i akcija. Jedan od postojećih Github akcija - \textit{poetry-publish} takođe igra važnu ulogu u razvoju projekata koji su nastali kao unapređenje \textit{pjisp-assignment-template} alata.
+U ovom radu je predstavljen celokupan proces razvoja i unapređenja projekata otvorenog koda. Ideja je krenula od postojećeg projekta - \textit{pjisp-assignment-template} i u njega su se dodavale dodatne funkcionalnosti (\textit{pjisp-diff} i \textit{pjisp-template-name}). Svaka od tih funkcionalnosti je projekat za sebe, koji je odvojeno razvijan, a zatim integrisan sa malopre pomenutim projektom upotrebom GitHub tokova poslova i akcija. Jedan od postojećih Github akcija - \textit{poetry-publish} takođe igra važnu ulogu u razvoju projekata koji su nastali kao unapređenje \textit{pjisp-assignment-template} alata.
 
 \section{Zaključci nakon upotrebe GitHub akcija}
 
@@ -1038,7 +1038,7 @@ Takođe, zbog brzog razvoja softvera, dokumentacija nije u svakom momentu uskla�
 
 I pored pomenutih problema, za potrebe ovakvog projekta, GitHub akcije donese mnoge beneficije i znatno olakšavaju razvoj i korišćenje svih prethodno pomenutih alata. Integracija alata je bila veoma jednostavna, pošto se šablon repozitorijum već nalazi na GitHub-u i onda nije bilo potrebno uvoditi dodatne alate u proces integracije.
 
-Funkcionalnosti koje ove akcije uvode mogu znatno da smanje učestalost grešaka koje nastavnici prave prilikom kreiranja zadataka za studente. Olakšavaju i profesorima procenu spremnosti zadataka za davanje studentima, pošto bedž na početku \textit{README.rst} datoteke u repozitorijumu zadatka već naznačava da je zadatak prošao sve testove koje alat trenutno pokreće nad njim i da je spreman za dalje pregledanje.
+Funkcionalnosti koje ove akcije uvode mogu znatno da smanje učestalost grešaka koje nastavno osoblje pravi prilikom kreiranja zadataka za studente. Olakšavaju i procenu spremnosti zadataka za davanje studentima, pošto bedž na početku \textit{README.rst} datoteke u repozitorijumu zadatka već naznačava da je zadatak prošao sve testove koje alat trenutno pokreće nad njim i da je spreman za pregledanje od strane drugog nastavnika.
 
 \section{Dalji razvoj projekta}
 
