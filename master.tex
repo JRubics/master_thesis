@@ -559,7 +559,7 @@ Ako je šablon vrednost ulaznog parametra jednaka ``T34'' ili ``SOV'', potrebno 
 \begin{itemize}
     \item \textit{fixtures/file-error-input-not-readable.yaml}
     \item \textit{fixtures/file-error-output-not-writable.yaml}
-    \item \textit{fixtures/fixtures/file-text.yaml}
+    \item \textit{fixtures/file-text.yaml}
 \end{itemize}
 
 Datoteka koju nije dozvoljeno menjati je:
@@ -693,7 +693,7 @@ Takođe, uvedene su sitne izmene u neke od postojećih funkcionalnosti:
 
 Kao zavisnosti u projektu dodati su \textit{pjisp-template-name} i \textit{pjisp-diff} korišćenjem Pipenv alata. \textit{Get-template} funkcionalnost poziva \textit{pjisp-template-name} sa nazivom repozitorijuma kao ulaznim parametrom i identifikatorom testa kao povratnom vrednošću. \textit{Assignment-diff} poziva \textit{pjisp-diff} sa identifikatorom testa kao ulaznim parametrom.
 
-Nakon dodavanja malopre pomenutih izmena u kod \textit{pjisp-assignment-template} alata, uvedene su sve funkcionalnosti potrebne za kreiranje GitHub tokova poslova čije funkcionalnosti su opisane na početku trenutnog poglavlja. Kreirane su dve nove datoteke na mestu koje je predviđeno za pisanje GitHub tokova poslova - \textit{.github/workflows}. Tokovi podataka nazvani su ``Project create'' i ``PJISP assignment'' i nalaze se u \textit{init-repo.yml} i \textit{test-solution.yml} datotekama respektivno.
+Nakon dodavanja malopre pomenutih izmena u kod \textit{pjisp-assignment-template} alata, uvedene su sve funkcionalnosti potrebne za kreiranje GitHub tokova poslova čije funkcionalnosti su opisane na početku trenutnog poglavlja. Kreirane su dve nove datoteke na mestu koje je predviđeno za pisanje GitHub tokova poslova - \textit{.github/workflows}. Tokovi poslova nazvani su ``Project create'' i ``PJISP assignment'' i nalaze se u \textit{init-repo.yml} i \textit{test-solution.yml} datotekama respektivno.
 
 \subsection{Project create}
 ``Project create'' je tok poslova koji se pokreće, kako mu i samo ime kaže, izazvan događajem kreiranja projekta, odnosno nakon pravljenja repozitorijuma na osnovu šablon repozitorijuma \textit{pjisp-assignment-template}. Uloga ovog toka posla je da postavi inicijalno stanje projekta. Na osnovu naziva repozitorijuma, zaključuje se na koji test se repozitorijum odnosi i onda se na osnovu identifikatora testa kreiraju datoteke namenjene tom testu. Identifikator testa može biti T12, T34 ili SOV. U \textit{README.rst} datoteku, koja sadrži sve bitne informacije o projektu i datotekama u njemu, postavlja bedž (eng.\ \textit{badge}) koji daje informacije o tome da li je zadatak kreiran kako treba, a menja se na osnovu rezultata drugog toka poslova - ``PJISP assignment''.
